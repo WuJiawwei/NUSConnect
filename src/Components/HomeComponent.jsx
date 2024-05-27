@@ -1,6 +1,8 @@
-const App = () => {
-    return (
-        <>
+import React from 'react'
+
+export default function HomeComponent() {
+  return (
+    <>
             <main className="p-0">
                 <header className="text-black font-mono text-xl px-4 py-3.5 bg-green-200">
                     NUSConnect
@@ -24,6 +26,5 @@ const App = () => {
             </ul>
             
         </>
-    )
-};
-export default App
+  )
+}
