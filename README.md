@@ -10,5 +10,5 @@ Currently, two official plugins are available:
 Features to be implemented and tested by milestone 1:
 1. basic email verification
 2. basic user profile functionality with essential information fields
-3. basic search function based on faculties or interests
+3. basic post creation function
 
