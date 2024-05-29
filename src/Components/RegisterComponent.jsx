@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { RegisterAPI, GoogleSignInAPI } from "../api/AuthAPI"
-import transparent from "../assets/transparent.png"
+import logo from "../assets/logo.svg"
 import "../Sass/LoginComponent.scss"
 import GoogleButton from 'react-google-button'
 import { useNavigate } from "react-router-dom"
@@ -27,7 +27,7 @@ export default function RegisterComponent() {
   }
   return (
     <div className="login-wrapper">
-      <img src={transparent} className="transparent" />
+      <img src={logo} width={300} />
 
       <div className="login-wrapper-inner">
       <h1>Register</h1>
