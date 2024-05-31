@@ -4,9 +4,11 @@ import '../Sass/ProfileComponent.scss'
 import React, { useState } from 'react';
 import InputProcessor from "../Helpers/InputProcesser.jsx"
 import createComponentWhenClicked from "../Helpers/createComponentWhenClicked.jsx";
+import { useNavigate } from "react-router-dom"
 
 const ProfileComponent = () => {
 
+    let navigate = useNavigate()
     const input1 = InputProcessor("")
     const str1 = "Tell us your interests:"
     const comp1 = <div>
@@ -17,9 +19,12 @@ const ProfileComponent = () => {
     const comp2 = <div>
         <div>E.g. PH1251</div>
     </div>
+
     return (<div>
         <img src={logo} alt="logo" width={300}/>
-        <div>Let us get to know you better!</div>
+        <div >Let us get to know you better!</div>
+        <div>Email (used at sign in):</div>
+        <input/>
         <div>Name(as in student ID):</div>
         <input/>
         <div>I am joining NUSConnect to make new friends:</div>
@@ -41,11 +46,13 @@ const ProfileComponent = () => {
             </ul>
         </div>
         <div>
-            <button className="button">
-                <div>Connect to NUSConnect</div>
-                <img src={browserLG}
-                     alt="Connect Now"
-                     width={50}/>
+            <button className="button" onClick={() => navigate("/welcome")}>
+                Create Profile
+                <div>
+                    <img src={browserLG}
+                         alt="Connect Now"
+                         width={50}/>
+                </div>
             </button>
         </div>
     </div>)
