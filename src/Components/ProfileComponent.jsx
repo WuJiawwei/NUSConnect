@@ -5,11 +5,14 @@ import React, { useState } from 'react';
 import InputProcessor from "../Helpers/InputProcesser.jsx"
 import createComponentWhenClicked from "../Helpers/createComponentWhenClicked.jsx";
 import { useNavigate } from "react-router-dom"
+import fetchAccountWithEmailAndUpdate from "../HelperFunctions/fetchAccountWithEmailAndUpdate.js";
 
 const ProfileComponent = () => {
 
     let navigate = useNavigate()
+    let email;
     const input1 = InputProcessor("")
+    const input2= InputProcessor("")
     const str1 = "Tell us your interests:"
     const comp1 = <div>
         <div>*This information will be displayed.</div>
@@ -42,7 +45,7 @@ const ProfileComponent = () => {
         <div>
             <ul className="ul">
                 <li className="li">No</li>
-                {createComponentWhenClicked(input1, str2, comp2)}
+                {createComponentWhenClicked(input2, str2, comp2)}
             </ul>
         </div>
         <div>
