@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom"
 const ProfileComponent = () => {
 
     let navigate = useNavigate()
-    let email;
     const input1 = InputProcessor("")
     const input2= InputProcessor("")
     const str1 = "Tell us your interests:"
