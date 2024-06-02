@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import InputProcessor from "../Helpers/InputProcesser.jsx"
 import createComponentWhenClicked from "../Helpers/createComponentWhenClicked.jsx";
 import { useNavigate } from "react-router-dom"
-import fetchAccountWithEmailAndUpdate from "../HelperFunctions/fetchAccountWithEmailAndUpdate.js";
 
 const ProfileComponent = () => {
 
