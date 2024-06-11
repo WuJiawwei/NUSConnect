@@ -5,8 +5,9 @@ import { postStatus, getStatus } from '../../../api/FirestoreAPI';
 import PostCard from '../PostCard';
 import { getCurrentTimeStamp } from '../../../Helpers/useMoment';
 import { Timestamp } from 'firebase/firestore';
+import { getUniqueID } from '../../../Helpers/getUniqueID';
 
-export default function PostStatus() {
+export default function PostStatus({currentUser}) {
   let userEmail = localStorage.getItem("userEmail")
   const [modalOpen, setModalOpen] = useState(false);
   const [status, setStatus] = useState("");
@@ -15,7 +16,9 @@ export default function PostStatus() {
     let object = {
       status: status,
       timestamp: getCurrentTimeStamp("LLL"),
-      userEmail: userEmail,
+      userEmail: currentUser.email,
+      userName: currentUser.name,
+      postID: getUniqueID(),
     }
     await postStatus(object)
     await setModalOpen(false)

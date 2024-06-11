@@ -6,14 +6,16 @@ import GoogleButton from 'react-google-button'
 import { useNavigate } from "react-router-dom"
 import "../Sass/LoginComponent.scss"
 import { toast } from "react-toastify"
+import { postUserData } from "../api/FirestoreAPI";
 
 export default function RegisterComponent() {
   let navigate = useNavigate()
   const [credentials, setCredentials] = useState({})
-  const login = async () => {
+  const register = async () => {
     try {
       let res = await RegisterAPI(credentials.email, credentials.password)
       toast.success("Account successfully created!")
+      postUserData({name: credentials.name, email: credentials.email})
       navigate("/home")
       localStorage.setItem("userEmail", res.user.email)
     } catch (err) {
@@ -34,6 +36,14 @@ export default function RegisterComponent() {
       <h1>Register</h1>
       <p className="sub-heading">Welcome to NUSConnect</p>
       <div className="auth-inputs">
+      <input
+          onChange={(event) =>
+            setCredentials({ ...credentials, name: event.target.value})
+          }
+          type = "text"
+          className="common-input"
+          placeholder="Your Name"
+        />
         <input
           onChange={(event) =>
             setCredentials({ ...credentials, email: event.target.value})
@@ -51,7 +61,7 @@ export default function RegisterComponent() {
           placeholder="Password (6 or more characters)"
         />
       </div>
-      <button onClick={login} className="login-btn">
+      <button onClick={register} className="login-btn">
         Agree & Join
       </button>
       </div>
