@@ -1,0 +1,40 @@
+.profile-card {
+    width: auto;
+    background-color: rgb(221, 250, 177);
+    height: auto; 
+    margin: 30px;
+    border-radius: 5px;
+    padding: 20px;
+    position: relative;
+    .name {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 30px;
+        font-weight: 600;
+        color: darkgreen;
+    }
+
+    .email, 
+    .year,
+    .major {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 15px;
+        margin-top: -20px;
+        color:rgb(35, 172, 35);
+    }
+
+    .tagline {
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 15px;
+        margin-top: -10px;
+        color: rgb(43, 104, 93);
+        font-weight: 400;
+    }
+
+    .edit-button {
+        position: absolute;
+        right: 20px;
+        button {
+            cursor: pointer;
+        }
+    }
+}

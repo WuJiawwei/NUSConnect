@@ -1,0 +1,14 @@
+.caption {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 7px 10px;
+    cursor: pointer;
+
+    p {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: 600;
+        color: black;
+        font-size: 14px;
+    }
+}

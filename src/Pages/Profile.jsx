@@ -1,5 +1,6 @@
-import ProfileComponent from "../Components/ProfileComponent.jsx";
-const Profile = () => {
-    return <ProfileComponent />
+import React from "react";
+import ProfileComponent from "../Components/ProfileComponent";
+
+export default function Profile( {currentUser}) {
+    return <ProfileComponent currentUser={currentUser} />
 }
-export default Profile
