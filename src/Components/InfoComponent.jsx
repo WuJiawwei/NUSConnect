@@ -9,45 +9,61 @@ import { useNavigate } from "react-router-dom"
 const InfoComponent = () => {
 
     let navigate = useNavigate()
-    const input1 = InputProcessor("")
-    const input2= InputProcessor("")
-    const str1 = "Tell us your interests:"
-    const comp1 = <div>
-        <div>*This information will be displayed.</div>
-        <div>*Omit hyphen for hyphenated words.</div>
-    </div>
-    const str2= "Module code of module you want to tutor:"
-    const comp2 = <div>
-        <div>E.g. PH1251</div>
-    </div>
+    const [name, setName] = useState("")
+    const [year, setYear] = useState(0)
+    const [major, setMajor] = useState("")
+    const [hobby, setHobby] = useState("")
+    const [tagline, setTagline] = useState("")
+    const [wantsToBefriend, setWantsToBefriend] = useState(false);
+    const [wantsToTutor, setWantsToTutor] = useState(false);
+    const [moduleCode, setModuleCode] = useState("");
 
     return (<div>
         <img src={logo} alt="logo" width={300}/>
-        <div >Let us get to know you better!</div>
-        <div>Email (used at sign in):</div>
-        <input/>
-        <div>Name(as in student ID):</div>
-        <input/>
-        <div>I am joining NUSConnect to make new friends:</div>
-        <ul className="ul">
-            <li className="li">No</li>
-            {createComponentWhenClicked(input1, str1, comp1)}
-        </ul>
-        <div>I am joining NUSConnect to find a tutor:</div>
-        <ul className="ul">
-            <li className="li">No</li>
-            <li className="li">Yes</li>
-        </ul>
-        <div>I am joining NUSConnect to as a volunteer</div>
-        <div>tutor:</div>
-        <div>
-            <ul className="ul">
-                <li className="li">No</li>
-                {createComponentWhenClicked(input2, str2, comp2)}
+        <div>Let us get to know you better!</div>
+
+        <div>What's your name?</div>
+        <input onChange={e => setName(e.target.value)} />
+
+        <div>Year of study?</div>
+        <input onChange={e => setYear(Number(e.target.value))}/>
+
+        <div>Your major?</div>
+        <InputProcessor onChange={e => setMajor(e.target.value)} />
+
+        <div>Tell us what your hobby is:</div>
+        <InputProcessor onChange = {(e) => setHobby(e.target.value)} />
+        <div>*Omit hyphens and spacing for your answer</div>
+        <div>*Please note that this information will be made public.</div>
+
+        <div>Your tagline</div>
+        <input onChange={e => setTagline(e.target.value)} />
+
+        <div>Tell us why you're joining NUSConnect:
+            <ul>
+                <li className="li"
+                    onClick={(e) => setWantsToBefriend(!wantsToBefriend)}
+                    style = {
+                        {backgroundColor: wantsToBefriend ? 'pink' : 'purple'}
+                    }
+                >I am joining NUSConnect to make new friends</li>
+                <li className="li"
+                    onClick={(e) =>
+                        setWantsToTutor(!wantsToTutor)
+                    }
+                    style = {
+                        {backgroundColor: wantsToTutor ? 'pink' : 'purple'}
+                    }
+                >I am joining NUSConnect as a volunteer tutor</li>
             </ul>
+            <div>If you picked: "I am joining NUSConnect as a volunteer tutor",
+            tell us the module code of the module you would like to tutor:</div>
+            <InputProcessor onChange={e => setModuleCode(e.target.value)} />
         </div>
+
+
         <div>
-            <button className="button" onClick={() => navigate("/welcome")}>
+            <button className="button" onClick={() => navigate("/home")}>
                 Create Profile
                 <div>
                     <img src={browserLG}

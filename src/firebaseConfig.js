@@ -8,12 +8,13 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA-82_DlOyuLJ2vhRw6ZiN-cHCYgw68KvY",
-  authDomain: "nusconnect-ea8e3.firebaseapp.com",
-  projectId: "nusconnect-ea8e3",
-  storageBucket: "nusconnect-ea8e3.appspot.com",
-  messagingSenderId: "656107589640",
-  appId: "1:656107589640:web:3e33c55c1b1fdc875601bd"
+  apiKey: "AIzaSyAyd5CzTq4_L4mIRzF42AX4DB5WNLnKyWg",
+  authDomain: "hoboguest-7a5c7.firebaseapp.com",
+  projectId: "hoboguest-7a5c7",
+  storageBucket: "hoboguest-7a5c7.appspot.com",
+  messagingSenderId: "1095366516956",
+  appId: "1:1095366516956:web:713452b94b668c0d4dd419",
+  measurementId: "G-W4VGBJH3VM"
 };
 
 // Initialize Firebase

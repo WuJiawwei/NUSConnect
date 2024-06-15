@@ -16,7 +16,7 @@ export default function RegisterComponent() {
       let res = await RegisterAPI(credentials.email, credentials.password)
       toast.success("Account successfully created!")
       postUserData({name: credentials.name, email: credentials.email})
-      navigate("/home")
+      navigate("/info")
       localStorage.setItem("userEmail", res.user.email)
     } catch (err) {
       console.log(err)
@@ -26,7 +26,7 @@ export default function RegisterComponent() {
 
   const googleSignIn = () => {
     let res = GoogleSignInAPI()
-    navigate("/home")
+    navigate("/info")
   }
   return (
     <div className="login-wrapper">
@@ -74,7 +74,7 @@ export default function RegisterComponent() {
 
         <p className="go-to-signup">
           Already on NUSConnect?{" "} 
-          <span className="join-now" onClick={() => navigate("/")}>
+          <span className="join-now" onClick={() => navigate("/info")}>
             Sign in
           </span>
         </p>

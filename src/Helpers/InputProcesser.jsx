@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const InputProcessor = (str) => {
+const InputProcessor = () => {
     const [inputValue, setInputValue] = useState('');
 
     const handleChange = (e) => {
@@ -10,15 +10,12 @@ const InputProcessor = (str) => {
     };
 
     return (
-        <div>
-            <label htmlFor="processedInput">{str}</label>
-            <input
-                type="text"
-                id="processedInput"
-                value={inputValue}
-                onChange={handleChange}
-            />
-        </div>
+        <input
+            type="text"
+            id="processedInput"
+            value={inputValue}
+            onChange={handleChange}
+        />
     );
 };
 
