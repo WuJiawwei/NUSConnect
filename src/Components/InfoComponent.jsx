@@ -88,7 +88,7 @@ const InfoComponent = () => {
                 <li className="li"
                     onClick={(e) => setWantsToBefriend(!wantsToBefriend)}
                     style = {
-                        {backgroundColor: wantsToBefriend ? 'pink' : 'purple'}
+                        {backgroundColor: wantsToBefriend ? 'purple' : 'pink'}
                     }
                 >I am joining NUSConnect to make new friends</li>
                 <li className="li"
@@ -96,10 +96,10 @@ const InfoComponent = () => {
                         setWantsToTutor(!wantsToTutor)
                     }
                     style = {
-                        {backgroundColor: wantsToTutor ? 'pink' : 'purple'}
+                        {backgroundColor: wantsToTutor ? 'purple' : 'pink'}
                     }
                 >I am joining NUSConnect as a volunteer tutor</li>
-                <div>*Turns pink when selected.</div>
+                <div>*Turns purple when selected.</div>
             </ul>
             <div>If you picked: "I am joining NUSConnect as a volunteer tutor",
                 tell us the module code of the module you would like to tutor:</div>
