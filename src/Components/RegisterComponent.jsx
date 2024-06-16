@@ -26,7 +26,7 @@ export default function RegisterComponent() {
 
   const googleSignIn = () => {
     let res = GoogleSignInAPI()
-    navigate("/info")
+    navigate("/")
   }
   return (
     <div className="login-wrapper">
@@ -74,7 +74,7 @@ export default function RegisterComponent() {
 
         <p className="go-to-signup">
           Already on NUSConnect?{" "} 
-          <span className="join-now" onClick={() => navigate("/info")}>
+          <span className="join-now" onClick={() => navigate("/")}>
             Sign in
           </span>
         </p>
