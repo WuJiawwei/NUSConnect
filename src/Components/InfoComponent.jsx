@@ -3,7 +3,8 @@ import browserLG from "../assets/browserLG.svg"
 import '../Sass/InfoComponent.scss'
 import React, { useState } from 'react';
 import InputProcessor from "../Helpers/InputProcesser.jsx"
-import createComponentWhenClicked from "../Helpers/createComponentWhenClicked.jsx";
+import {collection, addDoc} from "firebase/firestore";
+import {firestore} from "../firebaseConfig.js";
 import { useNavigate } from "react-router-dom"
 
 const InfoComponent = () => {
@@ -18,6 +19,43 @@ const InfoComponent = () => {
     const [wantsToTutor, setWantsToTutor] = useState(false);
     const [moduleCode, setModuleCode] = useState("");
 
+    const handleCreateProfile = async () => {
+        try {
+            await addDoc(collection(firestore, "users"), {
+                name : name,
+                year : year,
+                major : major,
+                hobby : hobby,
+                tagline : tagline,
+                wantsToBefriend : wantsToBefriend,
+                wantsToTutor : wantsToTutor,
+                moduleCode : moduleCode
+            })
+            navigate("/home")
+        } catch (err) {
+            console.error("Error adding document: ", err);
+        }
+    }
+
+    const handleHobbyChange = (e) => {
+        const input = e.target.value;
+        const processedVal = input.replace(/[\s-]/g, '').toUpperCase();
+        setHobby(processedVal);
+    }
+
+    const handleMajorChange = (e) => {
+        const input = e.target.value;
+        const processedVal = input.replace(/[\s-]/g, '').toUpperCase();
+        setMajor(processedVal);
+    }
+
+    const handleModuleCodeChange = (e) => {
+        const inputValue = e.target.value;
+        // Remove spaces and hyphens, then convert to uppercase
+        const processedValue = inputValue.replace(/[\s-]/g, '').toUpperCase();
+        setModuleCode(processedValue);
+    };
+
     return (<div>
         <img src={logo} alt="logo" width={300}/>
         <div>Let us get to know you better!</div>
@@ -29,14 +67,20 @@ const InfoComponent = () => {
         <input onChange={e => setYear(Number(e.target.value))}/>
 
         <div>Your major?</div>
-        <InputProcessor onChange={e => setMajor(e.target.value)} />
+        <input
+            value={major}
+            onChange={handleMajorChange}
+            style={{ textTransform: 'uppercase' }}/>
 
         <div>Tell us what your hobby is:</div>
-        <InputProcessor onChange = {(e) => setHobby(e.target.value)} />
+        <input
+            value={hobby}
+            onChange={handleHobbyChange}
+            style={{ textTransform: 'uppercase' }}/>
         <div>*Omit hyphens and spacing for your answer</div>
         <div>*Please note that this information will be made public.</div>
 
-        <div>Your tagline</div>
+        <div>Your tagline:</div>
         <input onChange={e => setTagline(e.target.value)} />
 
         <div>Tell us why you're joining NUSConnect:
@@ -55,15 +99,19 @@ const InfoComponent = () => {
                         {backgroundColor: wantsToTutor ? 'pink' : 'purple'}
                     }
                 >I am joining NUSConnect as a volunteer tutor</li>
+                <div>*Turns pink when selected.</div>
             </ul>
             <div>If you picked: "I am joining NUSConnect as a volunteer tutor",
-            tell us the module code of the module you would like to tutor:</div>
-            <InputProcessor onChange={e => setModuleCode(e.target.value)} />
+                tell us the module code of the module you would like to tutor:</div>
+            <input
+                value={moduleCode}
+                onChange={handleModuleCodeChange}
+                style={{ textTransform: 'uppercase' }}/>
         </div>
 
 
         <div>
-            <button className="button" onClick={() => navigate("/home")}>
+            <button className="button" onClick={() => handleCreateProfile()}>Create Profile
                 Create Profile
                 <div>
                     <img src={browserLG}

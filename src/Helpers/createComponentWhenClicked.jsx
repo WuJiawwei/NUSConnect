@@ -9,10 +9,9 @@ function createComponentWhenClicked(comp, str, comp2) {
 
     return (
         <div>
-            <li onClick={toggleDiv} className="li">Yes</li>
+            <li onClick={toggleDiv}>{comp}</li>
             {divVisible && (
                 <div id="myDiv">{str}
-                    <div>{comp}</div>
                     <div>{comp2}</div>
                 </div>
             )}
