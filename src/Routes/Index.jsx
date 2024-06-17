@@ -5,6 +5,8 @@ import ProfileLayout from "../layouts/ProfileLayout.jsx";
 import HomeLayout from "../layouts/HomeLayout.jsx"
 import Info from "../Pages/Info.jsx"
 import RedirectSearch from "../Pages/RedirectSearch.jsx"
+import SearchTutor from "../Pages/SearchTutor.jsx";
+import SearchFriend from "../Pages/SearchFriend.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -30,5 +32,13 @@ export const router = createBrowserRouter([
     {
         path:"/redirectsearch",
         element: <RedirectSearch />
+    },
+    {
+        path:"/searchtutor",
+        element: <SearchTutor />
+    },
+    {
+        path:"/searchfriend",
+        element: <SearchFriend />
     }
   ]);
