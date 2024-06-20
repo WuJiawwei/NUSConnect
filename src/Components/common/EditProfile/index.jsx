@@ -15,6 +15,24 @@ export default function EditProfile({ currentUser, onEdit }) {
     onEdit()
   }
 
+  const [wantsToTutor, setWantsToTutor] = useState(false)
+  const manageClickForWantToTutor = () => {
+    setWantsToTutor(!wantsToTutor)
+    setEditInputs((prevInputs) => ({
+      ...prevInputs,
+      wantsToTutor: !wantsToTutor
+    }));
+  }
+
+  const [wantsToBefriend, setWantsToBefriend] = useState(false)
+  const manageClickForWantToBefriend = () => {
+    setWantsToBefriend(!wantsToBefriend)
+    setEditInputs((prevInputs) => ({
+      ...prevInputs,
+      wantsToBefriend: !wantsToBefriend
+    }));
+  }
+
   console.log(editInputs)
   return (
     <div className='card'>
@@ -58,6 +76,34 @@ export default function EditProfile({ currentUser, onEdit }) {
           name = "tagline"
         />
 
+
+        <div>Tell us why you're using NUSConnect:
+          <div className="fine-print">Turns light green if picked successfully.</div>
+          <div className="fine-print">You can always turn these options off if you think you need a break.</div>
+          <div>
+            <button
+                onClick={manageClickForWantToBefriend}
+                className="options-button"
+                style = {{backgroundColor: wantsToBefriend? 'lightgreen' : '#108672'}}
+            >To make new connections</button>
+          </div>
+          <div>
+            <button
+                onClick={manageClickForWantToTutor}
+                className="options-button"
+                style = {{backgroundColor: wantsToTutor? 'lightgreen' : '#108672'}}
+            >To be a volunteer tutor</button>
+          </div>
+        </div>
+
+        <div>If you want to become a volunteer tutor, tell us which module you would like to tutor:</div>
+        <input
+            onChange={getInput}
+            className="each"
+            placeholder='Module Code'
+            name = "Module Code"
+            style = {{textTransform: 'uppercase'}}
+        />
       </div>
 
       <button className='save' onClick={updateProfileData}>

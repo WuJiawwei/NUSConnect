@@ -19,7 +19,7 @@ export default function RegisterComponent() {
         name: credentials.name, 
         email: credentials.email
       })
-      navigate("/info")
+      navigate("/welcome")
       localStorage.setItem("userEmail", res.user.email)
     } catch (err) {
       console.log(err)
@@ -29,7 +29,7 @@ export default function RegisterComponent() {
 
   const googleSignIn = () => {
     let res = GoogleSignInAPI()
-    navigate("/")
+    navigate("/welcome")
   }
   return (
     <div className="login-wrapper">

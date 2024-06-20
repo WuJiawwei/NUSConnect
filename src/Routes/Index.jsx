@@ -3,10 +3,10 @@ import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import ProfileLayout from "../layouts/ProfileLayout.jsx";
 import HomeLayout from "../layouts/HomeLayout.jsx"
-import Info from "../Pages/Info.jsx"
 import RedirectSearch from "../Pages/RedirectSearch.jsx"
 import SearchTutor from "../Pages/SearchTutor.jsx";
 import SearchFriend from "../Pages/SearchFriend.jsx";
+import Welcome from "../Pages/Welcome.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -26,10 +26,6 @@ export const router = createBrowserRouter([
         element: <ProfileLayout />
     },
     {
-      path:"/info",
-      element: <Info />
-    },
-    {
         path:"/redirectsearch",
         element: <RedirectSearch />
     },
@@ -40,5 +36,9 @@ export const router = createBrowserRouter([
     {
         path:"/searchfriend",
         element: <SearchFriend />
+    },
+    {
+        path:"/welcome",
+        element: <Welcome />
     }
   ]);
