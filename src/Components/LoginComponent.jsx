@@ -37,6 +37,7 @@ export default function LoginComponent() {
           onChange={(event) =>
             setCredentials({ ...credentials, email: event.target.value})
           }
+            type="email"
             className="common-input"
             placeholder="Email or Phone"
         />
@@ -44,6 +45,7 @@ export default function LoginComponent() {
           onChange={(event) =>
             setCredentials({ ...credentials, password: event.target.value})
           }
+            type="password"
             className="common-input"
             placeholder="Enter your Password"
         />

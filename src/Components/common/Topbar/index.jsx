@@ -18,7 +18,11 @@ export default function Topbar() {
     <div className="topbar-main">
         <img className="project-Logo" src={projectLogo} alt="projectLogo" />
         <div className="react-icons">
-          <FaSearch size={30} className="react-icon"/>
+          <FaSearch 
+            size={30} 
+            className="react-icon"
+            onClick={() => goToRoute("/redirectsearch")}
+          />
           <FaHome 
             size={30} 
             className="react-icon"
