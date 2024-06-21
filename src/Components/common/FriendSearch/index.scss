@@ -56,3 +56,59 @@
   flex-direction: row;
   align-items: center;
 }
+
+.friend-search-results-container {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .friend-result {
+    background-color: mix(white, mix(lightskyblue, mix(mix(lightgreen, white), white)));
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height: 70px;
+    width: 1200px;
+    border-radius: 15px;
+    font-family: system-ui;
+    font-weight: 500;
+    color: mix(darken(blue, 100),blue);
+    justify-content: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .friend-name {
+    margin-left: 20px;
+    margin-right: 20px;
+    color: mix(white, lightcoral);
+  }
+
+  .view-friend-profile-button {
+    background-color: mix(white, mix(white, yellow));
+    border-radius: 15px;
+    height: 50px;
+    width: 100px;
+    outline: none;
+    border: 0.0px;
+    color: mix(darken(blue, 100),blue);
+    font-family: system-ui;
+    font-weight: 500;
+    object-fit: cover;
+    position: absolute;
+    right: 170px;
+    cursor: pointer;
+    &:active {
+      background-color: rgba(206, 235, 212, 0.989);
+      color: white;
+    }
+  }
+
+  .interest {
+    margin-left: 850px;
+    color: mix(white, lightcoral);
+    position: absolute;
+    right: 350px;
+  }
+}
