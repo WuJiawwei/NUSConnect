@@ -53,12 +53,13 @@ const TutorSearchBar = () => {
             </button>
         </div>
         </div>
-            <div>
+            <div className="tutor-search-results-container">
                 {data && data.length > 0 ? (
                     data.map((item) => (
-                        <div key={item.id} >
-                            <div>{item.name}</div>
-                            <div>Module Code: {item["Module Code"]}</div>
+                        <div className ="tutor-result" key={item.id} >
+                            <div className="tutor-name">{item.name}</div>
+                            <div className="module-code">{item["Module Code"]}</div>
+                            <button className="view-tutor-profile-button">View profile</button>
                         </div>
                     ))
                 ) : (
