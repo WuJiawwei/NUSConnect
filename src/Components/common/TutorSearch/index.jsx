@@ -1,5 +1,5 @@
 import "./index.scss"
-import {FaRocket, FaSearch} from 'react-icons/fa'
+import {FaRocket, FaSearch, FaUserCircle} from 'react-icons/fa'
 import {useState} from "react";
 import {collection, query, where, getDocs, limit} from "firebase/firestore";
 import {firestore} from "../../../firebaseConfig.js";
@@ -56,7 +56,8 @@ const TutorSearchBar = () => {
             <div className="tutor-search-results-container">
                 {data && data.length > 0 ? (
                     data.map((item) => (
-                        <div className ="tutor-result" key={item.id} >
+                        <div className="tutor-result" key={item.id}>
+                            <div className="tutor-avatar" style={{fontSize: 40}}><FaUserCircle/></div>
                             <div className="tutor-name">{item.name}</div>
                             <div className="module-code">{item["Module Code"]}</div>
                             <button className="view-tutor-profile-button">View profile</button>

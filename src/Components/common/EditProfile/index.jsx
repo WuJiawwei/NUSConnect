@@ -65,7 +65,7 @@ export default function EditProfile({ currentUser, onEdit }) {
         <input 
           onChange={getInput}
           className="each" 
-          placeholder='Hobby' 
+          placeholder='Hobby (in one word...)'
           name = "hobby"
         />
 
@@ -78,21 +78,32 @@ export default function EditProfile({ currentUser, onEdit }) {
 
 
         <div>Tell us why you're using NUSConnect:
-          <div className="fine-print">Turns light green if picked successfully.</div>
           <div className="fine-print">You can always turn these options off if you think you need a break.</div>
           <div>
             <button
                 onClick={manageClickForWantToBefriend}
                 className="options-button"
-                style = {{backgroundColor: wantsToBefriend? 'lightgreen' : '#108672'}}
-            >To make new connections</button>
+                style={{backgroundColor: wantsToBefriend ? 'lightgreen' : '#108672'}}
+            >
+              <input
+                  className="indicator-checkbox"
+                  type="checkbox"
+                  checked={wantsToBefriend ? true : false} />
+              To make new connections
+            </button>
           </div>
           <div>
             <button
                 onClick={manageClickForWantToTutor}
                 className="options-button"
-                style = {{backgroundColor: wantsToTutor? 'lightgreen' : '#108672'}}
-            >To be a volunteer tutor</button>
+                style={{backgroundColor: wantsToTutor ? 'lightgreen' : '#108672'}}
+            >
+              <input
+                  className="indicator-checkbox"
+                  type="checkbox"
+                  checked={wantsToTutor ? true : false} />
+              To be a volunteer tutor
+            </button>
           </div>
         </div>
 
@@ -100,7 +111,7 @@ export default function EditProfile({ currentUser, onEdit }) {
         <input
             onChange={getInput}
             className="each"
-            placeholder='Module Code'
+            placeholder='Module Code(Omit spacing)'
             name = "Module Code"
         />
       </div>

@@ -63,6 +63,12 @@
   flex-direction: column;
   align-items: center;
 
+  .friend-avatar {
+    position: absolute;
+    left: 175px;
+    margin-top: 10px;
+  }
+
   .friend-result {
     background-color: mix(white, mix(lightskyblue, mix(mix(lightgreen, white), white)));
     margin-top: 15px;
@@ -83,6 +89,8 @@
     margin-left: 20px;
     margin-right: 20px;
     color: mix(white, lightcoral);
+    position: absolute;
+    left: 200px;
   }
 
   .view-friend-profile-button {

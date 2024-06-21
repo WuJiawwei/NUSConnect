@@ -1,5 +1,5 @@
 import "./index.scss"
-import {FaRocket, FaSearch} from "react-icons/fa";
+import {FaRocket, FaSearch, FaUserCircle} from "react-icons/fa";
 import {useState} from "react";
 import {collection, getDocs, limit, query, where} from "firebase/firestore";
 import {firestore} from "../../../firebaseConfig.js";
@@ -56,7 +56,8 @@ const FriendSearch = () => {
             <div className="friend-search-results-container">
                 {data && data.length > 0 ? (
                     data.map((item) => (
-                        <div className ="friend-result" key={item.id} >
+                        <div className ="friend-result" key={item.id}>
+                            <div className="friend-avatar"  style={{fontSize:40}}><FaUserCircle/></div>
                             <div className="friend-name">{item.name}</div>
                             <div className="interest">{item["hobby"]}</div>
                             <button className="view-friend-profile-button">View profile</button>
