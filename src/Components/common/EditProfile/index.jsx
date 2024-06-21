@@ -102,7 +102,6 @@ export default function EditProfile({ currentUser, onEdit }) {
             className="each"
             placeholder='Module Code'
             name = "Module Code"
-            style = {{textTransform: 'uppercase'}}
         />
       </div>
 
