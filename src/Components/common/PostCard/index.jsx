@@ -10,7 +10,6 @@ export default function PostCard({posts, id}) {
   useMemo(() => {
     getCurrentUser(setCurrentUser)
   }, [])
-
   return (
     <div className='post-card' key={id}>
       <p 
@@ -21,7 +20,10 @@ export default function PostCard({posts, id}) {
           })
         }
       >
-          {posts.userName}
+          <div className="author-name-and-avatar">
+              <div><img src={currentUser.avatar} width={50}/></div>
+              <div className="author-name">{posts.userName}</div>
+          </div>
       </p>
       <p className="timestamp">{posts.timestamp}</p>
       <p className='text'>{posts.status}</p>

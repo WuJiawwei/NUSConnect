@@ -22,7 +22,7 @@ export default function LikeButton({ userId, postId, currentUser}) {
   }
 
   const addComment = () => {
-    saveComment(postId, comment, getCurrentTimeStamp("LLL"), currentUser?.name)
+    saveComment(postId, comment, getCurrentTimeStamp("LLL"), currentUser?.name, currentUser?.avatar)
     setComment("")
   }
 
@@ -63,7 +63,10 @@ export default function LikeButton({ userId, postId, currentUser}) {
           {comments.length > 0 ? comments.map((C) => {
             return (
               <div className="comment-line">
-                <p className='name'>{C.CName}</p>
+                <div className="commenter-name-and-avatar">
+                  <img className="commenter-avatar" src={C.CAvatar} width={30}/>
+                  <p className='name'>{C.CName}</p>
+                </div>
                 <p className="every-comment">{C.comment}</p>
 
                 <p className="time">{C.time}</p>

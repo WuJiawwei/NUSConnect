@@ -8,6 +8,7 @@ import user3 from "../../../assets/user3.svg"
 import user4 from "../../../assets/user4.svg"
 import user5 from "../../../assets/user5.svg"
 import user6 from "../../../assets/user6.svg"
+import {FaCheckCircle, FaCircle} from "react-icons/fa";
 
 export default function EditProfile({ currentUser, onEdit }) {
   const [editInputs, setEditInputs] = useState({})
@@ -248,11 +249,7 @@ export default function EditProfile({ currentUser, onEdit }) {
                 className="options-button"
                 style={{backgroundColor: wantsToBefriend ? 'lightgreen' : '#108672'}}
             >
-              <input
-                  className="indicator-checkbox"
-                  type="checkbox"
-                  checked={wantsToBefriend ? wantsToBefriend : false}
-              />
+                {wantsToBefriend ? <FaCheckCircle/>: <FaCircle/>}
               To make new connections
             </button>
           </div>
@@ -262,10 +259,7 @@ export default function EditProfile({ currentUser, onEdit }) {
                 className="options-button"
                 style={{backgroundColor: wantsToTutor ? 'lightgreen' : '#108672'}}
             >
-              <input
-                  className="indicator-checkbox"
-                  type="checkbox"
-                  checked={wantsToTutor ? true : false} />
+                {wantsToTutor ? <FaCheckCircle/> : <FaCircle />}
               To be a volunteer tutor
             </button>
           </div>
