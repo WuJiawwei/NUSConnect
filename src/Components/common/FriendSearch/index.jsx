@@ -1,13 +1,18 @@
 import "./index.scss"
 import {FaRocket, FaSearch} from "react-icons/fa";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {collection, getDocs, limit, query, where} from "firebase/firestore";
 import {firestore} from "../../../firebaseConfig.js";
+import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
 
 const FriendSearch = () => {
 
     const [search, setSearch] = useState({})
     const [data, setData] = useState(null)
+    const [currentUser, setCurrentUser] = useState([])
+    useMemo(() => {
+        getCurrentUser(setCurrentUser)
+    }, [])
 
     const getSearch = (event) => {
         let { name, value } = event.target
@@ -21,12 +26,13 @@ const FriendSearch = () => {
 
     const fetchData = async () => {
         const lookFor = search["interest"].toLowerCase()
+        const currUserId = currentUser?.userID;
         try {
             const db = collection(firestore, "users")
             const q = query(db, where ("hobby", "==", lookFor))
             const qq = query(q, where ("wantsToBefriend", "==", true), limit(10))
             const querySnapshot = await getDocs(qq);
-            const fetchedData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            const fetchedData = querySnapshot.docs.filter(doc => doc.id != currUserId).map(doc => ({ id: doc.id, ...doc.data() }));
             setData(fetchedData);
         } catch (error) {
             console.error('Error fetching data:', error);

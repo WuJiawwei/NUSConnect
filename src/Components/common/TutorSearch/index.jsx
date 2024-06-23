@@ -1,13 +1,20 @@
 import "./index.scss"
 import {FaRocket, FaSearch} from 'react-icons/fa'
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {collection, query, where, getDocs, limit} from "firebase/firestore";
 import {firestore} from "../../../firebaseConfig.js";
+import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
 
 const TutorSearchBar = () => {
 
     const [search, setSearch] = useState({})
     const [data, setData] = useState(null)
+    const [currentUser, setCurrentUser] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedTutor, setSelectedTutor] = useState(null)
+    useMemo(() => {
+        getCurrentUser(setCurrentUser)
+    }, [])
 
     const getSearch = (event) => {
         let { name, value } = event.target
@@ -21,12 +28,13 @@ const TutorSearchBar = () => {
 
     const fetchData = async () => {
         const lookFor = search["moduleCode"].toLowerCase()
+        const currUserId = currentUser?.userID;
         try {
             const db = collection(firestore, "users")
             const q = query(db, where ("Module Code", "==", lookFor))
-            const qq = query(q, where ("wantsToTutor", "==", true), limit(10))
+            const qq = query(q, where ("wantsToTutor", "==", true), limit(11))
             const querySnapshot = await getDocs(qq);
-            const fetchedData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            const fetchedData = querySnapshot.docs.filter(doc => doc.id != currUserId).map(doc => ({ id: doc.id, ...doc.data() }));
             setData(fetchedData); // Set state with fetched data
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -60,7 +68,11 @@ const TutorSearchBar = () => {
                             <div className="tutor-avatar"><img src={item.avatar} width={50}/></div>
                             <div className="tutor-name">{item.name}</div>
                             <div className="module-code">{item["Module Code"]}</div>
-                            <button className="view-tutor-profile-button">View profile</button>
+                            <button
+                                className="view-tutor-profile-button"
+                            >
+                                View profile
+                            </button>
                         </div>
                     ))
                 ) : (
