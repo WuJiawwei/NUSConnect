@@ -10,20 +10,26 @@ export default function ProfileCard({ onEdit, currentUser }) {
   }, [])
   return (
     <>
-    <div className='profile-card'>
-      <div className='edit-button'>
-        <button onClick={onEdit}>Edit</button>
+      <div className='profile-card'>
+        <div className='edit-button'>
+          <button onClick={onEdit}>Edit</button>
+        </div>
+        <div className="name-and-profile">
+          <div><img className="profile-avatar" src={currentUser.avatar} width={80} height={80}/></div>
+          <div><h3 className="name">{currentUser.name}</h3></div>
+        </div>
+        <p className='year'>Enrollment year: {currentUser.year}</p>
+        <p className='major'>Major: {currentUser.major}</p>
+        <p className="email">Email: {currentUser.email}</p>
+        <p className="module">Tutors: {currentUser["Module Code"]}</p>
+        {currentUser["wantsToBefriend"] ? <p className="preferences" >Is open to befriending</p> : <div></div>}
+        {currentUser["wantsToTutor"] ? <p className="preferences">Is open to do tutoring</p> : <div></div>}
+        <p className="tagline">Tagline: {currentUser.tagline}</p>
       </div>
-      <h3 className="name">{currentUser.name}</h3>
-      <p className='year'>{currentUser.year}</p>
-      <p className='major'>{currentUser.major}</p>
-      <p className="email">{currentUser.email}</p>
-      <p className="tagline">{currentUser.tagline}</p>
-    </div>
 
-    <div className='posts'>
-      {allStatuses
-        .filter((obj) => {
+      <div className='posts'>
+        {allStatuses
+            .filter((obj) => {
           return obj.userEmail.toLowerCase() === localStorage.getItem("userEmail")
         })
         .map((posts) => {

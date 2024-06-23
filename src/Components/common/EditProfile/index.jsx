@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import "./index.scss"
 import { editProfile } from '../../../api/FirestoreAPI'
+import user from "../../../assets/user.png"
+import user1 from "../../../assets/user1.svg"
+import user2 from "../../../assets/user2.svg"
+import user3 from "../../../assets/user3.svg"
+import user4 from "../../../assets/user4.svg"
+import user5 from "../../../assets/user5.svg"
+import user6 from "../../../assets/user6.svg"
 
 export default function EditProfile({ currentUser, onEdit }) {
   const [editInputs, setEditInputs] = useState({})
@@ -15,6 +22,7 @@ export default function EditProfile({ currentUser, onEdit }) {
     onEdit()
   }
 
+  // manage tutoring button
   const [wantsToTutor, setWantsToTutor] = useState(false)
   const manageClickForWantToTutor = () => {
     setWantsToTutor(!wantsToTutor)
@@ -24,6 +32,7 @@ export default function EditProfile({ currentUser, onEdit }) {
     }));
   }
 
+  // manage befriending button
   const [wantsToBefriend, setWantsToBefriend] = useState(false)
   const manageClickForWantToBefriend = () => {
     setWantsToBefriend(!wantsToBefriend)
@@ -33,6 +42,113 @@ export default function EditProfile({ currentUser, onEdit }) {
     }));
   }
 
+  // manage avatar-choice buttons
+  const [pickedOne, setPickedOne] = useState(false);
+  const [pickedTwo, setPickedTwo] = useState(false);
+  const [pickedThree, setPickedThree] = useState(false);
+  const [pickedFour, setPickedFour] = useState(false);
+  const [pickedFive, setPickedFive] = useState(false);
+  const [pickedSix, setPickedSix] = useState(false);
+  const [pickedSeven, setPickedSeven] = useState(false);
+
+  const manageClickForAvatar1 = () => {
+      setPickedOne(true);
+      setPickedTwo(false);
+      setPickedThree(false);
+      setPickedFour(false);
+      setPickedFive(false);
+      setPickedSix(false);
+      setPickedSeven(false);
+      setEditInputs((prevInputs) => ({
+          ...prevInputs,
+          avatar: user
+      }));
+  }
+
+  const manageClickForAvatar2 = () => {
+      setPickedOne(false);
+      setPickedTwo(true);
+      setPickedThree(false);
+      setPickedFour(false);
+      setPickedFive(false);
+      setPickedSix(false);
+      setPickedSeven(false);
+      setEditInputs((prevInputs) => ({
+          ...prevInputs,
+          avatar: user1
+      }));
+  }
+
+  const manageClickForAvatar3 = () => {
+      setPickedOne(false);
+      setPickedTwo(false);
+      setPickedThree(true);
+      setPickedFour(false);
+      setPickedFive(false);
+      setPickedSix(false);
+      setPickedSeven(false);
+      setEditInputs((prevInputs) => ({
+          ...prevInputs,
+          avatar: user2
+      }));
+  }
+
+  const manageClickForAvatar4 = () => {
+      setPickedOne(false);
+      setPickedTwo(false);
+      setPickedThree(false);
+      setPickedFour(true);
+      setPickedFive(false);
+      setPickedSix(false);
+      setPickedSeven(false);
+      setEditInputs((prevInputs) => ({
+          ...prevInputs,
+          avatar: user3
+      }));
+  }
+
+  const manageClickForAvatar5 = () => {
+      setPickedOne(false);
+      setPickedTwo(false);
+      setPickedThree(false);
+      setPickedFour(false);
+      setPickedFive(true);
+      setPickedSix(false);
+      setPickedSeven(false);
+      setEditInputs((prevInputs) => ({
+          ...prevInputs,
+          avatar: user4
+      }));
+  }
+
+  const manageClickForAvatar6 = () => {
+      setPickedOne(false);
+      setPickedTwo(false);
+      setPickedThree(false);
+      setPickedFour(false);
+      setPickedFive(false);
+      setPickedSix(true);
+      setPickedSeven(false);
+      setEditInputs((prevInputs) => ({
+          ...prevInputs,
+          avatar: user5
+      }));
+  }
+
+  const manageClickForAvatar7 = () => {
+      setPickedOne(false);
+      setPickedTwo(false);
+      setPickedThree(false);
+      setPickedFour(false);
+      setPickedFive(false);
+      setPickedSix(false);
+      setPickedSeven(true);
+      setEditInputs((prevInputs) => ({
+          ...prevInputs,
+          avatar: user6
+      }));
+  }
+
   console.log(editInputs)
   return (
     <div className='card'>
@@ -40,7 +156,54 @@ export default function EditProfile({ currentUser, onEdit }) {
         <button onClick={onEdit}>Return</button>
       </div>
 
-      <div className='input'>
+      <div>Pick your avatar:
+        <div>
+          <button
+              className="avatar-button"
+              onClick={manageClickForAvatar1}
+              style = {{backgroundColor: pickedOne ? "pink" : "white"}}>
+            <img src={user} width={80}/>
+          </button>
+          <button
+              className="avatar-button"
+              onClick={manageClickForAvatar2}
+              style = {{backgroundColor: pickedTwo ? "pink" : "white"}}>
+              <img src={user1} width={80}/>
+          </button>
+          <button
+              className="avatar-button"
+              onClick={manageClickForAvatar3}
+              style = {{backgroundColor: pickedThree ? "pink" : "white"}}>
+              <img src={user2} width={80}/>
+          </button>
+          <button
+              className="avatar-button"
+              onClick={manageClickForAvatar4}
+              style = {{backgroundColor: pickedFour ? "pink" : "white"}}>
+              <img src={user3} width={80}/>
+          </button>
+          <button
+              className="avatar-button"
+              onClick={manageClickForAvatar5}
+              style = {{backgroundColor: pickedFive ? "pink" : "white"}}>
+              <img src={user4} width={80}/>
+          </button>
+            <button
+            className="avatar-button"
+            onClick={manageClickForAvatar6}
+            style = {{backgroundColor: pickedSix ? "pink" : "white"}}>
+                <img src={user5} width={80}/>
+            </button>
+            <button
+            className="avatar-button"
+            onClick={manageClickForAvatar7}
+            style = {{backgroundColor: pickedSeven ? "pink" : "white"}}>
+                <img src={user6} width={80}/>
+            </button>
+        </div>
+    </div>
+
+  <div className='input'>
         <input 
           onChange={getInput}
           className="each" 
@@ -88,7 +251,8 @@ export default function EditProfile({ currentUser, onEdit }) {
               <input
                   className="indicator-checkbox"
                   type="checkbox"
-                  checked={wantsToBefriend ? true : false} />
+                  checked={wantsToBefriend ? wantsToBefriend : false}
+              />
               To make new connections
             </button>
           </div>

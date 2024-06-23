@@ -51,6 +51,16 @@
   }
 }
 
+.avatar-button {
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  &:active {
+    background-color: pink;
+  }
+}
+
 .fine-print {
   color: grey;
+  font-size: 12px;
 }

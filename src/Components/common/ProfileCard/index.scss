@@ -6,7 +6,12 @@
     border-radius: 5px;
     padding: 20px;
     position: relative;
+    .profile-avatar {
+        margin-top: 5px;
+        margin-bottom: 10px;
+    }
     .name {
+        margin-left: 15px;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         font-size: 30px;
         font-weight: 600;
@@ -15,16 +20,18 @@
 
     .email, 
     .year,
+    .module,
+    .preferences,
     .major {
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        font-size: 15px;
+        font-size: 20px;
         margin-top: -20px;
         color:rgb(35, 172, 35);
     }
 
     .tagline {
         font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 15px;
+        font-size: 20px;
         margin-top: -10px;
         color: rgb(43, 104, 93);
         font-weight: 400;
@@ -36,6 +43,13 @@
         button {
             cursor: pointer;
         }
+    }
+
+    .name-and-profile {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        flex-direction: row;
     }
 }
 
