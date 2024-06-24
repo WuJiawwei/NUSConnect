@@ -4,12 +4,15 @@ import {useMemo, useState} from "react";
 import {collection, getDocs, limit, query, where} from "firebase/firestore";
 import {firestore} from "../../../firebaseConfig.js";
 import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
+import FriendProfileModal from "../FriendProfile/index.jsx";
 
 const FriendSearch = () => {
 
     const [search, setSearch] = useState({})
     const [data, setData] = useState(null)
     const [currentUser, setCurrentUser] = useState([])
+    const [selectedUserId, setSelectedUserId] = useState(null);
+
     useMemo(() => {
         getCurrentUser(setCurrentUser)
     }, [])
@@ -66,7 +69,12 @@ const FriendSearch = () => {
                             <div className="friend-avatar"><img src={item.avatar} width={50}/></div>
                             <div className="friend-name">{item.name}</div>
                             <div className="interest">{item["hobby"]}</div>
-                            <button className="view-friend-profile-button">View profile</button>
+                            <button
+                                className="view-friend-profile-button"
+                                onClick={() => setSelectedUserId(item.id)}
+                            >
+                                View Profile
+                            </button>
                         </div>
                     ))
                 ) : (
@@ -76,6 +84,12 @@ const FriendSearch = () => {
                     </p>
                 )}
             </div>
+            {selectedUserId && (
+                <FriendProfileModal
+                    userId={selectedUserId}
+                    onClose={() => setSelectedUserId(null)}
+                />
+            )}
         </div>
     )
 }
