@@ -10,10 +10,10 @@ const TutorSearch = () => {
     const [search, setSearch] = useState('');
     const [doc, setDoc] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
+    getCurrentUser(setCurrentUser)
     const [selectedUserId, setSelectedUserId] = useState(null);
     const onClick = async () => {
         try {
-            getCurrentUser(setCurrentUser)
             console.log(currentUser)
             const lookFor = search;
             const remove = currentUser.userID;
@@ -35,7 +35,7 @@ const TutorSearch = () => {
                 <FaSearch className="tutor-search-icon"/>
                 <input
                     className="module-input"
-                    placeholder="Module Code"
+                    placeholder="Module Code(Search in all caps, without spacing)"
                     onChange={e => setSearch(e.target.value)}
                 />
                 <button className="tutor-search-button" onClick = {onClick}>

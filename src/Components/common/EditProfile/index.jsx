@@ -204,79 +204,84 @@ export default function EditProfile({ currentUser, onEdit }) {
         </div>
     </div>
 
-  <div className='input'>
-        <input 
-          onChange={getInput}
-          className="each" 
-          placeholder='Name'
-          name="name"
-        />
+        <div className='input'>
+            <input
+                onChange={getInput}
+                className="each"
+                placeholder='Name'
+                name="name"
+            />
 
-        <input 
-          onChange={getInput}
-          className="each" 
-          placeholder='Year of Study' 
-          name = 'year'
-        />
+            <input
+                onChange={getInput}
+                className="each"
+                placeholder='Year of Study'
+                name='year'
+            />
 
-        <input 
-          onChange={getInput}
-          className="each" 
-          placeholder='Major' 
-          name = "major"
-        />
+            <input
+                onChange={getInput}
+                className="each"
+                placeholder='Major'
+                name="major"
+            />
 
-        <input 
-          onChange={getInput}
-          className="each" 
-          placeholder='Hobby (in one word...)'
-          name = "hobby"
-        />
+            <input
+                onChange={getInput}
+                className="each"
+                placeholder='Hobby (Write in all caps and in one word...)'
+                name="hobby"
+            />
+            <div className="fine-print">
+                Writing in all caps will facilitate searching for interests.
+            </div>
 
-        <input 
-          onChange={getInput}
-          className="each" 
-          placeholder='Tagline' 
-          name = "tagline"
-        />
+            <input
+                onChange={getInput}
+                className="each"
+                placeholder='Tagline'
+                name="tagline"
+            />
 
 
-        <div>Tell us why you're using NUSConnect:
-          <div className="fine-print">You can always turn these options off if you think you need a break.</div>
-          <div>
-            <button
-                onClick={manageClickForWantToBefriend}
-                className="options-button"
-                style={{backgroundColor: wantsToBefriend ? 'lightgreen' : '#108672'}}
-            >
-                <div className="indicator-checkbox">{wantsToBefriend ? <FaCheckCircle/>: <FaCircle/>}</div>
-              To make new connections
-            </button>
-          </div>
-          <div>
-            <button
-                onClick={manageClickForWantToTutor}
-                className="options-button"
-                style={{backgroundColor: wantsToTutor ? 'lightgreen' : '#108672'}}
-            >
-                <div className="indicator-checkbox">{wantsToTutor ? <FaCheckCircle/> : <FaCircle />}</div>
-              To be a volunteer tutor
-            </button>
-          </div>
+            <div>Tell us why you're using NUSConnect:
+                <div className="fine-print">You can always turn these options off if you think you need a break.</div>
+                <div>
+                    <button
+                        onClick={manageClickForWantToBefriend}
+                        className="options-button"
+                        style={{backgroundColor: wantsToBefriend ? 'lightgreen' : '#108672'}}
+                    >
+                        <div className="indicator-checkbox">{wantsToBefriend ? <FaCheckCircle/> : <FaCircle/>}</div>
+                        To make new connections
+                    </button>
+                </div>
+                <div>
+                    <button
+                        onClick={manageClickForWantToTutor}
+                        className="options-button"
+                        style={{backgroundColor: wantsToTutor ? 'lightgreen' : '#108672'}}
+                    >
+                        <div className="indicator-checkbox">{wantsToTutor ? <FaCheckCircle/> : <FaCircle/>}</div>
+                        To be a volunteer tutor
+                    </button>
+                </div>
+            </div>
+
+            <div>If you want to become a volunteer tutor, tell us which module you would like to tutor:</div>
+            <input
+                onChange={getInput}
+                className="each"
+                placeholder='Module Code(Write in all caps, omit spacing)'
+                name="Module Code"
+            />
+            <div className="fine-print">Writing in all capital-letters and no spacing facilitates search for tutors.
+            </div>
         </div>
 
-        <div>If you want to become a volunteer tutor, tell us which module you would like to tutor:</div>
-        <input
-            onChange={getInput}
-            className="each"
-            placeholder='Module Code(Omit spacing)'
-            name = "Module Code"
-        />
-      </div>
-
-      <button className='save' onClick={updateProfileData}>
-        Save
-      </button>
+        <button className='save' onClick={updateProfileData}>
+            Save
+        </button>
     </div>
   )
 }

@@ -21,9 +21,9 @@ export default function ProfileCard({ onEdit, currentUser }) {
         <p className='year'>Year: {currentUser.year}</p>
         <p className='major'>Major: {currentUser.major}</p>
         <p className="email">Email: {currentUser.email}</p>
-        <p className="module">Tutors: {currentUser["Module Code"]}</p>
         {currentUser["wantsToBefriend"] ? <p className="preferences" >Is open to befriending</p> : <div></div>}
         {currentUser["wantsToTutor"] ? <p className="preferences">Is open to do tutoring</p> : <div></div>}
+        {currentUser["wantsToTutor"] ? <p className="module">Tutors: {currentUser["Module Code"]}</p> : <div></div>}
         <p className="tagline">Tagline: {currentUser.tagline}</p>
       </div>
 
