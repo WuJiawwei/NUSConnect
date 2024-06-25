@@ -249,7 +249,7 @@ export default function EditProfile({ currentUser, onEdit }) {
                 className="options-button"
                 style={{backgroundColor: wantsToBefriend ? 'lightgreen' : '#108672'}}
             >
-                {wantsToBefriend ? <FaCheckCircle/>: <FaCircle/>}
+                <div className="indicator-checkbox">{wantsToBefriend ? <FaCheckCircle/>: <FaCircle/>}</div>
               To make new connections
             </button>
           </div>
@@ -259,7 +259,7 @@ export default function EditProfile({ currentUser, onEdit }) {
                 className="options-button"
                 style={{backgroundColor: wantsToTutor ? 'lightgreen' : '#108672'}}
             >
-                {wantsToTutor ? <FaCheckCircle/> : <FaCircle />}
+                <div className="indicator-checkbox">{wantsToTutor ? <FaCheckCircle/> : <FaCircle />}</div>
               To be a volunteer tutor
             </button>
           </div>

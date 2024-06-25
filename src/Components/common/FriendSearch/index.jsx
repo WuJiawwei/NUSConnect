@@ -1,98 +1,76 @@
-import "./index.scss"
-import {FaRocket, FaSearch} from "react-icons/fa";
-import {useMemo, useState} from "react";
-import {collection, getDocs, getFirestore, limit, query, where} from "firebase/firestore";
-import {firestore} from "../../../firebaseConfig.js";
-import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
+import "./index.scss";
+import { FaRocket, FaSearch } from "react-icons/fa";
+import { useState} from "react";
+import { collection, query, where, getDocs, limit } from "firebase/firestore";
+import { firestore } from "../../../firebaseConfig.js";
+import { getCurrentUser } from "../../../api/FirestoreAPI.jsx";
 import FriendProfileModal from "../FriendProfile/index.jsx";
 
-const FriendSearch = () => {
-
-    const [search, setSearch] = useState({})
-    const [data, setData] = useState(null)
-    const [currentUser, setCurrentUser] = useState([])
+const TutorSearch = () => {
+    const [search, setSearch] = useState('');
+    const [doc, setDoc] = useState([]);
+    const [currentUser, setCurrentUser] = useState(null);
     const [selectedUserId, setSelectedUserId] = useState(null);
-
-    useMemo(() => {
-        getCurrentUser(setCurrentUser)
-    }, [])
-
-    const getSearch = (event) => {
-        let { name, value } = event.target
-        let input = { [name]: value }
-        setSearch({...search, ...input})
-    }
-
-    const manageClick = async () => {
-        return fetchData()
-    }
-
-    const fetchData = async () => {
-        const lookFor = search["interest"].toLowerCase()
-        const currUserId = currentUser?.userID;
+    const onClick = async () => {
         try {
-            const dbInstance = getFirestore();
-            const db = collection(dbInstance, "users")
-            const q = query(db, where ("hobby", "==", lookFor))
-            const qq = query(q, where ("wantsToBefriend", "==", true), limit(10))
-            const querySnapshot = await getDocs(qq);
-            const fetchedData = querySnapshot.docs.filter(doc => doc.id != currUserId).map(doc => ({ id: doc.id, ...doc.data() }));
-            setData(fetchedData);
+            getCurrentUser(setCurrentUser)
+            console.log(currentUser)
+            const lookFor = search;
+            const remove = currentUser.userID;
+            const db = collection(firestore, "users");
+            const q1 = query(db, where("wantsToBefriend", "==", true))
+            const q2 = query(q1, where("hobby", "==", lookFor), limit(10))
+            const querySnapshot = await getDocs(q2);
+            const fetchedData = querySnapshot.docs
+                .filter(doc => doc.id !== remove)
+                .map((doc) => ({ id: doc.id, ...doc.data() }));
+            setDoc(fetchedData);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error("Error fetching data:", error);
         }
-    };
+    }
+    return (<div>
+        <div className="friend-search-container">
+            <div className="friend-search-box">
+                <FaSearch className="friend-search-icon"/>
+                <input
+                    className="interest-input"
+                    placeholder="Interest"
+                    onChange={e => setSearch(e.target.value)}
+                />
+                <button className="friend-search-button" onClick = {onClick}>
+                    <FaRocket/>
+                    Launch Search
+                </button>
+            </div>
+        </div>
+        <div className="friend-search-results-container">
 
-    return (
-        <div>
-            <div className="friend-search-container">
-                <div className="friend-search-box">
-                    <FaSearch className="friend-search-icon"/>
-                    <input
-                        className="interest-input"
-                        placeholder="Interests"
-                        name="interest"
-                        onChange={getSearch}
-                    />
-                    <button
-                        className="friend-search-button"
-                        onClick={manageClick}
-                    >
-                        <FaRocket/>
-                        Launch Search
-                    </button>
-                </div>
-            </div>
-            <div className="friend-search-results-container">
-                {data && data.length > 0 ? (
-                    data.map((item) => (
-                        <div className="friend-result" key={item.id}>
-                            <div className="friend-avatar"><img src={item.avatar} width={50}/></div>
-                            <div className="friend-name">{item.name}</div>
-                            <div className="interest">{item["hobby"]}</div>
-                            <button
-                                className="view-friend-profile-button"
-                                onClick={() => setSelectedUserId(item.id)}
-                            >
-                                View Profile
-                            </button>
+            {doc.length !== 0 ?
+                doc.map((doc) => (
+                    <div className="friend-result" key={doc.id}>
+                        <div className="friend-avatar">
+                            <img src={doc.avatar} width={50} alt="Friend Avatar"/>
                         </div>
-                    ))
-                ) : (
-                    data &&
-                    <p>Oh man, we couldn't find you a friend with the same interest.
-                        Try searching for something else.
-                    </p>
-                )}
-            </div>
-            {selectedUserId && (
+                        <div className="friend-name">{doc.name}</div>
+                        <div className="interest">{doc.hobby}</div>
+                        <button
+                            className="view-friend-profile-button"
+                            onClick={() => setSelectedUserId(doc.id)}
+                        >
+                            View Profile
+                        </button>
+                    </div>
+                )) : <div>Oh man, maybe you should try searching with another interest :(</div>}
+
+            {selectedUserId !== null ?
                 <FriendProfileModal
                     userId={selectedUserId}
                     onClose={() => setSelectedUserId(null)}
-                />
-            )}
+                /> : <div></div>}
         </div>
-    )
+    </div>)
 }
 
-export default FriendSearch;
+
+export default TutorSearch;

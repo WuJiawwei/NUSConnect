@@ -44,6 +44,10 @@
     font-size: 18px;
     margin-top: 20px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     &:active {
       background-color: mix(midnightblue, purple);
     }
@@ -63,14 +67,8 @@
   flex-direction: column;
   align-items: center;
 
-  .friend-avatar {
-    position: absolute;
-    left: 175px;
-    margin-top: 10px;
-  }
-
   .friend-result {
-    background-color: mix(white, mix(lightskyblue, mix(mix(lightgreen, white), white)));
+    background-color: mix(white, mix(white, mediumpurple));
     margin-top: 15px;
     margin-bottom: 15px;
     height: 70px;
@@ -88,9 +86,15 @@
   .friend-name {
     margin-left: 20px;
     margin-right: 20px;
-    color: mix(white, lightcoral);
+    color: white;
     position: absolute;
     left: 225px;
+  }
+
+  .friend-avatar {
+    position: absolute;
+    left: 175px;
+    margin-top: 10px;
   }
 
   .view-friend-profile-button {
@@ -115,7 +119,7 @@
 
   .interest {
     margin-left: 850px;
-    color: mix(white, lightcoral);
+    color: white;
     position: absolute;
     right: 350px;
   }

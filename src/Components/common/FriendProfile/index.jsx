@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getFirestore, getDoc, doc } from 'firebase/firestore';
 import "./index.scss"
+import {FaComment} from "react-icons/fa";
 
 const FriendProfileModal = ({ userId, onClose }) => {
     const [acc, setAcc] = useState(null);
@@ -55,6 +56,7 @@ const FriendProfileModal = ({ userId, onClose }) => {
                     </div>
                     <button className="friend-chat-button">
                         Chat
+                        <FaComment/>
                     </button>
                 </div>
             </div>
