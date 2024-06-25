@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getFirestore, getDoc, doc } from 'firebase/firestore';
 import "./index.scss"
+import {FaComment} from "react-icons/fa";
 
 const TutorProfileModal = ({ userId, onClose }) => {
     const [acc, setAcc] = useState(null);
@@ -54,7 +55,10 @@ const TutorProfileModal = ({ userId, onClose }) => {
                         <button className="tutor-input-button">{year}</button>
                     </div>
                     <button className="tutor-chat-button">
-                        Chat
+                        <div className="chat-button-design">
+                            <div>Chat</div>
+                            <FaComment/>
+                        </div>
                     </button>
                 </div>
             </div>

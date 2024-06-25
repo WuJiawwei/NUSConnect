@@ -64,7 +64,6 @@ export default function LikeButton({ userId, postId, currentUser}) {
             return (
               <div className="comment-line">
                 <div className="commenter-name-and-avatar">
-                  <img className="commenter-avatar" src={C.CAvatar} width={30}/>
                   <p className='name'>{C.CName}</p>
                 </div>
                 <p className="every-comment">{C.comment}</p>

@@ -1,7 +1,7 @@
 import "./index.scss"
 import {FaRocket, FaSearch} from "react-icons/fa";
 import {useMemo, useState} from "react";
-import {collection, getDocs, limit, query, where} from "firebase/firestore";
+import {collection, getDocs, getFirestore, limit, query, where} from "firebase/firestore";
 import {firestore} from "../../../firebaseConfig.js";
 import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
 import FriendProfileModal from "../FriendProfile/index.jsx";
@@ -31,7 +31,8 @@ const FriendSearch = () => {
         const lookFor = search["interest"].toLowerCase()
         const currUserId = currentUser?.userID;
         try {
-            const db = collection(firestore, "users")
+            const dbInstance = getFirestore();
+            const db = collection(dbInstance, "users")
             const q = query(db, where ("hobby", "==", lookFor))
             const qq = query(q, where ("wantsToBefriend", "==", true), limit(10))
             const querySnapshot = await getDocs(qq);

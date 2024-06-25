@@ -18,7 +18,7 @@ export default function ProfileCard({ onEdit, currentUser }) {
           <div><img className="profile-avatar" src={currentUser.avatar} width={80} height={80}/></div>
           <div><h3 className="name">{currentUser.name}</h3></div>
         </div>
-        <p className='year'>Enrollment year: {currentUser.year}</p>
+        <p className='year'>Year: {currentUser.year}</p>
         <p className='major'>Major: {currentUser.major}</p>
         <p className="email">Email: {currentUser.email}</p>
         <p className="module">Tutors: {currentUser["Module Code"]}</p>
