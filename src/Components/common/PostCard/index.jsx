@@ -21,7 +21,6 @@ export default function PostCard({posts, id}) {
         }
       >
           <div className="author-name-and-avatar">
-              <div><img src={currentUser.avatar} width={50}/></div>
               <div className="author-name">{posts.userName}</div>
           </div>
       </p>
