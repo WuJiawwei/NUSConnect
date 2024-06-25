@@ -103,14 +103,13 @@ export const getLike = (userId, postId, setLiked, setLikeNum) => {
   } 
 }
 
-export const saveComment = (postId, comment, time, CName, CAvatar) => {
+export const saveComment = (postId, comment, time, CName) => {
   try {
     addDoc(commentRef, {
       postId,
       comment,
       time,
-      CName,
-        CAvatar
+      CName
     })
   } catch (err) {
     console.log(err)

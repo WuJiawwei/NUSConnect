@@ -22,7 +22,7 @@ export default function LikeButton({ userId, postId, currentUser}) {
   }
 
   const addComment = () => {
-    saveComment(postId, comment, getCurrentTimeStamp("LLL"), currentUser?.name, currentUser?.avatar)
+    saveComment(postId, comment, getCurrentTimeStamp("LLL"), currentUser?.name)
     setComment("")
   }
 
