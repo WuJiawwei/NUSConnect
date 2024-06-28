@@ -1,4 +1,4 @@
-import SearchPopup from "./common/SearchPopup"
+import SearchPopup from "./common/Popups/searchredirect.jsx"
 import HomeLayout from "../layouts/HomeLayout.jsx"
 
 const RedirectComponent = () => {

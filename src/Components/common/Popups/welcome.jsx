@@ -5,8 +5,8 @@ import {useNavigate} from "react-router-dom";
 const WelcomePopup = () => {
     let navigate = useNavigate();
 
-    return (<div className="welcome-overlay">
-        <div className="welcome-popup">
+    return (<div className="overlay">
+        <div className="popup">
             <div className="welcome-container">
                 <img src={welcome}/>
                 <div>Wait! Before getting started, we need you to create a profile.</div>

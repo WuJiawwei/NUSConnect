@@ -38,9 +38,9 @@ const FriendProfileModal = ({ userId, onClose }) => {
             <div className="popup">
                 <button className="close-button" onClick={onClose}>X</button>
                 <div>
-                    <div  className="friend-credentials">
-                        <button className="friend-avatar-button"><img src={avatar} width={80}/></button>
-                        <button className="friend-name-button">{name}</button>
+                    <div className="credentials">
+                        <button className="avatar-button"><img src={avatar} width={80}/></button>
+                        <button className="name-button">{name}</button>
                     </div>
                     <div>
                         <button className="hobby-field-button">Hobby</button>
@@ -54,9 +54,11 @@ const FriendProfileModal = ({ userId, onClose }) => {
                         <button className="year-field-button">Year</button>
                         <button className="friend-input-button">{year}</button>
                     </div>
-                    <button className="friend-chat-button">
-                        Chat
-                        <FaComment/>
+                    <button className="chat-button">
+                        <div className="chat-button-design">
+                            <div>Chat</div>
+                            <FaComment/>
+                        </div>
                     </button>
                 </div>
             </div>

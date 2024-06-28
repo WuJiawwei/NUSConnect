@@ -38,9 +38,9 @@ const TutorProfileModal = ({ userId, onClose }) => {
             <div className="popup">
                 <button className="close-button" onClick={onClose}>X</button>
                 <div>
-                    <div  className="tutor-credentials">
-                        <button className="tutor-avatar-button"><img src={avatar} width={80}/></button>
-                        <button className="tutor-name-button">{name}</button>
+                    <div  className="credentials">
+                        <button className="avatar-button"><img src={avatar} width={80}/></button>
+                        <button className="name-button">{name}</button>
                     </div>
                     <div>
                         <button className="module-field-button">Module</button>
@@ -54,7 +54,7 @@ const TutorProfileModal = ({ userId, onClose }) => {
                         <button className="year-field-button">Year</button>
                         <button className="tutor-input-button">{year}</button>
                     </div>
-                    <button className="tutor-chat-button">
+                    <button className="chat-button">
                         <div className="chat-button-design">
                             <div>Chat</div>
                             <FaComment/>

@@ -21,6 +21,24 @@
   width: 90%;
 }
 
+.continue-button {
+  width: 120px;
+  height: 40px;
+  cursor: pointer;
+  background-color: rgba(206, 235, 212, 0.989);
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  font-family: system-ui;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 18px;
+  margin-top: 20px;
+  &:active {
+    background-color: #6aaf5e;
+  }
+}
+
 .close-button {
   position: absolute;
   top: 10px;
@@ -36,7 +54,25 @@
   }
 }
 
-.friend-chat-button {
+.select-choice-button {
+  width: 300px;
+  height: 40px;
+  cursor: pointer;
+  background-color: rgba(206, 235, 212, 0.989);
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  font-family: system-ui;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 18px;
+  margin-top: 20px;
+  &:active {
+    background-color: #6aaf5e;
+  }
+}
+
+.chat-button {
   width: 100px;
   height: 40px;
   cursor: pointer;
@@ -50,13 +86,17 @@
   font-size: 18px;
   margin-top: 20px;
   margin-right: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
   &:active {
     background-color: #6aaf5e;
   }
+}
+
+.welcome-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
 }
 
 .search-container {
@@ -68,15 +108,22 @@
   padding: 20px;
 }
 
-.hobby-field-button {
+.chat-button-design {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.module-field-button {
   height: 40px;
   width: 100px;
-  background: mix(white, mix(white, mediumpurple));
+  background: mix(white, mix(white, yellow));
   outline: none;
   border: none;
   font-family: system-ui;
   font-weight: 600;
-  color: white;
+  color: mix(white, lightgrey);
   font-size: 18px;
 }
 
@@ -88,7 +135,7 @@
   border: none;
   font-family: system-ui;
   font-weight: 600;
-  color: white;
+  color: mix(white, mix(white, lightgrey));
   font-size: 18px;
 }
 
@@ -96,6 +143,50 @@
   height: 40px;
   width: 100px;
   background: mix(white, mix(lightskyblue, mix(mix(lightgreen, white), white)));
+  outline: none;
+  border: none;
+  font-family: system-ui;
+  font-weight: 600;
+  color: mix(white, mix(white, mix(white, lightgrey)));
+  font-size: 18px;
+}
+
+.tutor-input-button {
+  height: 40px;
+  width: 395px;
+  background: mix(white, mix(lightgrey, white));
+  outline: none;
+  border: 0.01px solid rgba(206, 235, 212, 0.989);
+  font-family: system-ui;
+  font-weight: 300;
+  color: black;
+  font-size: 18px;
+}
+
+.credentials {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  .avatar-button {
+    background: white;
+    outline: none;
+    border: none;
+  }
+  .name-button {
+    background: white;
+    outline: none;
+    border: none;
+    font-family: system-ui;
+    font-weight: 600;
+    color: black;
+    font-size: 18px;
+  }
+}
+
+.hobby-field-button {
+  height: 40px;
+  width: 100px;
+  background: mix(white, mix(white, mediumpurple));
   outline: none;
   border: none;
   font-family: system-ui;
@@ -114,31 +205,4 @@
   font-weight: 300;
   color: black;
   font-size: 18px;
-}
-
-.friend-credentials {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  .friend-avatar-button {
-    background: white;
-    outline: none;
-    border: none;
-  }
-  .friend-name-button {
-    background: white;
-    outline: none;
-    border: none;
-    font-family: system-ui;
-    font-weight: 600;
-    color: black;
-    font-size: 18px;
-  }
-}
-
-.chat-button-design {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
 }

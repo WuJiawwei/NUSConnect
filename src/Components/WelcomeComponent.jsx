@@ -1,4 +1,4 @@
-import WelcomePopup from "./common/WelcomePopup/index.jsx";
+import WelcomePopup from "./common/Popups/welcome.jsx";
 import HomeLayout from "../layouts/HomeLayout.jsx";
 
 const WelcomeComponent = () => {

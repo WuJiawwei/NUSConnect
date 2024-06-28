@@ -4,7 +4,7 @@ import { useState} from "react";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { firestore } from "../../../firebaseConfig.js";
 import { getCurrentUser } from "../../../api/FirestoreAPI.jsx";
-import TutorProfileModal from "../TutorProfile/index.jsx";
+import TutorProfileModal from "../Popups/TutorProfile.jsx";
 
 const TutorSearch = () => {
     const [search, setSearch] = useState('');
@@ -30,15 +30,15 @@ const TutorSearch = () => {
         }
     }
     return (<div>
-        <div className="tutor-search-container">
-            <div className="tutor-search-box">
-                <FaSearch className="tutor-search-icon"/>
+        <div className="search-container">
+            <div className="search-box">
+                <FaSearch className="search-icon"/>
                 <input
-                    className="module-input"
+                    className="input"
                     placeholder="Module Code(Search in all caps, without spacing)"
                     onChange={e => setSearch(e.target.value)}
                 />
-                <button className="tutor-search-button" onClick = {onClick}>
+                <button className="search-button" onClick = {onClick}>
                     <FaRocket/>
                     Launch Search
                 </button>

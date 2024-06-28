@@ -4,9 +4,9 @@ import { useState} from "react";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { firestore } from "../../../firebaseConfig.js";
 import { getCurrentUser } from "../../../api/FirestoreAPI.jsx";
-import FriendProfileModal from "../FriendProfile/index.jsx";
+import FriendProfileModal from "../Popups/FriendProfile.jsx";
 
-const TutorSearch = () => {
+const FriendSearch = () => {
     const [search, setSearch] = useState('');
     const [doc, setDoc] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
@@ -30,15 +30,15 @@ const TutorSearch = () => {
         }
     }
     return (<div>
-        <div className="friend-search-container">
-            <div className="friend-search-box">
-                <FaSearch className="friend-search-icon"/>
+        <div className="search-container">
+            <div className="search-box">
+                <FaSearch className="search-icon"/>
                 <input
-                    className="interest-input"
+                    className="input"
                     placeholder="Interest(Search in all caps and in 1 word...)"
                     onChange={e => setSearch(e.target.value)}
                 />
-                <button className="friend-search-button" onClick = {onClick}>
+                <button className="search-button" onClick = {onClick}>
                     <FaRocket/>
                     Launch Search
                 </button>
@@ -73,4 +73,4 @@ const TutorSearch = () => {
 }
 
 
-export default TutorSearch;
+export default FriendSearch;
