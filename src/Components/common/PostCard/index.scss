@@ -1,12 +1,12 @@
 .post-card {
-    width: 550px;
-    min-height: auto;
-    background-color: rgba(206, 235, 212, 0.989);
-    margin-top: 30px;
-    border: 1px solid #d4dcbe;
-    border-radius: 7px;
     display: flex;
     flex-direction: column;
+    width: 550px;
+    min-height: auto;
+    border: 1px solid #d4dcbe;
+    border-radius: 7px;
+    background-color: rgba(206, 235, 212, 0.989);
+    margin-top: 30px;
     padding-bottom: 20px;
 
     .text {

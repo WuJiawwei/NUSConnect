@@ -4,7 +4,6 @@ import logo from "../assets/logo.svg"
 import "../Sass/LoginComponent.scss"
 import GoogleButton from 'react-google-button'
 import { useNavigate } from "react-router-dom"
-import "../Sass/LoginComponent.scss"
 import { toast } from "react-toastify"
 
 export default function LoginComponent() {
@@ -27,12 +26,12 @@ export default function LoginComponent() {
     navigate("/home")
   }
   return (
-    <div className="login-wrapper">
+    <div className="login">
       <img src={logo} width={300} />
-      <div className="login-wrapper-inner">
+      <div className="login-inner">
       <h1>Sign in</h1>
-      <p className="sub-heading">Welcome to NUSConnect</p>
-      <div className="auth-inputs">
+      <p className="welcome">Welcome to NUSConnect</p>
+      <div className="inputs">
         <input
           onChange={(event) =>
             setCredentials({ ...credentials, email: event.target.value})
@@ -54,16 +53,16 @@ export default function LoginComponent() {
         Sign in
       </button>
       </div>
-      <hr class="hr-text" data-content="or" />
-      <div className="google-btn-container">
+      <hr class="line" data-content="or" />
+      <div className="google-btn-wrapper">
         <GoogleButton
           className="google-btn"
           onClick={googleSignIn}
         />
 
-        <p className="go-to-signup">
+        <p className="signup-wrapper">
           New to NUSConnect?{" "} 
-          <span className="join-now" onClick={() => navigate("/register")}>
+          <span className="signup-link" onClick={() => navigate("/register")}>
             Join now
           </span>
         </p>

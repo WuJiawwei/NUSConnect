@@ -13,7 +13,7 @@ export default function PostStatus({currentUser}) {
   const [status, setStatus] = useState("");
   const [allStatuses, setAllStatus] = useState([])
   const sendStatus = async () => {
-    let object = {
+    let obj = {
       status: status,
       timestamp: getCurrentTimeStamp("LLL"),
       userEmail: currentUser.email,
@@ -21,7 +21,7 @@ export default function PostStatus({currentUser}) {
       postID: getUniqueID(),
       userID: currentUser.userID
     }
-    await postStatus(object)
+    await postStatus(obj)
     await setModalOpen(false)
     await setStatus("")
   }
@@ -32,9 +32,9 @@ export default function PostStatus({currentUser}) {
   }, [])
 
   return (
-    <div className="post-status-main">
-        <div className="post-status">
-            <button className="open-post-modal" onClick={() => setModalOpen(true)}>
+    <div className="post-wrapper">
+        <div className="post">
+            <button className="make-post" onClick={() => setModalOpen(true)}>
                 Start a Post
             </button>
         </div>

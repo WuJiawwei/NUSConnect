@@ -32,13 +32,13 @@ export default function RegisterComponent() {
     navigate("/welcome")
   }
   return (
-    <div className="login-wrapper">
+    <div className="login">
       <img src={logo} width={300} />
 
-      <div className="login-wrapper-inner">
+      <div className="login-inner">
       <h1>Register</h1>
-      <p className="sub-heading">Welcome to NUSConnect</p>
-      <div className="auth-inputs">
+      <p className="welcome">Welcome to NUSConnect</p>
+      <div className="inputs">
       <input
           onChange={(event) =>
             setCredentials({ ...credentials, name: event.target.value})
@@ -68,16 +68,16 @@ export default function RegisterComponent() {
         Agree & Join
       </button>
       </div>
-      <hr class="hr-text" data-content="or" />
-      <div className="google-btn-container">
+      <hr class="line" data-content="or" />
+      <div className="google-btn-wrapper">
         <GoogleButton
           className="google-btn"
           onClick={googleSignIn}
         />
 
-        <p className="go-to-signup">
+        <p className="signup-wrapper">
           Already on NUSConnect?{" "} 
-          <span className="join-now" onClick={() => navigate("/")}>
+          <span className="signup-link" onClick={() => navigate("/")}>
             Sign in
           </span>
         </p>

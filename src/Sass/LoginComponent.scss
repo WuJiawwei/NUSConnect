@@ -1,113 +1,109 @@
 body {
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .login-wrapper {
-    background-color: white !important;
-    height: 100vh;
-    .login-wrapper-inner {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .heading {
-      margin-left: 200px;
-      font-family: system-ui;
-      font-weight: 500;
-      color: rgba(0, 0, 0, 0.9);
-    }
-  
-    .sub-heading {
-      margin-top: -20px;
-      font-family: system-ui;
-    }
-  }
-
-.login-btn {
-    width: 300px;
-    height: 50px;
-    cursor: pointer;
-    background-color: #108672;
-    border-radius: 30px;
-    outline: none;
-    border: none;
-    font-family: system-ui;
-    font-weight: 600;
-    color: #ffffff;
-    font-size: 18px;
-    margin-top: 20px;
-  }
-
-.login-btn:hover {
-  background-color: #6aaf5e;
-  }
-  
-.auth-inputs {
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+}
+
+.logo {
+width: 200px;
+}
+
+.login {
+background-color: white;
+
+.login-inner {
+  align-items: center;
+  justify-content: center; 
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  margin-left: 200px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.welcome {
+  margin-top: -20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+}
+
+.inputs {
+gap: 12px;
+width: 300px;
+display: flex;
+flex-direction: column;
+}
+
+.login-btn:hover {
+background-color: #6aaf5e;
+}
+.login-btn {
   width: 300px;
+  height: 50px;
+  cursor: pointer;
+  background-color: #108672;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  font-family: system-ui;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 18px;
+  margin-top: 20px;
 }
 
-.transparent {
-  width: 200px;
-}
-
-.hr-text {
-    line-height: 1em;
+.line {
+  color: black;
+  line-height: 1em;
+  position: relative;
+  text-align: center;
+  outline: 0;
+  border: 0;
+  height: 1.5em;
+  opacity: 0.5;
+  &:before {
+    content: "";
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+  &:after {
+    content: attr(data-content);
     position: relative;
-    outline: 0;
-    border: 0;
+    display: inline-block;
     color: black;
-    text-align: center;
-    height: 1.5em;
-    opacity: 0.5;
-    &:before {
-      content: "";
-      // use the linear-gradient for the fading effect
-      // use a solid background color for a solid bar
-      background: linear-gradient(to right, transparent, #818078, transparent);
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 100%;
-      height: 1px;
-    }
-    &:after {
-      content: attr(data-content);
-      position: relative;
-      display: inline-block;
-      color: black;
+    padding: 0 0.5em;
+    line-height: 1.5em;
+    color: #818078;
+    background-color: #fcfcfa;
+  }
+}
+
+.google-btn-wrapper {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
   
-      padding: 0 0.5em;
-      line-height: 1.5em;
-      // this is really the only tricky part, you need to specify the background color of the container element...
-      color: #818078;
-      background-color: #fcfcfa;
-    }
+  .google-btn {
+    width: 400px;
   }
 
-  .google-btn-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  
-    .google-btn {
-      width: 300px !important;
-    }
-  
-    .go-to-signup {
-      font-size: 18px;
-    }
-  
-    .join-now {
-      color: green;
-      font-family: system-ui;
-      cursor: pointer;
-      font-size: 18px;
-    }
+  .signup-wrapper {
+    font-size: 16px;
   }
+
+  .signup-link {
+    color: green;
+    font-family: system-ui;
+    cursor: pointer;
+    font-size: 18px;
+  }
+}

@@ -17,8 +17,8 @@ let postsRef = collection(firestore, "posts")
 let userRef = collection(firestore, "users")
 let commentRef = collection(firestore, "comments")
 
-export const postStatus = (object) => {
-    addDoc(postsRef, object)
+export const postStatus = (obj) => {
+    addDoc(postsRef, obj)
       .then(() => {
         toast.success("Added successfully")
       })
@@ -28,17 +28,17 @@ export const postStatus = (object) => {
 }
 
 export const getStatus = (setAllStatus) => {
-  onSnapshot(postsRef, (response) => {
+  onSnapshot(postsRef, (res) => {
     setAllStatus(
-      response.docs.map((docs) => {
+      res.docs.map((docs) => {
         return { ...docs.data(), id: docs.id}
       })
     )
   })
 }
 
-export const postUserData = (object) => {
-  addDoc(userRef, object)
+export const postUserData = (obj) => {
+  addDoc(userRef, obj)
     .then(() => {})
     .catch((err) => {
       console.log(err)
@@ -47,9 +47,9 @@ export const postUserData = (object) => {
 
 export const getCurrentUser = (setCurrentUser) => {
   let currEmail = localStorage.getItem("userEmail");
-  onSnapshot(userRef, (response) => {
+  onSnapshot(userRef, (res) => {
     setCurrentUser(
-      response.docs
+      res.docs
         .map((docs) => {
           return { ...docs.data(), userID: docs.id}
         })

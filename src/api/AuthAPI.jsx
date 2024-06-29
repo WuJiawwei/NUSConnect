@@ -7,19 +7,19 @@ import {
 } from "firebase/auth"
 import { auth } from "../firebaseConfig"
 
-export const LoginAPI = (email, password) => {
+export const RegisterAPI = (email, password) => {
     try {
-        let response = signInWithEmailAndPassword(auth, email, password)
-        return response
+        let res = createUserWithEmailAndPassword(auth, email, password)
+        return res
     } catch (error) {
         return err
     }
 };
 
-export const RegisterAPI = (email, password) => {
+export const LoginAPI = (email, password) => {
     try {
-        let response = createUserWithEmailAndPassword(auth, email, password)
-        return response
+        let res = signInWithEmailAndPassword(auth, email, password)
+        return res
     } catch (error) {
         return err
     }
