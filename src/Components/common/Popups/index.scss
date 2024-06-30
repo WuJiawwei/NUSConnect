@@ -198,11 +198,17 @@
 .friend-input-button {
   height: 40px;
   width: 395px;
-  background: mix(white, mix(lightgrey, white));
+  background: mix(white, mix(lightgrey, white));;
   outline: none;
-  border: 0.01px solid rgba(206, 235, 212, 0.989);
+  border: 0.01px solid mix(white, mix(lightskyblue, mix(mix(lightgreen, white), white)));;
   font-family: system-ui;
   font-weight: 300;
   color: black;
   font-size: 18px;
+}
+
+.username-input {
+  outline: none;
+  height: 40px;
+  width: 475px;
 }
