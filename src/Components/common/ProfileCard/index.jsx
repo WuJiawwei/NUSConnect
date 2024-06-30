@@ -18,13 +18,31 @@ export default function ProfileCard({ onEdit, currentUser }) {
           <div><img className="profile-avatar" src={currentUser.avatar} width={80} height={80}/></div>
           <div><h3 className="name">{currentUser.name}</h3></div>
         </div>
-        <p className='year'>Year: {currentUser.year}</p>
-        <p className='major'>Major: {currentUser.major}</p>
-        <p className="email">Email: {currentUser.email}</p>
-        {currentUser["wantsToBefriend"] ? <p className="preferences" >Is open to befriending</p> : <div></div>}
-        {currentUser["wantsToTutor"] ? <p className="preferences">Is open to do tutoring</p> : <div></div>}
+        <div className = "year-data">
+          <div className="year-field">Year</div>
+          <div className="year-input">{currentUser.year}</div>
+        </div>
+        <div className="major-data">
+          <div className="major-field">Major</div>
+          <div className="major-input">{currentUser.major}</div>
+        </div>
+        <div className="email-data">
+          <div className="email-field">Email</div>
+          <div className="email-input">{currentUser.email}</div>
+        </div>
+        <div className="tagline-data">
+          <div className="tagline-field">Tagline</div>
+          <div className="tagline-input"></div>
+        </div>
+        <div className="preferences-data">
+          <div className="preference-field">Preferences</div>
+          <div className="preference-input">
+            {currentUser["wantsToBefriend"] ? <div>Is open to befriending</div> : <div></div>}
+            {currentUser["wantsToBefriend"] && currentUser["wantsToTutor"]? <div>, </div> : <div></div>}
+            {currentUser["wantsToTutor"] ? <div className="preferences">Is open to do tutoring</div> : <div></div>}
+          </div>
+        </div>
         {currentUser["wantsToTutor"] ? <p className="module">Tutors: {currentUser["Module Code"]}</p> : <div></div>}
-        <p className="tagline">Tagline: {currentUser.tagline}</p>
       </div>
 
       <div className='posts'>
@@ -42,7 +60,5 @@ export default function ProfileCard({ onEdit, currentUser }) {
     </div>
 
     </>
-
-    
   )
 }

@@ -23,26 +23,6 @@ export default function EditProfile({ currentUser, onEdit }) {
     onEdit()
   }
 
-  // manage tutoring button
-  const [wantsToTutor, setWantsToTutor] = useState(false)
-  const manageClickForWantToTutor = () => {
-    setWantsToTutor(!wantsToTutor)
-    setEditInputs((prevInputs) => ({
-      ...prevInputs,
-      wantsToTutor: !wantsToTutor
-    }));
-  }
-
-  // manage befriending button
-  const [wantsToBefriend, setWantsToBefriend] = useState(false)
-  const manageClickForWantToBefriend = () => {
-    setWantsToBefriend(!wantsToBefriend)
-    setEditInputs((prevInputs) => ({
-      ...prevInputs,
-      wantsToBefriend: !wantsToBefriend
-    }));
-  }
-
   // manage avatar-choice buttons
   const [pickedOne, setPickedOne] = useState(false);
   const [pickedTwo, setPickedTwo] = useState(false);
@@ -150,7 +130,34 @@ export default function EditProfile({ currentUser, onEdit }) {
       }));
   }
 
-  console.log(editInputs)
+  const [wantsToTutor, setWantsToTutor] = useState(false);
+  const [wantsToBefriend, setWantsToBefriend] = useState(false);
+  const manageClickForWantsToBefriend= () => {
+      if (!wantsToBefriend) {
+          setEditInputs((prevInputs) => ({
+              ...prevInputs,
+              wantsToBefriend: true
+          }));
+          setWantsToBefriend(true);
+      } else {
+          setEditInputs((prevInputs) => ({
+              ...prevInputs,
+              wantsToBefriend: false
+          }));
+          setWantsToBefriend(false);
+      }
+      console.log("the boolean is now=" + wantsToBefriend);
+  }
+
+  const manageClickForWantsToTutor = () => {
+      setWantsToTutor(!wantsToTutor);
+      console.log(wantsToTutor);
+      setEditInputs((prevInputs) => ({
+          ...prevInputs,
+          wantsToTutor: wantsToTutor
+      }));
+  }
+
   return (
     <div className='card'>
       <div className='edit-button'>
@@ -248,7 +255,7 @@ export default function EditProfile({ currentUser, onEdit }) {
                 <div className="fine-print">You can always turn these options off if you think you need a break.</div>
                 <div>
                     <button
-                        onClick={manageClickForWantToBefriend}
+                        onClick={manageClickForWantsToBefriend}
                         className="options-button"
                         style={{backgroundColor: wantsToBefriend ? 'lightgreen' : '#108672'}}
                     >
@@ -258,7 +265,7 @@ export default function EditProfile({ currentUser, onEdit }) {
                 </div>
                 <div>
                     <button
-                        onClick={manageClickForWantToTutor}
+                        onClick={manageClickForWantsToTutor}
                         className="options-button"
                         style={{backgroundColor: wantsToTutor ? 'lightgreen' : '#108672'}}
                     >

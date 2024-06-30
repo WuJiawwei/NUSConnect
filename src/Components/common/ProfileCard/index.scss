@@ -6,6 +6,7 @@
     padding: 20px;
     position: relative;
     background-color: rgb(221, 250, 177);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     .profile-avatar {
         margin-top: 5px;
         margin-bottom: 10px;
@@ -17,24 +18,126 @@
         font-weight: 600;
         color: darkgreen;
     }
-
-    .email, 
-    .year,
-    .module,
-    .preferences,
-    .major {
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        font-size: 20px;
-        margin-top: -20px;
-        color:rgb(35, 172, 35);
+    .year-data {
+        justify-content: left;
+        display: flex;
+        flex-direction: row;
+        .year-field {
+            background-color: mix(white, pink);
+            height: 40px;
+            width: 15%;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .year-input {
+            background-color: whitesmoke;
+            height: 40px;
+            width: 85%;
+            border: 0.01px solid lavender;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
     }
-
-    .tagline {
-        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 20px;
-        margin-top: -10px;
-        color: rgb(43, 104, 93);
-        font-weight: 400;
+    .major-data {
+        justify-content: left;
+        display: flex;
+        flex-direction: row;
+        .major-field {
+            background-color:mix(white, mix(white, purple));
+            height:40px;
+            width: 15%;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .major-input {
+            background-color: whitesmoke;
+            height: 40px;
+            width: 85%;
+            border: 0.01px solid lavender;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+    .email-data {
+        justify-content: left;
+        display: flex;
+        flex-direction: row;
+        .email-field {
+            background-color: mix(white, lightblue);
+            height: 40px;
+            width: 15%;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .email-input {
+            background-color: whitesmoke;
+            height: 40px;
+            width: 85%;
+            border: 0.01px solid lavender;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+    .tagline-data {
+        justify-content: left;
+        display: flex;
+        flex-direction: row;
+        .tagline-field {
+            background-color: mix(white, mix(white, yellow));
+            height: 40px;
+            width: 15%;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .tagline-input {
+            background-color: whitesmoke;
+            height: 40px;
+            width: 85%;
+            border: 0.01px solid lavender;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+    .module,
+    .preferences-data {
+        justify-content: left;
+        display: flex;
+        flex-direction: row;
+        .preference-field {
+            background-color: mix(white, turquoise);
+            height: 40px;
+            width: 15%;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .preference-input {
+            background-color: whitesmoke;
+            height: 40px;
+            width: 85%;
+            border: 0.01px solid lavender;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
     }
 
     .edit-button {
@@ -44,7 +147,6 @@
             cursor: pointer;
         }
     }
-
     .name-and-profile {
         display: flex;
         justify-content: left;
