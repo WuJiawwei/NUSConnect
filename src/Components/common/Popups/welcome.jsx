@@ -11,7 +11,7 @@ const WelcomePopup = () => {
                 <img src={welcome} width={400}/>
                 <div>Wait! Before getting started, we need you to create a profile.</div>
                 <button className="continue-button"
-                onClick={() => navigate("/profile")}>Continue</button>
+                onClick={() => navigate("/createprofile")}>Continue</button>
             </div>
         </div>
     </div>)

@@ -8,6 +8,7 @@ import SearchTutor from "../Pages/SearchTutor.jsx";
 import SearchFriend from "../Pages/SearchFriend.jsx";
 import Welcome from "../Pages/Welcome.jsx";
 import PowerOff from "../Components/common/Popups/PowerOff.jsx";
+import CreateProfile from "../Components/common/EditProfile/createProfile.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -45,5 +46,9 @@ export const router = createBrowserRouter([
     {
         path:"/poweroff",
         element: <PowerOff />
+    },
+    {
+        path:"/createprofile",
+        element: <CreateProfile />
     }
   ]);
