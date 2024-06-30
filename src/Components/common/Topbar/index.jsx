@@ -31,11 +31,6 @@ export default function Topbar() {
               className="react-icon"
               onClick={() => goToRoute("/home")}
           />
-          <RiProfileFill
-              size={30}
-              className="react-icon"
-              onClick={() => goToRoute("/profile")}
-          />
           <FaUsers size={30} className="react-icon"/>
           <RiTimerFill size={30} className="react-icon"/>
           <MdMessage size={30} className="react-icon"/>
@@ -49,7 +44,11 @@ export default function Topbar() {
 
           {isOn ? <PowerOff onClose={() => setIsOn(!isOn)}/> : <div></div>}
 
-        <img className="user-logo" src={user} alt="user"/>
+          <button className="profile-button"
+                  onClick={() => goToRoute("/profile")}
+          >
+              <img src={user} width={40}/>
+          </button>
 
       </div>
   )

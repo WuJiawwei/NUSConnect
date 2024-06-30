@@ -35,3 +35,16 @@
     cursor: pointer;
     border-radius: 50%;
   }
+
+  .profile-button {
+    object-fit: cover;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    right: 30px;
+    cursor: pointer;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+    background-color: rgba(206, 235, 212, 0.989);
+  }
