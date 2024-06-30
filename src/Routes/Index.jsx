@@ -1,4 +1,4 @@
-import {createBrowserRouter,} from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import ProfileLayout from "../layouts/ProfileLayout.jsx";
@@ -7,6 +7,7 @@ import RedirectSearch from "../Pages/RedirectSearch.jsx"
 import SearchTutor from "../Pages/SearchTutor.jsx";
 import SearchFriend from "../Pages/SearchFriend.jsx";
 import Welcome from "../Pages/Welcome.jsx";
+import PowerOff from "../Components/common/Popups/PowerOff.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -40,5 +41,9 @@ export const router = createBrowserRouter([
     {
         path:"/welcome",
         element: <Welcome />
+    },
+    {
+        path:"/poweroff",
+        element: <PowerOff />
     }
   ]);
