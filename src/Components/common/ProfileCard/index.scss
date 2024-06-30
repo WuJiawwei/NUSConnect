@@ -7,6 +7,11 @@
     position: relative;
     background-color: rgb(221, 250, 177);
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    .edit-button {
+        background-color: transparent;
+        outline: none;
+        border: none;
+    }
     .profile-avatar {
         margin-top: 5px;
         margin-bottom: 10px;
@@ -152,6 +157,39 @@
         justify-content: left;
         align-items: center;
         flex-direction: row;
+    }
+    .danger-zone {
+        padding-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .danger-text {
+            font-size: 20px;
+            color: darkred;
+        }
+        .delete-button {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            gap: 2px;
+            height: 40px;
+            outline: none;
+            border: none;
+            background-color: lightcoral;
+            border-radius: 20px;
+            color: white;
+            font-size: 17px;
+            .delete-button-text {
+            }
+            .delete-button-img {
+            }
+        }
     }
 }
 

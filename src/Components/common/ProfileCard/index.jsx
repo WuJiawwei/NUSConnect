@@ -2,17 +2,24 @@ import React, { useMemo, useState } from 'react'
 import "./index.scss"
 import PostCard from '../PostCard'
 import { getStatus } from '../../../api/FirestoreAPI'
+import {FaPencilAlt, FaSkull, FaExclamationTriangle} from 'react-icons/fa'
+import DeleteMyAccount from "../Popups/deleteMyAccount.jsx";
 
 export default function ProfileCard({ onEdit, currentUser }) {
   const [allStatuses, setAllStatus] = useState([])
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   useMemo(() => {
     getStatus(setAllStatus)
   }, [])
   return (
     <>
       <div className='profile-card'>
-        <div className='edit-button'>
-          <button onClick={onEdit}>Edit</button>
+        <div>
+          <button
+              className='edit-button'
+              onClick={onEdit}>
+            <FaPencilAlt />
+          </button>
         </div>
         <div className="name-and-profile">
           <div><img className="profile-avatar" src={currentUser.avatar} width={80} height={80}/></div>
@@ -43,6 +50,19 @@ export default function ProfileCard({ onEdit, currentUser }) {
           </div>
         </div>
         {currentUser["wantsToTutor"] ? <p className="module">Tutors: {currentUser["Module Code"]}</p> : <div></div>}
+        <div className="danger-zone">
+          <div className="danger-text">
+            <FaExclamationTriangle/>
+            Danger zone below
+          </div>
+          <button
+              className='delete-button'
+              onClick={setIsDeleteOpen}
+          >
+            <div className="delete-button-img"><FaSkull/></div>
+            <div className="delete-button-text">Delete my account</div>
+          </button>
+        </div>
       </div>
 
       <div className='posts'>
@@ -58,6 +78,8 @@ export default function ProfileCard({ onEdit, currentUser }) {
           )
         })}
     </div>
+
+      {isDeleteOpen ? <DeleteMyAccount isOpen={() => setIsDeleteOpen(!isDeleteOpen)}/> : <div></div>}
 
     </>
   )
