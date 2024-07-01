@@ -2,6 +2,13 @@
     gap:20px;
     display: grid;
     margin-top: 50px;
+
+  .buttons-div {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    flex-direction: column;
+  }
     
     .each {
             height: 30px;

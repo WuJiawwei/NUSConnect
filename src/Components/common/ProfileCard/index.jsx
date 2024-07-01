@@ -44,9 +44,11 @@ export default function ProfileCard({ onEdit, currentUser }) {
         <div className="preferences-data">
           <div className="preference-field">Preferences</div>
           <div className="preference-input">
-            {currentUser["wantsToBefriend"] ? <div>Is open to befriending</div> : <div></div>}
-            {currentUser["wantsToBefriend"] && currentUser["wantsToTutor"]? <div>, </div> : <div></div>}
-            {currentUser["wantsToTutor"] ? <div className="preferences">Is open to do tutoring</div> : <div></div>}
+            {currentUser["wantsToBefriend"] && currentUser["wantsToTutor"] ?
+                <div>Open to befriending and tutoring</div> : currentUser["wantsToBefriend"]?
+                    <div>Open to befriending</div> : currentUser["wantsToTutor"]?
+                        <div>Open to tutoring</div> : <div></div>
+            }
           </div>
         </div>
         {currentUser["wantsToTutor"] ? <p className="module">Tutors: {currentUser["Module Code"]}</p> : <div></div>}

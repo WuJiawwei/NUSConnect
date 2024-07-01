@@ -185,6 +185,9 @@
             border-radius: 20px;
             color: white;
             font-size: 17px;
+            &:active{
+                background-color: indianred;
+            }
             .delete-button-text {
             }
             .delete-button-img {
