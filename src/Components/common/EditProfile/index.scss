@@ -1,8 +1,24 @@
+.instruction-bar {
+  height: 60px;
+  width: 100%;
+  background-color: mediumpurple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  color: white;
+  gap: 5px;
+  .instruction {
+  }
+  .instruction-icon {
+
+  }
+}
+
 .input {
     gap:20px;
     display: grid;
     margin-top: 50px;
-
   .buttons-div {
     display: flex;
     justify-content: left;
@@ -42,6 +58,24 @@
   font-weight: 600;
   color: #ffffff;
   background-color: #108672;
+}
+
+.submit-button {
+  width: 300px;
+  height: 50px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  font-family: system-ui;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #108672;
+  &:active {
+    background-color: lightgreen;
+  }
 }
 
 .options-button {

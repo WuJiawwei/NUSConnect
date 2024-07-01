@@ -37,9 +37,13 @@ export default function ProfileCard({ onEdit, currentUser }) {
           <div className="email-field">Email</div>
           <div className="email-input">{currentUser.email}</div>
         </div>
+        <div className="hobby-data">
+          <div className="hobby-field">Hobby</div>
+          <div className="hobby-input">{currentUser.hobby}</div>
+        </div>
         <div className="tagline-data">
           <div className="tagline-field">Tagline</div>
-          <div className="tagline-input"></div>
+          <div className="tagline-input">{currentUser.tagline}</div>
         </div>
         <div className="preferences-data">
           <div className="preference-field">Preferences</div>
@@ -51,7 +55,13 @@ export default function ProfileCard({ onEdit, currentUser }) {
             }
           </div>
         </div>
-        {currentUser["wantsToTutor"] ? <p className="module">Tutors: {currentUser["Module Code"]}</p> : <div></div>}
+        <div className="module-data">
+          <div className="module-field">Is a tutor for</div>
+          <div className="module-input">
+            {currentUser["wantsToTutor"] && currentUser["Module Code"].length !== 0?
+                <div>{currentUser["Module Code"]}</div> : <div>None</div>}
+          </div>
+        </div>
         <div className="danger-zone">
           <div className="danger-text">
             <FaExclamationTriangle/>

@@ -23,140 +23,18 @@ export default function EditProfile({ currentUser, onEdit }) {
     onEdit()
   }
 
-  // manage avatar-choice buttons
-  const [pickedOne, setPickedOne] = useState(false);
-  const [pickedTwo, setPickedTwo] = useState(false);
-  const [pickedThree, setPickedThree] = useState(false);
-  const [pickedFour, setPickedFour] = useState(false);
-  const [pickedFive, setPickedFive] = useState(false);
-  const [pickedSix, setPickedSix] = useState(false);
-  const [pickedSeven, setPickedSeven] = useState(false);
-
-  const manageClickForAvatar1 = () => {
-      setPickedOne(true);
-      setPickedTwo(false);
-      setPickedThree(false);
-      setPickedFour(false);
-      setPickedFive(false);
-      setPickedSix(false);
-      setPickedSeven(false);
-      setEditInputs((prevInputs) => ({
-          ...prevInputs,
-          avatar: user
-      }));
-  }
-
-  const manageClickForAvatar2 = () => {
-      setPickedOne(false);
-      setPickedTwo(true);
-      setPickedThree(false);
-      setPickedFour(false);
-      setPickedFive(false);
-      setPickedSix(false);
-      setPickedSeven(false);
-      setEditInputs((prevInputs) => ({
-          ...prevInputs,
-          avatar: user1
-      }));
-  }
-
-  const manageClickForAvatar3 = () => {
-      setPickedOne(false);
-      setPickedTwo(false);
-      setPickedThree(true);
-      setPickedFour(false);
-      setPickedFive(false);
-      setPickedSix(false);
-      setPickedSeven(false);
-      setEditInputs((prevInputs) => ({
-          ...prevInputs,
-          avatar: user2
-      }));
-  }
-
-  const manageClickForAvatar4 = () => {
-      setPickedOne(false);
-      setPickedTwo(false);
-      setPickedThree(false);
-      setPickedFour(true);
-      setPickedFive(false);
-      setPickedSix(false);
-      setPickedSeven(false);
-      setEditInputs((prevInputs) => ({
-          ...prevInputs,
-          avatar: user3
-      }));
-  }
-
-  const manageClickForAvatar5 = () => {
-      setPickedOne(false);
-      setPickedTwo(false);
-      setPickedThree(false);
-      setPickedFour(false);
-      setPickedFive(true);
-      setPickedSix(false);
-      setPickedSeven(false);
-      setEditInputs((prevInputs) => ({
-          ...prevInputs,
-          avatar: user4
-      }));
-  }
-
-  const manageClickForAvatar6 = () => {
-      setPickedOne(false);
-      setPickedTwo(false);
-      setPickedThree(false);
-      setPickedFour(false);
-      setPickedFive(false);
-      setPickedSix(true);
-      setPickedSeven(false);
-      setEditInputs((prevInputs) => ({
-          ...prevInputs,
-          avatar: user5
-      }));
-  }
-
-  const manageClickForAvatar7 = () => {
-      setPickedOne(false);
-      setPickedTwo(false);
-      setPickedThree(false);
-      setPickedFour(false);
-      setPickedFive(false);
-      setPickedSix(false);
-      setPickedSeven(true);
-      setEditInputs((prevInputs) => ({
-          ...prevInputs,
-          avatar: user6
-      }));
-  }
-
-  const [wantsToTutor, setWantsToTutor] = useState(false);
-  const [wantsToBefriend, setWantsToBefriend] = useState(false);
-  const manageClickForWantsToBefriend= () => {
-      if (!wantsToBefriend) {
-          setEditInputs((prevInputs) => ({
-              ...prevInputs,
-              wantsToBefriend: true
-          }));
-          setWantsToBefriend(true);
-      } else {
-          setEditInputs((prevInputs) => ({
-              ...prevInputs,
-              wantsToBefriend: false
-          }));
-          setWantsToBefriend(false);
+  const avatars = [user, user1, user2, user3, user4, user5, user6]
+    const [selected, setSelected] = useState([false, false, false, false, false, false, false])
+   const manageClickForAvatar = (pos) => {
+      for (let i = 0; i < selected.length; i++) {
+          if (i === pos) {
+              selected[i] = true;
+              editInputs["avatar"] = avatars[pos];
+          } else {
+              selected[i] = false;
+          }
       }
-      console.log("the boolean is now=" + wantsToBefriend);
-  }
-
-  const manageClickForWantsToTutor = () => {
-      setWantsToTutor(!wantsToTutor);
-      console.log(wantsToTutor);
-      setEditInputs((prevInputs) => ({
-          ...prevInputs,
-          wantsToTutor: wantsToTutor
-      }));
-  }
+   }
 
   return (
     <div className='card'>
@@ -168,44 +46,37 @@ export default function EditProfile({ currentUser, onEdit }) {
         <div>
           <button
               className="avatar-button"
-              onClick={manageClickForAvatar1}
-              style = {{backgroundColor: pickedOne ? "pink" : "white"}}>
+              onClick={() => manageClickForAvatar(0)}>
             <img src={user} width={80}/>
           </button>
           <button
               className="avatar-button"
-              onClick={manageClickForAvatar2}
-              style = {{backgroundColor: pickedTwo ? "pink" : "white"}}>
+              onClick={() => manageClickForAvatar(1)}>
               <img src={user1} width={80}/>
           </button>
           <button
               className="avatar-button"
-              onClick={manageClickForAvatar3}
-              style = {{backgroundColor: pickedThree ? "pink" : "white"}}>
+              onClick={() => manageClickForAvatar(2)}>
               <img src={user2} width={80}/>
           </button>
           <button
               className="avatar-button"
-              onClick={manageClickForAvatar4}
-              style = {{backgroundColor: pickedFour ? "pink" : "white"}}>
+              onClick={() => manageClickForAvatar(3)}>
               <img src={user3} width={80}/>
           </button>
           <button
               className="avatar-button"
-              onClick={manageClickForAvatar5}
-              style = {{backgroundColor: pickedFive ? "pink" : "white"}}>
+              onClick={() => manageClickForAvatar(4)}>
               <img src={user4} width={80}/>
           </button>
             <button
             className="avatar-button"
-            onClick={manageClickForAvatar6}
-            style = {{backgroundColor: pickedSix ? "pink" : "white"}}>
+            onClick={() => manageClickForAvatar(5)}>
                 <img src={user5} width={80}/>
             </button>
             <button
             className="avatar-button"
-            onClick={manageClickForAvatar7}
-            style = {{backgroundColor: pickedSeven ? "pink" : "white"}}>
+            onClick={() => manageClickForAvatar(6)}>
                 <img src={user6} width={80}/>
             </button>
         </div>

@@ -14,8 +14,7 @@ const TutorSearch = () => {
     const [selectedUserId, setSelectedUserId] = useState(null);
     const onClick = async () => {
         try {
-            console.log(currentUser)
-            const lookFor = search;
+            const lookFor = search.replace(/-/g, '').replace(/ /g, '').toUpperCase();
             const remove = currentUser.userID;
             const db = collection(firestore, "users");
             const q1 = query(db, where("wantsToTutor", "==", true))
@@ -35,7 +34,7 @@ const TutorSearch = () => {
                 <FaSearch className="search-icon"/>
                 <input
                     className="input"
-                    placeholder="Module Code(Search in all caps, without spacing)"
+                    placeholder="Module Code"
                     onChange={e => setSearch(e.target.value)}
                 />
                 <button className="search-button" onClick = {onClick}>

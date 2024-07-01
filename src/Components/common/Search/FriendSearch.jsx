@@ -12,10 +12,11 @@ const FriendSearch = () => {
     const [currentUser, setCurrentUser] = useState(null);
     getCurrentUser(setCurrentUser)
     const [selectedUserId, setSelectedUserId] = useState(null);
+
     const onClick = async () => {
         try {
-            console.log(currentUser)
-            const lookFor = search;
+            const lookFor = search.replace(/-/g, '')
+                                            .replace(/ /g, '').toUpperCase();
             const remove = currentUser.userID;
             const db = collection(firestore, "users");
             const q1 = query(db, where("wantsToBefriend", "==", true))
@@ -25,6 +26,7 @@ const FriendSearch = () => {
                 .filter(doc => doc.id !== remove)
                 .map((doc) => ({ id: doc.id, ...doc.data() }));
             setDoc(fetchedData);
+            console.log("Search complete");
         } catch (error) {
             console.error("Error fetching data:", error);
         }
@@ -35,7 +37,7 @@ const FriendSearch = () => {
                 <FaSearch className="search-icon"/>
                 <input
                     className="input"
-                    placeholder="Interest(Search in all caps and in 1 word...)"
+                    placeholder="Interest"
                     onChange={e => setSearch(e.target.value)}
                 />
                 <button className="search-button" onClick = {onClick}>

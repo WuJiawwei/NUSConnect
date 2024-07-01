@@ -28,7 +28,7 @@
         display: flex;
         flex-direction: row;
         .year-field {
-            background-color: mix(white, pink);
+            background-color: pink;
             height: 40px;
             width: 15%;
             justify-content: center;
@@ -52,7 +52,7 @@
         display: flex;
         flex-direction: row;
         .major-field {
-            background-color:mix(white, mix(white, purple));
+            background-color: mix(white, purple);
             height:40px;
             width: 15%;
             justify-content: center;
@@ -95,6 +95,30 @@
             align-items: center;
         }
     }
+    .hobby-data {
+        justify-content: left;
+        display: flex;
+        flex-direction: row;
+        .hobby-field {
+            background-color: lightsalmon;
+            height: 40px;
+            width: 15%;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .hobby-input {
+            background-color: whitesmoke;
+            height: 40px;
+            width: 85%;
+            border: 0.01px solid lavender;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
     .tagline-data {
         justify-content: left;
         display: flex;
@@ -119,7 +143,6 @@
             align-items: center;
         }
     }
-    .module,
     .preferences-data {
         justify-content: left;
         display: flex;
@@ -144,7 +167,30 @@
             align-items: center;
         }
     }
-
+    .module-data {
+        justify-content: left;
+        display: flex;
+        flex-direction: row;
+        .module-field {
+            background-color: lightgreen;
+            height: 40px;
+            width: 15%;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .module-input {
+            background-color: whitesmoke;
+            height: 40px;
+            width: 85%;
+            border: 0.01px solid lavender;
+            justify-content: center;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
     .edit-button {
         position: absolute;
         right: 20px;

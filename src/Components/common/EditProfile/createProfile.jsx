@@ -12,6 +12,7 @@ import {toast} from "react-toastify";
 import {firestore} from "../../../firebaseConfig.js"
 import {doc, updateDoc} from "firebase/firestore"
 import {useNavigate} from "react-router-dom";
+import { FaFaceSmile} from "react-icons/fa6";
 
 const CreateProfile = () => {
 
@@ -55,6 +56,7 @@ const CreateProfile = () => {
         if (editInputs.tagline.length === 0) {
             toast.error("Please enter a valid tagline");
         }
+        console.log(editInputs)
         try {
             const id = account.userID
             const docRef = await doc(firestore, "users", id)
@@ -107,17 +109,33 @@ const CreateProfile = () => {
     }
 
     const handleClickForBefriending = () => {
-        setWantsToBefriend(!wantsToBefriend)
-        editInputs["wantsToBefriend"] = wantsToBefriend;
+        if (wantsToBefriend) {
+            setWantsToBefriend(false);
+            editInputs["wantsToBefriend"] = false;
+        } else {
+            setWantsToBefriend(true);
+            editInputs["wantsToBefriend"] = true;
+        }
     }
 
     const handleClickForTutoring = () => {
-        setWantsToTutor(!wantsToTutor);
-        editInputs["wantsToTutor"] = wantsToTutor;
+        if (wantsToTutor) {
+            setWantsToTutor(false);
+            editInputs["wantsToTutor"] = false;
+        } else {
+            setWantsToTutor(true);
+            editInputs["wantsToTutor"] = true;
+        }
     }
 
     return (
         <div className='card'>
+            <div className="instruction-bar">
+                <div className="instruction">
+                    Let's help you get started by helping you create your profile!
+                </div>
+                <div className="instruction-icon"><FaFaceSmile/></div>
+            </div>
 
             <div className='input'>
                 <input
@@ -268,7 +286,7 @@ const CreateProfile = () => {
                 <div>If you want to become a volunteer tutor, tell us which module you would like to tutor:</div>
                 <input
                     className="each"
-                    placeholder='Module Code'
+                    placeholder='(Optional)Module Code'
                     onChange={setModuleCodeAfterProcessing}
                 />
             </div>
