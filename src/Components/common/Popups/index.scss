@@ -72,6 +72,24 @@
   }
 }
 
+.logout-button {
+  width: 200px;
+  height: 40px;
+  cursor: pointer;
+  background-color: rgba(206, 235, 212, 0.989);
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  font-family: system-ui;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 18px;
+  margin-top: 20px;
+  &:active {
+    background-color: #6aaf5e;
+  }
+}
+
 .chat-button {
   width: 100px;
   height: 40px;

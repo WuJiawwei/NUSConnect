@@ -10,8 +10,11 @@ import { RiProfileFill } from 'react-icons/ri'
 import user from "../../../assets/user.png"
 import { useNavigate } from 'react-router-dom'
 import PowerOff from "../Popups/PowerOff.jsx"
+import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
 
 export default function Topbar() {
+    const [currentUser, setCurrentUser] = useState(null);
+    getCurrentUser(setCurrentUser)
   let navigate = useNavigate()
     const [isOn, setIsOn] = useState(false)
   const goToRoute = (route) => {
@@ -47,7 +50,8 @@ export default function Topbar() {
           <button className="profile-button"
                   onClick={() => goToRoute("/profile")}
           >
-              <img src={user} width={40}/>
+              {currentUser === null ? <img src={user} width={40}/>
+                  : <img src = {currentUser.avatar} width={40}/>}
           </button>
 
       </div>

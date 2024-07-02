@@ -8,7 +8,7 @@ const PowerOff = ({onClose}) => {
             <div>
                 Are you sure you want to log out?
                 <div className="welcome-container">
-                    <button className="select-choice-button">Logout</button>
+                    <button className="logout-button">Logout</button>
                 </div>
             </div>
         </div>
