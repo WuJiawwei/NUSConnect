@@ -29,6 +29,7 @@ const CreateProfile = () => {
     }
 
     const handleSubmit = async () => {
+        editInputs["contacts"] = []
         let hasAvatarBeenSelected = false;
         for (let i = 0; i < selected.length; i++) {
             hasAvatarBeenSelected = hasAvatarBeenSelected || selected[i];

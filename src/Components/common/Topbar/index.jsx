@@ -2,7 +2,7 @@ import React from 'react'
 import {useState} from "react";
 import "./index.scss"
 import projectLogo from "../../../assets/projectLogo.png"
-import { FaHome, FaUsers, FaBriefcase, FaSearch, FaPowerOff} from "react-icons/fa"
+import { FaHome, FaUsers, FaBriefcase, FaSearch, FaPowerOff, FaComments} from "react-icons/fa"
 import { MdMessage} from "react-icons/md"
 import { BiSolidBellRing} from "react-icons/bi"
 import { RiTimerFill } from 'react-icons/ri'
@@ -38,6 +38,7 @@ export default function Topbar() {
           <RiTimerFill size={30} className="react-icon"/>
           <MdMessage size={30} className="react-icon"/>
           <BiSolidBellRing size={30} className="react-icon"/>
+            <FaComments size={30} className="react-icon"/>
           <FaPowerOff
               size={30}
               className="react-icon"
