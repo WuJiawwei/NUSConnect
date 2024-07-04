@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { getFirestore, getDoc, doc } from 'firebase/firestore';
+import {getFirestore, getDoc, doc, updateDoc} from 'firebase/firestore';
 import "./index.scss"
 import {FaComment} from "react-icons/fa";
+import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
 
 const TutorProfileModal = ({ userId, onClose }) => {
     const [acc, setAcc] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [currUser, setCurrUser] = useState(null);
+    getCurrentUser(setCurrUser)
 
     useEffect(() => {
         const db = getFirestore();
@@ -26,6 +29,35 @@ const TutorProfileModal = ({ userId, onClose }) => {
 
         fetchData();
     }, [userId]);
+
+    const startChat = async () => {
+        if (currUser !== null) {
+            const currContacts = currUser.contacts
+            if (hasContact(currContacts, userId)) {
+
+            } else {
+                currContacts.push(userId);
+                try {
+                    const db = getFirestore();
+                    const docRef = doc(db, "users", currUser.userID);
+                    await updateDoc(docRef, {contacts : currContacts});
+                } catch (err) {
+                    console.log("No such user  ")
+                }
+            }
+        } else {
+            console.log("You do not have an account")
+        }
+    }
+
+    const hasContact = (currContacts, id) => {
+        for (let i = 0; i < currContacts.length; i++) {
+            if (currContacts[i] === id) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     if (loading) {
         return <div>Loading...</div>;
@@ -54,7 +86,10 @@ const TutorProfileModal = ({ userId, onClose }) => {
                         <button className="year-field-button">Year</button>
                         <button className="tutor-input-button">{year}</button>
                     </div>
-                    <button className="chat-button">
+                    <button
+                        className="chat-button"
+                        onClick={startChat}
+                    >
                         <div className="chat-button-design">
                             <div>Chat</div>
                             <FaComment/>

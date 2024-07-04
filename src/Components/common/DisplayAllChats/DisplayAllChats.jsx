@@ -19,10 +19,13 @@ const DisplayAllChats = () => {
                     <div className="chats-container">
                         {currUser.contacts.length === 0 ?
                         <div className="no-contacts-text">You do not have any contacts.</div> :
-                        <div>{currUser.contacts.map(c => <div key={c}><ChatBar id={c}/></div>)}</div>}
+                        <div>{currUser.contacts
+                            .map(c => <div key={c}><ChatBar id={c}/></div>)}</div>}
                     </div>}
             </div>
         </div>)
+    } else {
+        return <div>You don't have an account</div>
     }
 }
 

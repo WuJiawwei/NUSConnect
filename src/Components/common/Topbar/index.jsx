@@ -55,7 +55,7 @@ export default function Topbar() {
           <button className="profile-button"
                   onClick={() => goToRoute("/profile")}
           >
-              {currentUser === null ? <img src={user} width={40}/>
+              {currentUser === null || currentUser === undefined ? <img src={user} width={40}/>
                   : <img src = {currentUser.avatar} width={40}/>}
           </button>
 

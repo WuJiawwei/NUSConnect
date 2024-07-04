@@ -43,6 +43,21 @@
     left: 225px;
   }
   .contact-chat-button {
-
+    background-color: mix(white, skyblue);
+    outline: none;
+    border: none;
+    height: 40px;
+    width: 80px;
+    color: white;
+    font-size: 17px;
+    font-family: system-ui;
+    font-weight: 500;
+    border-radius: 10px;
+    object-fit: cover;
+    position: absolute;
+    right: 10%;
+    &:active {
+      background-color: mix(white, mix(white, purple));
+    }
   }
 }

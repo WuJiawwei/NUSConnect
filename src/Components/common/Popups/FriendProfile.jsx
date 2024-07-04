@@ -9,6 +9,8 @@ const FriendProfileModal = ({ userId, onClose }) => {
     const [curr, setCurr] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    getCurrentUser(setCurr);
+
     useEffect(() => {
         const db = getFirestore();
         const docRef = doc(db, 'users', userId);
@@ -36,7 +38,6 @@ const FriendProfileModal = ({ userId, onClose }) => {
     const { avatar, name, hobby, tagline, year } = acc;
 
     const startChat = async () => {
-        getCurrentUser(setCurr);
         if (curr !== null) {
             const currContacts = curr.contacts
             if (alreadyContains(currContacts, userId)) {
