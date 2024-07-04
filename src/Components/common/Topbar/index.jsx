@@ -38,7 +38,11 @@ export default function Topbar() {
           <RiTimerFill size={30} className="react-icon"/>
           <MdMessage size={30} className="react-icon"/>
           <BiSolidBellRing size={30} className="react-icon"/>
-            <FaComments size={30} className="react-icon"/>
+            <FaComments
+                size={30}
+                className="react-icon"
+                onClick = {() => goToRoute("/allchats")}
+            />
           <FaPowerOff
               size={30}
               className="react-icon"

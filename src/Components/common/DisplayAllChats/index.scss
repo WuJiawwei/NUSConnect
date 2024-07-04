@@ -1,0 +1,48 @@
+.chats-container {
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .no-contacts-text {
+  }
+  .chat-bar {
+    background-color: mix(white, mix(white, yellow));
+    margin-top: 15px;
+    margin-bottom: 15px;
+    height: 70px;
+    width: 1400px;
+    border-radius: 15px;
+    font-family: system-ui;
+    font-weight: 500;
+    color: mix(darken(blue, 100),blue);
+    justify-content: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .contact-avatar {
+    left: 10%;
+    margin-top: 10px;
+  }
+  .trash-contact {
+    font-size: 20px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    margin-left: 3%;
+    margin-right: 3%;
+    &:active {
+      color: grey;
+    }
+  }
+  .contact-name {
+    margin-left: 1%;
+    margin-right: 20px;
+    color: black;
+    left: 225px;
+  }
+  .contact-chat-button {
+
+  }
+}
