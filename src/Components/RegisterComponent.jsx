@@ -14,12 +14,11 @@ export default function RegisterComponent() {
   const register = async () => {
     try {
       let res = await RegisterAPI(credentials.email, credentials.password)
-      toast.success("Account successfully created!")
       postUserData({
         name: credentials.name, 
         email: credentials.email
       })
-      navigate("/welcome")
+      navigate("/createprofile")
       localStorage.setItem("userEmail", res.user.email)
     } catch (err) {
       console.log(err)

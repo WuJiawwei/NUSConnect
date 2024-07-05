@@ -2,14 +2,13 @@ import React from 'react'
 import {useState} from "react";
 import "./index.scss"
 import projectLogo from "../../../assets/projectLogo.png"
-import { FaHome, FaUsers, FaBriefcase, FaSearch, FaPowerOff, FaComments} from "react-icons/fa"
+import { FaHome, FaUsers, FaBriefcase, FaSearch, FaComments} from "react-icons/fa"
 import { MdMessage} from "react-icons/md"
 import { BiSolidBellRing} from "react-icons/bi"
 import { RiTimerFill } from 'react-icons/ri'
 import { RiProfileFill } from 'react-icons/ri'
 import user from "../../../assets/user.png"
 import { useNavigate } from 'react-router-dom'
-import PowerOff from "../Popups/PowerOff.jsx"
 import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
 
 export default function Topbar() {
@@ -43,14 +42,7 @@ export default function Topbar() {
                 className="react-icon"
                 onClick = {() => goToRoute("/allchats")}
             />
-          <FaPowerOff
-              size={30}
-              className="react-icon"
-              onClick = {() => setIsOn(!isOn)}
-          />
         </div>
-
-          {isOn ? <PowerOff onClose={() => setIsOn(!isOn)}/> : <div></div>}
 
           <button className="profile-button"
                   onClick={() => goToRoute("/profile")}

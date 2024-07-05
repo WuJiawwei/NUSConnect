@@ -7,7 +7,6 @@ import RedirectSearch from "../Pages/RedirectSearch.jsx"
 import SearchTutor from "../Pages/SearchTutor.jsx";
 import SearchFriend from "../Pages/SearchFriend.jsx";
 import Welcome from "../Pages/Welcome.jsx";
-import PowerOff from "../Components/common/Popups/PowerOff.jsx";
 import CreateProfile from "../Components/common/EditProfile/createProfile.jsx";
 import DisplayAllChats from "../Components/common/DisplayAllChats/DisplayAllChats.jsx";
 
@@ -43,10 +42,6 @@ export const router = createBrowserRouter([
     {
         path:"/welcome",
         element: <Welcome />
-    },
-    {
-        path:"/logoff",
-        element: <PowerOff />
     },
     {
         path:"/createprofile",

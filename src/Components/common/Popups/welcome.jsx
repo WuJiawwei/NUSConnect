@@ -9,9 +9,8 @@ const WelcomePopup = () => {
         <div className="popup">
             <div className="welcome-container">
                 <img src={welcome} width={400}/>
-                <div>Wait! Before getting started, we need you to create a profile.</div>
                 <button className="continue-button"
-                onClick={() => navigate("/createprofile")}>Continue</button>
+                onClick={() => navigate("/home")}>Join</button>
             </div>
         </div>
     </div>)

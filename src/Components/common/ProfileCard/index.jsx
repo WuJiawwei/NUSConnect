@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import "./index.scss"
 import PostCard from '../PostCard'
 import { getStatus } from '../../../api/FirestoreAPI'
-import {FaPencilAlt, FaSkull, FaExclamationTriangle} from 'react-icons/fa'
+import {FaPencilAlt, FaSkull, FaExclamationTriangle, FaPowerOff} from 'react-icons/fa'
 import DeleteMyAccount from "../Popups/deleteMyAccount.jsx";
 
 export default function ProfileCard({ onEdit, currentUser }) {
@@ -62,6 +62,12 @@ export default function ProfileCard({ onEdit, currentUser }) {
                 {currentUser["wantsToTutor"] && currentUser["Module Code"].length !== 0?
                     <div>{currentUser["Module Code"]}</div> : <div>None</div>}
               </div>
+            </div>
+            <div className="logout-zone">
+              <button className="logout-button">
+                <div className="logout-button-img"><FaPowerOff/></div>
+                <div className="logout-button-text">Logout</div>
+              </button>
             </div>
             <div className="danger-zone">
               <div className="danger-text">

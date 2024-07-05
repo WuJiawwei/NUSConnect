@@ -62,7 +62,8 @@ const CreateProfile = () => {
             const id = account.userID
             const docRef = await doc(firestore, "users", id)
             await updateDoc(docRef, editInputs);
-            nav("/home")
+            nav("/welcome")
+            toast.success("Account created successfully.")
         } catch (err) {
             console.err(err);
         }

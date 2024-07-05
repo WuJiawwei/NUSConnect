@@ -204,6 +204,39 @@
         align-items: center;
         flex-direction: row;
     }
+    .logout-zone {
+        padding-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .logout-button {
+            display: flex;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            gap: 2px;
+            height: 40px;
+            outline: none;
+            border: none;
+            background-color: white;
+            border-radius: 20px;
+            color: black;
+            font-size: 17px;
+            &:active{
+                background-color: black;
+                color: white;
+            }
+            .logout-button-text {
+            }
+            .logout-button-img {
+            }
+        }
+    }
     .danger-zone {
         padding-top: 20px;
         display: flex;
