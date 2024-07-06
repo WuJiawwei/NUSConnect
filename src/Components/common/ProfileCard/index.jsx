@@ -15,6 +15,7 @@ export default function ProfileCard({ onEdit, currentUser }) {
   const logout = () => {
     // todo: implement logout
   }
+
   if (currentUser !== null) {
     return (
         <>

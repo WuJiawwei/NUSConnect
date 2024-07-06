@@ -65,7 +65,7 @@ const Chat = () => {
             <div className="text-messages"></div>
             <div className="send-message-bar">
                 <img className="from-user-avatar" src={currUser.avatar} width={50}/>
-                <input className="input-message-bar"/>
+                <input className="input-message-bar" placeholder="Your message..." />
                 <button className="send-message-button"><FaPaperPlane/></button>
                 <button className="file-upload-button"><FaFileUpload/></button>
             </div>
