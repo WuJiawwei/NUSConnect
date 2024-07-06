@@ -28,7 +28,7 @@ export default function RegisterComponent() {
 
   const googleSignIn = () => {
     let res = GoogleSignInAPI()
-    navigate("/welcome")
+    navigate("/createprofile")
   }
   return (
     <div className="login">
