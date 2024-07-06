@@ -3,12 +3,15 @@ import {getFirestore, getDoc, doc, updateDoc} from 'firebase/firestore';
 import "./index.scss"
 import {FaComment} from "react-icons/fa";
 import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
+import {useNavigate} from "react-router-dom";
 
 const TutorProfileModal = ({ userId, onClose }) => {
     const [acc, setAcc] = useState(null);
     const [loading, setLoading] = useState(true);
     const [currUser, setCurrUser] = useState(null);
     getCurrentUser(setCurrUser)
+
+    const nav = useNavigate()
 
     useEffect(() => {
         const db = getFirestore();
@@ -32,27 +35,34 @@ const TutorProfileModal = ({ userId, onClose }) => {
 
     const startChat = async () => {
         if (currUser !== null) {
+            const db = getFirestore();
             const currContacts = currUser.contacts
-            if (hasContact(currContacts, userId)) {
-
-            } else {
+            const docRef = doc(db, "users", currUser.userID);
+            if (!alreadyContains(currContacts, userId)) {
                 currContacts.push(userId);
                 try {
-                    const db = getFirestore();
-                    const docRef = doc(db, "users", currUser.userID);
                     await updateDoc(docRef, {contacts : currContacts});
+                    await updateDoc(docRef, {currentlyTexting : userId});
+                    nav("/chat")
                 } catch (err) {
-                    console.log("No such user  ")
+                    console.error(err);
+                }
+            } else {
+                try {
+                    await updateDoc(docRef, {currentlyTexting : userId})
+                    nav("/chat")
+                } catch (err) {
+                    console.log(err)
                 }
             }
         } else {
-            console.log("You do not have an account")
+            console.log("You don't have an account")
         }
     }
 
-    const hasContact = (currContacts, id) => {
+    const alreadyContains = (currContacts, lookFor) => {
         for (let i = 0; i < currContacts.length; i++) {
-            if (currContacts[i] === id) {
+            if (currContacts[i] === lookFor) {
                 return true;
             }
         }

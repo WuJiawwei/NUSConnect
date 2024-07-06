@@ -1,0 +1,69 @@
+.top-chat-bar {
+  margin-top: 10px;
+  height: 70px;
+  border-radius: 10px;
+  background-color: mix(white, skyblue);
+  justify-content: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.go-back-button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  margin-left: 1%;
+  margin-right: 2%;
+  color: white;
+  &:active {
+    color: lightgrey;
+  }
+}
+
+.to-user-avatar {
+
+}
+
+.to-user-name {
+  margin-left: 1%;
+}
+
+.text-messages {
+
+}
+
+.send-message-bar {
+  background-color: pink;
+  height: 70px;
+  border-radius: 10px;
+  justify-content: left;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .from-user-avatar {
+    margin-left: 1%;
+    margin-right: 1%
+  }
+  .input-message-bar {
+    height: 40px;
+    width: 85%;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+  }
+  .send-message-button {
+    margin-left: 0.5%;
+    border-radius: 100%;
+    font-size: 40px;
+    background-color: pink;
+    color: mediumpurple;
+  }
+  .file-upload-button {
+    margin-left: 1%;
+    border-radius: 100%;
+    font-size: 40px;
+    background-color: pink;
+    color: mediumpurple;
+  }
+}

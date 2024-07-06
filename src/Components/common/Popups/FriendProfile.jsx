@@ -3,6 +3,7 @@ import { getFirestore, getDoc, doc, updateDoc } from 'firebase/firestore';
 import "./index.scss"
 import {FaComment} from "react-icons/fa";
 import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
+import {useNavigate} from "react-router-dom";
 
 const FriendProfileModal = ({ userId, onClose }) => {
     const [acc, setAcc] = useState(null);
@@ -10,6 +11,8 @@ const FriendProfileModal = ({ userId, onClose }) => {
     const [loading, setLoading] = useState(true);
 
     getCurrentUser(setCurr);
+
+    let nav = useNavigate()
 
     useEffect(() => {
         const db = getFirestore();
@@ -39,20 +42,26 @@ const FriendProfileModal = ({ userId, onClose }) => {
 
     const startChat = async () => {
         if (curr !== null) {
+            const db = getFirestore();
             const currContacts = curr.contacts
-            if (alreadyContains(currContacts, userId)) {
-
-            } else {
+            const docRef = doc(db, "users", curr.userID);
+            if (!alreadyContains(currContacts, userId)) {
                 currContacts.push(userId);
                 try {
-                    const db = getFirestore();
-                    const docRef = doc(db, "users", curr.userID);
                     await updateDoc(docRef, {contacts : currContacts});
+                    await updateDoc(docRef, {currentlyTexting : userId});
+                    nav("/chat")
                 } catch (err) {
                     console.error(err);
                 }
+            } else {
+                try {
+                    await updateDoc(docRef, {currentlyTexting : userId})
+                    nav("/chat")
+                } catch (err) {
+                    console.log(err)
+                }
             }
-            console.log(curr);
         } else {
             console.log("You don't have an account")
         }
@@ -68,33 +77,36 @@ const FriendProfileModal = ({ userId, onClose }) => {
     }
 
     return (
-        <div className="overlay">
-            <div className="popup">
-                <button className="close-button" onClick={onClose}>X</button>
-                <div>
-                    <div className="credentials">
-                        <button className="avatar-button"><img src={avatar} width={80}/></button>
-                        <button className="name-button">{name}</button>
-                    </div>
+        <div>
+            <div className="overlay">
+                <div className="popup">
+                    <button className="close-button" onClick={onClose}>X</button>
                     <div>
-                        <button className="hobby-field-button">Hobby</button>
-                        <button className="friend-input-button">{hobby}</button>
-                    </div>
-                    <div>
-                        <button className="tagline-field-button">Tagline</button>
-                        <button className="friend-input-button">{tagline}</button>
-                    </div>
-                    <div>
-                        <button className="year-field-button">Year</button>
-                        <button className="friend-input-button">{year}</button>
-                    </div>
-                    <button className="chat-button"
-                    onClick={startChat}>
-                        <div className="chat-button-design">
-                            <div>Chat</div>
-                            <FaComment/>
+                        <div className="credentials">
+                            <button className="avatar-button"><img src={avatar} width={80}/></button>
+                            <button className="name-button">{name}</button>
                         </div>
-                    </button>
+                        <div>
+                            <button className="hobby-field-button">Hobby</button>
+                            <button className="friend-input-button">{hobby}</button>
+                        </div>
+                        <div>
+                            <button className="tagline-field-button">Tagline</button>
+                            <button className="friend-input-button">{tagline}</button>
+                        </div>
+                        <div>
+                            <button className="year-field-button">Year</button>
+                            <button className="friend-input-button">{year}</button>
+                        </div>
+                        <button
+                            className="chat-button"
+                            onClick={startChat}>
+                            <div className="chat-button-design">
+                                <div>Chat</div>
+                                <FaComment/>
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

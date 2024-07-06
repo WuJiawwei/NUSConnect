@@ -11,6 +11,10 @@ export default function ProfileCard({ onEdit, currentUser }) {
   useMemo(() => {
     getStatus(setAllStatus)
   }, [])
+
+  const logout = () => {
+    // todo: implement logout
+  }
   if (currentUser !== null) {
     return (
         <>
@@ -64,7 +68,7 @@ export default function ProfileCard({ onEdit, currentUser }) {
               </div>
             </div>
             <div className="logout-zone">
-              <button className="logout-button">
+              <button className="logout-button" onClick={logout}>
                 <div className="logout-button-img"><FaPowerOff/></div>
                 <div className="logout-button-text">Logout</div>
               </button>

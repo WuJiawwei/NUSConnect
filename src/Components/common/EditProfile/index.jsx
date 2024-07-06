@@ -10,6 +10,11 @@ import user6 from "../../../assets/user6.svg"
 
 export default function EditProfile({ currentUser, onEdit }) {
 
+    const handleEditProfile = async () => {
+        /* todo: implement editProfile using firebase apis => if confused,
+        go to createProfile / google */
+    }
+
     if (currentUser !== null) {
         return (<div>
             <div className='input'>
@@ -134,8 +139,9 @@ export default function EditProfile({ currentUser, onEdit }) {
 
             <button
                 className='save'
+                onClick={handleEditProfile}
             >
-                Submit
+                Save
             </button>
         </div>)
     }

@@ -9,6 +9,7 @@ import SearchFriend from "../Pages/SearchFriend.jsx";
 import Welcome from "../Pages/Welcome.jsx";
 import CreateProfile from "../Components/common/EditProfile/createProfile.jsx";
 import DisplayAllChats from "../Components/common/DisplayAllChats/DisplayAllChats.jsx";
+import Chat from "../Components/common/Chat/chat.jsx"
 
 export const router = createBrowserRouter([
     {
@@ -50,5 +51,9 @@ export const router = createBrowserRouter([
     {
         path:"/allchats",
         element: <DisplayAllChats />
+    },
+    {
+        path: "/chat",
+        element: <Chat/>
     }
   ]);
