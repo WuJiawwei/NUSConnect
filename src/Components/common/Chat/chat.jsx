@@ -43,6 +43,13 @@ const Chat = () => {
         }
     }
 
+    const sendMessage = async () => {
+        doesToUserHaveContact()
+    }
+
+    const doesToUserHaveContact = async () => {
+    }
+
     if (currUser !== null && toUser !== null) {
         return <div>
             <Topbar/>
@@ -62,11 +69,17 @@ const Chat = () => {
                     {toUser.name}
                 </div>
             </div>
-            <div className="text-messages"></div>
+            <section className="message-container">
+            </section>
             <div className="send-message-bar">
                 <img className="from-user-avatar" src={currUser.avatar} width={50}/>
                 <input className="input-message-bar" placeholder="Your message..." />
-                <button className="send-message-button"><FaPaperPlane/></button>
+                <button
+                    className="send-message-button"
+                    onClick={sendMessage}
+                >
+                    <FaPaperPlane/>
+                </button>
                 <button className="file-upload-button"><FaFileUpload/></button>
             </div>
         </div>
