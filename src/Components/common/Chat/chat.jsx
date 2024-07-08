@@ -4,7 +4,7 @@ import {useState} from "react";
 import {FaChevronLeft, FaFileUpload, FaPaperPlane} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import "./index.scss"
-import {getFirestore, doc, updateDoc, getDoc} from "firebase/firestore";
+import {getFirestore, doc, updateDoc, getDoc, arrayUnion} from "firebase/firestore";
 
 const Chat = () => {
     const [currUser, setCurrUser] = useState(null)
@@ -44,12 +44,11 @@ const Chat = () => {
 
     const sendMessage = async () => {
         if (toUser !== null && currUser !== null) {
-            const toUserId = toUser.userID;
+            const toUserId = currUser.currentlyTexting;
             if (!toUserHasContact()) {
-                const newContacts = toUser.contacts.push(currUser.userID)
                 try {
                     const docRef = doc(db, "users", toUserId)
-                    await updateDoc(docRef, {contacts : newContacts})
+                    await updateDoc(docRef, {contacts : arrayUnion(currUser.userID)})
                 } catch (err) {
                     console.log(err)
                 }
@@ -58,7 +57,12 @@ const Chat = () => {
     }
 
     const toUserHasContact = () => {
-        return toUser.contacts.filter(c => c === currUser.userID).length > 0;
+        for (let i = 0; i < toUser.contacts.length; i++) {
+            if (toUser.contacts[i] === currUser.userID) {
+                return true;
+            }
+        }
+        return false;
     }
 
     if (currUser !== null && toUser !== null) {
