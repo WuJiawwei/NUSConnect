@@ -59,6 +59,9 @@
     font-size: 40px;
     color: mediumpurple;
     background-color: pink;
+    &:active {
+      color: purple;
+    }
   }
   .file-upload-button {
     margin-left: 0.5%;

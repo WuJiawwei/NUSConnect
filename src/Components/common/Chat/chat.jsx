@@ -25,7 +25,6 @@ const Chat = () => {
             }
         }
     }
-
     getToUserAccountDetails()
 
     const handleBackNav = async () => {
@@ -44,10 +43,22 @@ const Chat = () => {
     }
 
     const sendMessage = async () => {
-        doesToUserHaveContact()
+        if (toUser !== null && currUser !== null) {
+            const toUserId = toUser.userID;
+            if (!toUserHasContact()) {
+                const newContacts = toUser.contacts.push(currUser.userID)
+                try {
+                    const docRef = doc(db, "users", toUserId)
+                    await updateDoc(docRef, {contacts : newContacts})
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+        }
     }
 
-    const doesToUserHaveContact = async () => {
+    const toUserHasContact = () => {
+        return toUser.contacts.filter(c => c === currUser.userID).length > 0;
     }
 
     if (currUser !== null && toUser !== null) {

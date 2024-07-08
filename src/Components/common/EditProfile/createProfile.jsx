@@ -65,7 +65,7 @@ const CreateProfile = () => {
             nav("/welcome")
             toast.success("Account created successfully.")
         } catch (err) {
-            console.err(err);
+            console.log(err);
         }
     }
 
