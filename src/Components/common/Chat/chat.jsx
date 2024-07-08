@@ -45,24 +45,14 @@ const Chat = () => {
     const sendMessage = async () => {
         if (toUser !== null && currUser !== null) {
             const toUserId = currUser.currentlyTexting;
-            if (!toUserHasContact()) {
-                try {
-                    const docRef = doc(db, "users", toUserId)
-                    await updateDoc(docRef, {contacts : arrayUnion(currUser.userID)})
-                } catch (err) {
-                    console.log(err)
-                }
+            try {
+                const docRef = doc(db, "users", toUserId)
+                await updateDoc(docRef, {contacts : arrayUnion(currUser.userID)})
+                // does not add the contact if it already exists
+            } catch (err) {
+                console.log(err)
             }
         }
-    }
-
-    const toUserHasContact = () => {
-        for (let i = 0; i < toUser.contacts.length; i++) {
-            if (toUser.contacts[i] === currUser.userID) {
-                return true;
-            }
-        }
-        return false;
     }
 
     if (currUser !== null && toUser !== null) {
