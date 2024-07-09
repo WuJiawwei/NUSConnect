@@ -110,6 +110,12 @@ const CreateProfile = () => {
         editInputs["Module Code"] = processedValue;
     }
 
+    const setNameAfterProcessing = e => {
+        const rawValue = e.target.value;
+        const processedValue = rawValue.toUpperCase();
+        editInputs["name"] = processedValue;
+    }
+
     const handleClickForBefriending = () => {
         if (wantsToBefriend) {
             setWantsToBefriend(false);
@@ -144,7 +150,7 @@ const CreateProfile = () => {
                     className="each"
                     placeholder='Name'
                     name="name"
-                    onChange={getInput}
+                    onChange={setNameAfterProcessing}
                 />
                 <div>Pick your avatar:
                     <div>

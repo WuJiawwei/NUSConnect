@@ -63,7 +63,7 @@ const FriendSearch = () => {
                             View Profile
                         </button>
                     </div>
-                )) : <div>Oh man, maybe you should try searching with another interest :(</div>}
+                )) : <div>Oh man, maybe you should look for something else :(</div>}
 
             {selectedUserId !== null ?
                 <FriendProfileModal

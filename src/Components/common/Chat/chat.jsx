@@ -57,7 +57,6 @@ const Chat = () => {
 
     if (currUser !== null && toUser !== null) {
         return <div>
-            <Topbar/>
             <div
                 className="top-chat-bar"
             >
