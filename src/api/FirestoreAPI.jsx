@@ -45,6 +45,7 @@ export const postUserData = (obj) => {
     })
 }
 
+// has many usages
 export const getCurrentUser = (setCurrentUser) => {
   let currEmail = localStorage.getItem("userEmail");
   onSnapshot(userRef, (res) => {
