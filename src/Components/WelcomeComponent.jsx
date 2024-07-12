@@ -1,11 +1,11 @@
 import WelcomePopup from "./common/Popups/welcome.jsx";
-import HomeLayout from "../layouts/HomeLayout.jsx";
+import Topbar from "./common/Topbar/index.jsx";
 
 const WelcomeComponent = () => {
-    return (<div>
-        <HomeLayout/>
+    return <div>
+        <Topbar/>
         <WelcomePopup/>
-    </div>)
+    </div>
 }
 
 export default WelcomeComponent;
