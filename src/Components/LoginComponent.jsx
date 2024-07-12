@@ -21,10 +21,10 @@ export default function LoginComponent() {
     }
   }
 
-  const googleSignIn = () => {
-    let res = GoogleSignInAPI()
-    navigate("/home")
-  }
+  // const googleSignIn = () => {
+  //   let res = GoogleSignInAPI()
+  //   navigate("/home")
+  // }
   return (
     <div className="login">
       <img src={logo} width={300} />
@@ -53,12 +53,12 @@ export default function LoginComponent() {
         Sign in
       </button>
       </div>
-      <hr class="line" data-content="or" />
+      {/* <hr class="line" data-content="or" /> */}
       <div className="google-btn-wrapper">
-        <GoogleButton
+        {/* <GoogleButton
           className="google-btn"
           onClick={googleSignIn}
-        />
+        /> */}
 
         <p className="signup-wrapper">
           New to NUSConnect?{" "} 

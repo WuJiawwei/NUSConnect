@@ -26,10 +26,10 @@ export default function RegisterComponent() {
     }
   }
 
-  const googleSignIn = () => {
-    let res = GoogleSignInAPI()
-    navigate("/createprofile")
-  }
+  // const googleSignIn = () => {
+  //   let res = GoogleSignInAPI()
+  //   navigate("/createprofile")
+  // }
   return (
     <div className="login">
       <img src={logo} width={300} />
@@ -67,12 +67,12 @@ export default function RegisterComponent() {
         Agree & Join
       </button>
       </div>
-      <hr class="line" data-content="or" />
+      {/* <hr class="line" data-content="or" /> */}
       <div className="google-btn-wrapper">
-        <GoogleButton
+        {/* <GoogleButton
           className="google-btn"
           onClick={googleSignIn}
-        />
+        /> */}
 
         <p className="signup-wrapper">
           Already on NUSConnect?{" "} 
