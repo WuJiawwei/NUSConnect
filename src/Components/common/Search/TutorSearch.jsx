@@ -7,6 +7,7 @@ import { getCurrentUser } from "../../../api/FirestoreAPI.jsx";
 import TutorProfileModal from "../Popups/TutorProfile.jsx";
 
 const TutorSearch = () => {
+    // todo: try to implement this using props
     const [search, setSearch] = useState('');
     const [doc, setDoc] = useState([]);
     const [currentUser, setCurrentUser] = useState(null);
