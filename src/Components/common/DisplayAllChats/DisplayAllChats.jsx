@@ -6,12 +6,12 @@ import "./index.scss"
 import {FaRocket, FaSearch, FaTimes} from "react-icons/fa";
 import {doc, getDoc, getFirestore} from "firebase/firestore";
 
-const DisplayAllChats = () => {
-    const [currUser, setCurrUser] = useState(null)
+const DisplayAllChats = ({currUserId}) => {
     const [onSearch, setOnSearch] = useState(false)
     const [search, setSearch] = useState("")
     const [filteredResults, setFilteredResults] = useState([])
-    getCurrentUser(setCurrUser)
+    const [currUser, setCurrUser] = useState(null);
+    getCurrentUser(setCurrUser) // todo : think about a way to not call this method
 
     const setSearchAfterProcessing = e => {
         const rawVal = e.target.value;
@@ -20,8 +20,8 @@ const DisplayAllChats = () => {
     }
 
     const launchSearch = async () => {
-        console.log(currUser.contacts.filter(startsWithSearchWord))
-        setFilteredResults(currUser.contacts.filter(startsWithSearchWord))
+        console.log(currUser.filter(startsWithSearchWord))
+        setFilteredResults(currUser.filter(startsWithSearchWord))
         setOnSearch(true)
     }
 
@@ -49,7 +49,6 @@ const DisplayAllChats = () => {
 
     if (currUser !== null) {
         return (<div>
-            <Topbar/>
             <div className="search-container">
                 <div className="search-box">
                     <FaSearch className="search-icon"/>
