@@ -1,25 +1,22 @@
 import React from "react";
 import acctdeletion from "../../../assets/acctdeletion.gif"
 import {useState} from "react";
-import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
-import {getFirestore, doc, deleteDoc} from "firebase/firestore"
+import {getFirestore, doc, deleteDoc, collection} from "firebase/firestore"
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 
-const DeleteMyAccount = ({isOpen}) => {
+const DeleteMyAccount = ({isOpen, account}) => {
 
-    const [account, setAccount] = useState(null);
     const [input, setInput] = useState("");
     const navigate = useNavigate();
-    getCurrentUser(setAccount);
+    const {id, name } = account
 
     const handleClick = async () => {
         if (account !== null) {
             const db = getFirestore();
-            const id = account.userID
-            const name = account.name
+            const dbRef = collection(db, "users")
             if (input === name) {
-                const userDoc = doc(db, "users", id)
+                const userDoc = doc(dbRef, "users", id)
                 try {
                     await deleteDoc(userDoc)
                 } catch (error) {
@@ -37,7 +34,6 @@ const DeleteMyAccount = ({isOpen}) => {
     }
 
     if (account !== null) {
-        const name = account.name;
         return (<div className="overlay">
             <div className="popup">
                 <button className="close-button" onClick={isOpen}>X</button>

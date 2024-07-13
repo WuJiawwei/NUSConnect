@@ -1,4 +1,3 @@
-import Topbar from "../Topbar/index.jsx"
 import ChatBar from "./ChatBar.jsx"
 import {useState} from "react";
 import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
@@ -6,7 +5,7 @@ import "./index.scss"
 import {FaRocket, FaSearch, FaTimes} from "react-icons/fa";
 import {doc, getDoc, getFirestore} from "firebase/firestore";
 
-const DisplayAllChats = ({currUserId}) => {
+const DisplayAllChats = ({currentUser}) => {
     const [onSearch, setOnSearch] = useState(false)
     const [search, setSearch] = useState("")
     const [filteredResults, setFilteredResults] = useState([])

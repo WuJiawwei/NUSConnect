@@ -25,7 +25,6 @@ export default function PostStatus({currentUser}) {
     await setModalOpen(false)
     await setStatus("")
   }
-  console.log(getCurrentTimeStamp("LLL"))
 
   useMemo(() => {
     getStatus(setAllStatus)

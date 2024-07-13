@@ -5,9 +5,6 @@ import {useNavigate} from "react-router-dom";
 
 const SearchPopup = ({func, currUser}) => {
 
-    const [isFriendSearch, setIsFriendSearch] = useState(false);
-    let navigate = useNavigate();
-
     return (
         <div>
             <div className="overlay">
@@ -17,13 +14,11 @@ const SearchPopup = ({func, currUser}) => {
                     <div className="search-container">
                         <button
                             className="select-choice-button"
-                            onClick={() => navigate("/searchfriend")}
                         >
                             A friend
                         </button>
                         <button
                             className="select-choice-button"
-                            onClick={() => navigate("/searchtutor")}
                         >
                             A tutor
                         </button>
