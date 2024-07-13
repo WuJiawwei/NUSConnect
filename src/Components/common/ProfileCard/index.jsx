@@ -4,11 +4,13 @@ import PostCard from '../PostCard'
 import { getStatus} from '../../../api/FirestoreAPI'
 import {FaPencilAlt, FaSkull, FaExclamationTriangle, FaPowerOff} from 'react-icons/fa'
 import DeleteMyAccount from "../Popups/deleteMyAccount.jsx";
+import {useNavigate} from "react-router-dom";
+import {UserData} from "../../../UserData.js";
 
-export default function ProfileCard({ currentUser }) {
+export default function ProfileCard() {
   const [allStatuses, setAllStatus] = useState([])
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
-  const { name, avatar, year, major, email, hobby, tagline, wantsToTutor, wantsToBefriend, moduleCode, id } = currentUser;
+ const currentUser = UserData
 
   useMemo(() => {
     getStatus(setAllStatus)
@@ -18,46 +20,49 @@ export default function ProfileCard({ currentUser }) {
     // todo: implement logout
   }
 
+  let nav = useNavigate()
+  const editProfile = () => {
+    nav("/editprofile")
+  }
+
   if (currentUser !== null) {
     return (
         <>
           <div className='profile-card'>
             <div>
               <button
-                  className='edit-button'>
+                  className='edit-button'
+                  onClick = {editProfile}
+              >
                 <FaPencilAlt />
               </button>
             </div>
             <div className="name-and-profile">
-              <div><img className="profile-avatar" src={avatar} width={80} height={80}/></div>
-              <div><h3 className="name">{name}</h3></div>
+              <div><img className="profile-avatar" src={UserData.avatar} width={80} height={80}/></div>
+              <div><h3 className="name">{UserData.name}</h3></div>
             </div>
             <div className = "year-data">
               <div className="year-field">Year</div>
-              <div className="year-input">{year}</div>
+              <div className="year-input">{UserData.year}</div>
             </div>
             <div className="major-data">
               <div className="major-field">Major</div>
-              <div className="major-input">{major}</div>
-            </div>
-            <div className="email-data">
-              <div className="email-field">Email</div>
-              <div className="email-input">{email}</div>
+              <div className="major-input">{UserData.major}</div>
             </div>
             <div className="hobby-data">
               <div className="hobby-field">Hobby</div>
-              <div className="hobby-input">{hobby}</div>
+              <div className="hobby-input">{UserData.hobby}</div>
             </div>
             <div className="tagline-data">
               <div className="tagline-field">Tagline</div>
-              <div className="tagline-input">{tagline}</div>
+              <div className="tagline-input">{UserData.tagline}</div>
             </div>
             <div className="preferences-data">
               <div className="preference-field">Preferences</div>
               <div className="preference-input">
-                {wantsToBefriend && wantsToTutor ?
-                    <div>Open to befriending and tutoring</div> : wantsToBefriend ?
-                        <div>Open to befriending</div> : wantsToTutor?
+                {UserData.wantsToBefriend && UserData.wantsToTutor ?
+                    <div>Open to befriending and tutoring</div> : UserData.wantsToBefriend ?
+                        <div>Open to befriending</div> : UserData.wantsToTutor?
                             <div>Open to tutoring</div> : <div></div>
                 }
               </div>
@@ -65,7 +70,7 @@ export default function ProfileCard({ currentUser }) {
             <div className="module-data">
               <div className="module-field">Is a tutor for</div>
               <div className="module-input">
-                {wantsToTutor ? <div>{moduleCode}</div> : <div>None</div>}
+                {UserData.wantsToTutor ? <div>{UserData["Module Code"]}</div> : <div>None</div>}
               </div>
             </div>
             <div className="logout-zone">
@@ -105,7 +110,6 @@ export default function ProfileCard({ currentUser }) {
 
           {isDeleteOpen ? <DeleteMyAccount
               isOpen={() => setIsDeleteOpen(!isDeleteOpen)}
-              account = {{name : name, id : id}}
           /> : <div></div>}
 
         </>

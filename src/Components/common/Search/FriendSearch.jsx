@@ -3,22 +3,20 @@ import { FaRocket, FaSearch } from "react-icons/fa";
 import { useState} from "react";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { firestore } from "../../../firebaseConfig.js";
-import { getCurrentUser } from "../../../api/FirestoreAPI.jsx";
+import {UserData} from "../../../UserData.js";
 import FriendProfileModal from "../Popups/FriendProfile.jsx";
 
 const FriendSearch = () => {
     // todo: try to implement this using props
     const [search, setSearch] = useState('');
     const [doc, setDoc] = useState([]);
-    const [currentUser, setCurrentUser] = useState(null);
-    getCurrentUser(setCurrentUser)
     const [selectedUserId, setSelectedUserId] = useState(null);
 
     const onClick = async () => {
         try {
             const lookFor = search.replace(/-/g, '')
                                             .replace(/ /g, '').toUpperCase();
-            const remove = currentUser.userID;
+            const remove = UserData.userID;
             const db = collection(firestore, "users");
             const q1 = query(db, where("wantsToBefriend", "==", true))
             const q2 = query(q1, where("hobby", "==", lookFor), limit(10))

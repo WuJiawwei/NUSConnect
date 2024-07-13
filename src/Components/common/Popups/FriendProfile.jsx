@@ -41,30 +41,8 @@ const FriendProfileModal = ({ userId, onClose }) => {
     const { avatar, name, hobby, tagline, year } = acc;
 
     const startChat = async () => {
-        if (curr !== null) {
-            const db = getFirestore();
-            const currContacts = curr.contacts
-            const docRef = doc(db, "users", curr.userID);
-            if (!alreadyContains(currContacts, userId)) {
-                currContacts.push(userId);
-                try {
-                    await updateDoc(docRef, {contacts : currContacts});
-                    await updateDoc(docRef, {currentlyTexting : userId});
-                    nav("/chat")
-                } catch (err) {
-                    console.error(err);
-                }
-            } else {
-                try {
-                    await updateDoc(docRef, {currentlyTexting : userId})
-                    nav("/chat")
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-        } else {
-            console.log("You don't have an account")
-        }
+        //todo
+        // also do not forget to update UserData
     }
 
     const alreadyContains = (currContacts, lookFor) => {

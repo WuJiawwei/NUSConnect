@@ -7,6 +7,8 @@ import user3 from "../../../assets/user3.svg"
 import user4 from "../../../assets/user4.svg"
 import user5 from "../../../assets/user5.svg"
 import user6 from "../../../assets/user6.svg"
+import {FaFaceSmile, FaCircleChevronLeft} from "react-icons/fa6";
+import {useNavigate} from "react-router-dom";
 
 export default function EditProfile({ currentUser, onEdit }) {
 
@@ -15,8 +17,23 @@ export default function EditProfile({ currentUser, onEdit }) {
         go to createProfile / google */
     }
 
+    let nav = useNavigate();
+
     if (currentUser !== null) {
         return (<div>
+            <div className="instruction-bar-change-prof">
+                <div className="instruction">
+                    Update your profile whichever way you prefer!
+                </div>
+                <div className="instruction-icon"><FaFaceSmile/></div>
+            </div>
+
+            <button
+                onClick = {() => nav("/profile")}
+            >
+                <FaCircleChevronLeft/>
+            </button>
+
             <div className='input'>
                 <input
                     className="each"

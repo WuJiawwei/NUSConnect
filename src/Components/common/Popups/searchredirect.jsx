@@ -1,9 +1,10 @@
 import React from 'react';
 import './index.scss';
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-const SearchPopup = ({func, currUser}) => {
+const SearchPopup = ({func}) => {
+
+    const nav = useNavigate();
 
     return (
         <div>
@@ -14,11 +15,13 @@ const SearchPopup = ({func, currUser}) => {
                     <div className="search-container">
                         <button
                             className="select-choice-button"
+                            onClick={() => nav("/searchfriend")}
                         >
                             A friend
                         </button>
                         <button
                             className="select-choice-button"
+                            onClick={() => nav("/searchtutor")}
                         >
                             A tutor
                         </button>

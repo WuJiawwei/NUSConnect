@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import {getFirestore, getDoc, doc, updateDoc} from 'firebase/firestore';
 import "./index.scss"
 import {FaComment} from "react-icons/fa";
-import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
+import {UserData} from "../../../UserData.js";
 import {useNavigate} from "react-router-dom";
 
 const TutorProfileModal = ({ userId, onClose }) => {
     const [acc, setAcc] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [currUser, setCurrUser] = useState(null);
-    getCurrentUser(setCurrUser)
 
     const nav = useNavigate()
 
@@ -34,39 +32,8 @@ const TutorProfileModal = ({ userId, onClose }) => {
     }, [userId]);
 
     const startChat = async () => {
-        if (currUser !== null) {
-            const db = getFirestore();
-            const currContacts = currUser.contacts
-            const docRef = doc(db, "users", currUser.userID);
-            if (!alreadyContains(currContacts, userId)) {
-                currContacts.push(userId);
-                try {
-                    await updateDoc(docRef, {contacts : currContacts});
-                    await updateDoc(docRef, {currentlyTexting : userId});
-                    nav("/chat")
-                } catch (err) {
-                    console.error(err);
-                }
-            } else {
-                try {
-                    await updateDoc(docRef, {currentlyTexting : userId})
-                    nav("/chat")
-                } catch (err) {
-                    console.log(err)
-                }
-            }
-        } else {
-            console.log("You don't have an account")
-        }
-    }
-
-    const alreadyContains = (currContacts, lookFor) => {
-        for (let i = 0; i < currContacts.length; i++) {
-            if (currContacts[i] === lookFor) {
-                return true;
-            }
-        }
-        return false;
+        //todo
+        // also do not forget to update UserData
     }
 
     if (loading) {

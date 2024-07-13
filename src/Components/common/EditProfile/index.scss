@@ -14,6 +14,22 @@
   }
 }
 
+.instruction-bar-change-prof {
+  height: 60px;
+  width: 100%;
+  background-color: hotpink;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  color: white;
+  gap: 5px;
+  .instruction {
+  }
+  .instruction-icon {
+  }
+}
+
 .input {
     gap:20px;
     display: grid;

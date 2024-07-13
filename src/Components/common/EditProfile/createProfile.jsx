@@ -13,6 +13,7 @@ import {firestore} from "../../../firebaseConfig.js"
 import {doc, updateDoc} from "firebase/firestore"
 import {useNavigate} from "react-router-dom";
 import { FaFaceSmile} from "react-icons/fa6";
+import {UserData, updateUserData} from "../../../UserData.js"
 
 const CreateProfile = () => {
 
@@ -57,11 +58,13 @@ const CreateProfile = () => {
         if (editInputs.tagline.length === 0) {
             toast.error("Please enter a valid tagline");
         }
-        console.log(editInputs)
         try {
+            editInputs["userID"] = account.userID
             const id = account.userID
             const docRef = await doc(firestore, "users", id)
             await updateDoc(docRef, editInputs);
+            updateUserData(editInputs)
+            console.log(UserData)
             nav("/welcome")
             toast.success("Account created successfully.")
         } catch (err) {

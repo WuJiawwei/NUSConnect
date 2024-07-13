@@ -7,7 +7,9 @@ import SearchFriend from "../Pages/SearchFriend.jsx";
 import Welcome from "../Pages/Welcome.jsx";
 import CreateProfile from "../Components/common/EditProfile/createProfile.jsx";
 import Chat from "../Components/common/Chat/chat.jsx"
-import Topbar from "../Components/common/Topbar/index.jsx"
+import HomeLayout from "../layouts/HomeLayout.jsx";
+import DisplayAllChats from "../Components/common/DisplayAllChats/DisplayAllChats.jsx";
+import EditProfile from "../Components/common/EditProfile/index.jsx"
 
 export const router = createBrowserRouter([
     {
@@ -20,7 +22,7 @@ export const router = createBrowserRouter([
     },
     {
       path:"/home",
-      element: <Topbar/>
+      element: <HomeLayout />,
     },
     {
         path:"/profile",
@@ -45,5 +47,13 @@ export const router = createBrowserRouter([
     {
         path: "/chat",
         element: <Chat/>
+    },
+    {
+        path: "/allchats",
+        element: <DisplayAllChats />
+    },
+    {
+        path: "/editprofile",
+        element: <EditProfile />
     }
   ]);
