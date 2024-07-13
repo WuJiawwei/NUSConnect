@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import "./index.scss"
 import ModalComponent from "../Modal"
-import { postStatus, getStatus } from '../../../api/FirestoreAPI';
+import { postStatus, getStatus, updatePost } from '../../../api/FirestoreAPI';
 import PostCard from '../PostCard';
 import { getCurrentTimeStamp } from '../../../Helpers/useMoment';
 import { Timestamp } from 'firebase/firestore';
@@ -12,6 +12,8 @@ export default function PostStatus({currentUser}) {
   const [modalOpen, setModalOpen] = useState(false);
   const [status, setStatus] = useState("");
   const [allStatuses, setAllStatus] = useState([])
+  const [isEdit, setIsEdit] = useState(false)
+  const [currPost, setCurrPost] = useState({})
   const sendStatus = async () => {
     let obj = {
       status: status,
@@ -23,7 +25,21 @@ export default function PostStatus({currentUser}) {
     }
     await postStatus(obj)
     await setModalOpen(false)
+    setIsEdit(false)
     await setStatus("")
+  }
+  
+  const fetchEditData = (posts) => {
+    setModalOpen(true)
+    setStatus(posts?.status)
+    setCurrPost(posts)
+    setIsEdit(true)
+  }
+
+  const updateStatus = () => {
+    console.log(status)
+    updatePost(currPost.id, status)
+    setModalOpen(false)
   }
 
   useMemo(() => {
@@ -33,7 +49,13 @@ export default function PostStatus({currentUser}) {
   return (
     <div className="post-wrapper">
         <div className="post">
-            <button className="make-post" onClick={() => setModalOpen(true)}>
+            <button 
+              className="make-post" 
+              onClick={() => {
+                setModalOpen(true)
+                setIsEdit(false)
+              }}
+            >
                 Start a Post
             </button>
         </div>
@@ -44,13 +66,15 @@ export default function PostStatus({currentUser}) {
           setModalOpen={setModalOpen}
           status={status} 
           sendStatus={sendStatus}
+          isEdit={isEdit}
+          updateStatus={updateStatus}
         />
 
         <div>
           {allStatuses.map((posts) => {
             return (
               <div key={posts.id}>
-                <PostCard posts={posts} />
+                <PostCard posts={posts} fetchEditData={fetchEditData} />
               </div>
             )
           })}

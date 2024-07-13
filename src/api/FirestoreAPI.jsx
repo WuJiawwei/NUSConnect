@@ -133,3 +133,13 @@ export const fetchComments = (postId, setComments) => {
     console.log(err)
   }
 }  
+
+export const updatePost = (id, status) => {
+  let postToUpdate = doc(postsRef, id)
+  try {
+    updateDoc(postToUpdate, { status })
+  }
+  catch(err) {
+    console.log(err)
+  }
+}
