@@ -1,6 +1,6 @@
 import "./index.scss"
 import {useState} from "react";
-import {getFirestore, doc, getDoc, updateDoc, arrayRemove} from "firebase/firestore";
+import {getFirestore, doc, getDoc, updateDoc, arrayRemove, collection} from "firebase/firestore";
 import {FaTrash} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import {UserData} from "../../../UserData.js"
@@ -8,12 +8,10 @@ import {UserData} from "../../../UserData.js"
 const ChatBar = ({id}) => {
     const [toUser, setToUser] = useState(null);
     const currUser = UserData
-
-    //todo
+    const db = getFirestore();
 
     const getToUserDetails = async () => {
         try {
-            const db = getFirestore();
             const docRef = await doc(db, "users", id)
             const actualDoc = await getDoc(docRef);
             if (actualDoc.exists()) {
@@ -25,13 +23,12 @@ const ChatBar = ({id}) => {
     }
 
     const removeChat = async () => {
-        const db = getFirestore();
         try {
-            const docRef = await doc(db, "users", currUser.userID);
-            await updateDoc(docRef, {contacts: arrayRemove(id)})
-            // removes all instances
+            const dbRef = collection(db, "users");
+            const docRef = await doc(dbRef, UserData.userID)
+            await updateDoc(docRef, {contacts : arrayRemove(id)});
         } catch (err) {
-            console.log(err);
+            console.log("Contact deletion failed.")
         }
     }
 

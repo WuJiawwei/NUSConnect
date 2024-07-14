@@ -4,7 +4,7 @@ import {useState} from "react";
 import {getFirestore, doc, deleteDoc, collection} from "firebase/firestore"
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import {UserData} from "../../../UserData.js"
+import {UserData, removeDataFromBrowser} from "../../../UserData.js"
 
 const DeleteMyAccount = ({isOpen}) => {
 
@@ -13,11 +13,17 @@ const DeleteMyAccount = ({isOpen}) => {
     const db = getFirestore();
     const dbRef = collection(db, "users")
 
+    const deleteAccFromAuth = () => {
+        //todo
+    }
+
     const handleClick = async () => {
         if (UserData !== null) {
             if (input === UserData.name) {
                 const docRef = doc(dbRef, UserData.userID)
                 await deleteDoc(docRef)
+                deleteAccFromAuth();
+                removeDataFromBrowser()
                 navigate("/")
                 toast.success("Account deleted successfully.")
             } else {

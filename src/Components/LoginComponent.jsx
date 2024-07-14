@@ -1,19 +1,25 @@
 import React, {useState} from 'react'
-import { LoginAPI, GoogleSignInAPI } from "../api/AuthAPI"
+import { LoginAPI } from "../api/AuthAPI"
 import logo from "../assets/logo.svg"
 import "../Sass/LoginComponent.scss"
-import GoogleButton from 'react-google-button'
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import {updateUserData, UserData} from "../UserData.js"
+import {getCurrentUser} from "../api/FirestoreAPI.jsx"
 
 export default function LoginComponent() {
   let navigate = useNavigate()
   const [credentials, setCredentials] = useState({})
+    const [currUser, setCurrUser] = useState({})
+    getCurrentUser(setCurrUser)
   const login = async () => {
     try {
       let res = await LoginAPI(credentials.email, credentials.password)
       toast.success("Signed In to NUSConnect!")
       localStorage.setItem("userEmail", res.user.email)
+        updateUserData(currUser)
+        UserData.userId = currUser.userId
+        console.log(UserData)
       navigate("/home")
     } catch (err) {
       console.log(err)
@@ -21,10 +27,6 @@ export default function LoginComponent() {
     }
   }
 
-  // const googleSignIn = () => {
-  //   let res = GoogleSignInAPI()
-  //   navigate("/home")
-  // }
   return (
     <div className="login">
       <img src={logo} width={300} />

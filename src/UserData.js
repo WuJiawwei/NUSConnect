@@ -1,3 +1,7 @@
+import {getFirestore, collection, query, where, getDoc} from "firebase/firestore";
+
+const db = getFirestore();
+
 let UserData = JSON.parse(localStorage.getItem('UserData')) || {};
 
 const updateUserData = (data) => {
@@ -6,12 +10,9 @@ const updateUserData = (data) => {
     // using local storage allows for data to be retained, even if the page is reloaded
 }
 
-const handleLogin = () => {
-    //todo
+const removeDataFromBrowser = () => {
+    UserData = {}
+    localStorage.setItem('UserData', JSON.stringify(UserData));
 }
 
-const handleLogout = () => {
-    //todo
-}
-
-export {UserData, updateUserData, handleLogin, handleLogout};
+export {UserData, updateUserData, removeDataFromBrowser};

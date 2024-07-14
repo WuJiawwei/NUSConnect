@@ -12,7 +12,16 @@ const Chat = () => {
     const db = getFirestore()
 
     const getToUserAccountDetails = async () => {
-        //todo
+        try {
+            const dbRef = collection(db, "users")
+            const docRef = doc(dbRef, UserData.currentlyTexting)
+            const actualDoc = await getDoc(docRef);
+            if (actualDoc.exists()) {
+                setToUser(actualDoc.data());
+            }
+        } catch (err) {
+            console.log("User is no longer using NUSconnect.")
+        }
     }
     getToUserAccountDetails()
 
@@ -58,7 +67,7 @@ const Chat = () => {
                 <button className="file-upload-button"><FaFileUpload/></button>
             </div>
         </div>
-    } else if (toUser == null) {
+    } else if (toUser === null) {
         return <div>This user is no longer using NUSConnect.</div>
     } else {
         return <div>You do not have an account.</div>

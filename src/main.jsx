@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.scss'
-import { app, auth } from "./firebaseConfig.js"
 import { RouterProvider } from "react-router-dom"
 import { router } from './Routes/Index.jsx'
 import { ToastContainer } from "react-toastify";

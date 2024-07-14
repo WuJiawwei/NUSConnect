@@ -7,7 +7,6 @@ import {UserData} from "../../../UserData.js";
 import FriendProfileModal from "../Popups/FriendProfile.jsx";
 
 const FriendSearch = () => {
-    // todo: try to implement this using props
     const [search, setSearch] = useState('');
     const [doc, setDoc] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState(null);

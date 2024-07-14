@@ -35,10 +35,11 @@ const TutorProfileModal = ({ userId, onClose }) => {
     const dbRef = collection(db, 'users');
 
     const startChat = async () => {
-        /*const currUserContacts = UserData.contacts
+        const currUserContacts = UserData.contacts
         if (currUserAlreadyHasContact(currUserContacts, userId)) {
             UserData.currentlyTexting = userId
             nav("/chat")
+            console.log(UserData);
         } else {
             try {
                 const docRef = await doc(dbRef, UserData.userID);
@@ -46,10 +47,11 @@ const TutorProfileModal = ({ userId, onClose }) => {
                 UserData.currentlyTexting = userId
                 UserData.contacts.push(userId)
                 nav("/chat")
+                console.log(UserData);
             } catch (err) {
                 console.log("The user you are trying to contact is unavailable.")
             }
-        }*/
+        }
     }
 
     const currUserAlreadyHasContact = (currUserContacts, userId) => {
