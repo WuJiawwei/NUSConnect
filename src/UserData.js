@@ -6,6 +6,12 @@ const updateUserData = (data) => {
     // using local storage allows for data to be retained, even if the page is reloaded
 }
 
-export {UserData, updateUserData};
+const handleLogin = () => {
+    //todo
+}
 
-// need to use local storage
+const handleLogout = () => {
+    //todo
+}
+
+export {UserData, updateUserData, handleLogin, handleLogout};

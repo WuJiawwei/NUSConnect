@@ -2,13 +2,14 @@ import "./index.scss"
 import {useState} from "react";
 import {getFirestore, doc, getDoc, updateDoc, arrayRemove} from "firebase/firestore";
 import {FaTrash} from "react-icons/fa";
-import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
 import {useNavigate} from "react-router-dom";
+import {UserData} from "../../../UserData.js"
 
 const ChatBar = ({id}) => {
     const [toUser, setToUser] = useState(null);
-    const [currUser, setCurrUser] = useState(null);
-    getCurrentUser(setCurrUser)
+    const currUser = UserData
+
+    //todo
 
     const getToUserDetails = async () => {
         try {
@@ -36,16 +37,10 @@ const ChatBar = ({id}) => {
 
     let nav = useNavigate()
 
-    const startChat = async () => {
-        const db = getFirestore();
+    const startChat = () => {
         if (currUser !== null) {
-            try {
-                const docRef = doc(db, "users", currUser.userID);
-                await updateDoc(docRef, {currentlyTexting: id})
-                nav("/chat")
-            } catch (err) {
-                console.error(err);
-            }
+            currUser.currentlyTexting = id
+            nav("/chat")
         } else {
             console.log("You do not have an account.")
         }

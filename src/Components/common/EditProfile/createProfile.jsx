@@ -9,8 +9,7 @@ import user5 from "../../../assets/user5.svg";
 import user6 from "../../../assets/user6.svg";
 import {FaCheckCircle, FaCircle} from "react-icons/fa";
 import {toast} from "react-toastify";
-import {firestore} from "../../../firebaseConfig.js"
-import {doc, updateDoc} from "firebase/firestore"
+import {getFirestore, doc, updateDoc} from "firebase/firestore"
 import {useNavigate} from "react-router-dom";
 import { FaFaceSmile} from "react-icons/fa6";
 import {UserData, updateUserData} from "../../../UserData.js"
@@ -59,10 +58,11 @@ const CreateProfile = () => {
             toast.error("Please enter a valid tagline");
         }
         try {
-            editInputs["userID"] = account.userID
             const id = account.userID
-            const docRef = await doc(firestore, "users", id)
+            const firestore = getFirestore();
+            const docRef = doc(firestore, "users", id)
             await updateDoc(docRef, editInputs);
+            editInputs["userID"] = account.userID
             updateUserData(editInputs)
             console.log(UserData)
             nav("/welcome")

@@ -1,16 +1,19 @@
 import firebase from "firebase/compat/app"
 import { firestore } from "../firebaseConfig"
-import { doc, 
-         updateDoc, 
-         addDoc, 
-         setDoc,
-         deleteDoc,
-         query,
-         collection, 
-         onSnapshot,
-         where
-        } from "firebase/firestore"
+import {
+  doc,
+  updateDoc,
+  addDoc,
+  setDoc,
+  deleteDoc,
+  query,
+  collection,
+  onSnapshot,
+  where, arrayUnion
+} from "firebase/firestore"
 import { toast } from "react-toastify"
+import {UserData} from "../UserData.js";
+import {useNavigate} from "react-router-dom";
 
 let likeRef = collection(firestore, "likes")
 let postsRef = collection(firestore, "posts")

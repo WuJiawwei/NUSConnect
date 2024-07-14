@@ -1,58 +1,29 @@
-import {getCurrentUser} from "../../../api/FirestoreAPI.jsx";
-import Topbar from "../Topbar/index.jsx";
 import {useState} from "react";
 import {FaChevronLeft, FaFileUpload, FaPaperPlane} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import "./index.scss"
-import {getFirestore, doc, updateDoc, getDoc, arrayUnion} from "firebase/firestore";
+import {getFirestore, doc, getDoc, collection} from "firebase/firestore";
+import {UserData} from "../../../UserData.js"
 
 const Chat = () => {
-    const [currUser, setCurrUser] = useState(null)
     const [toUser, setToUser] = useState(null)
     const nav = useNavigate()
-
-    getCurrentUser(setCurrUser)
+    const currUser = UserData
     const db = getFirestore()
 
     const getToUserAccountDetails = async () => {
-        if (currUser !== null) {
-            try {
-                const docRef = doc(db, "users", currUser.currentlyTexting)
-                const toUserDetails = await getDoc(docRef)
-                setToUser(toUserDetails.data())
-            } catch (err) {
-                console.log(err)
-            }
-        }
+        //todo
     }
     getToUserAccountDetails()
 
-    const handleBackNav = async () => {
-        if (currUser !== null) {
-            const currUserId = currUser.userID;
-            try {
-                const docRef = doc(db, "users", currUserId)
-                await updateDoc(docRef, {currentlyTexting: ""})
-                nav("/allchats")
-            } catch (err) {
-                console.log(err)
-            }
-        } else {
-            console.log("You don't have an account.")
-        }
+    const handleBackNav = () => {
+        UserData.currentlyTexting = ""
+        console.log(currUser)
+        nav("/allchats")
     }
 
     const sendMessage = async () => {
-        if (toUser !== null && currUser !== null) {
-            const toUserId = currUser.currentlyTexting;
-            try {
-                const docRef = doc(db, "users", toUserId)
-                await updateDoc(docRef, {contacts : arrayUnion(currUser.userID)})
-                // does not add the contact if it already exists
-            } catch (err) {
-                console.log(err)
-            }
-        }
+        // todo
     }
 
     if (currUser !== null && toUser !== null) {
@@ -87,6 +58,10 @@ const Chat = () => {
                 <button className="file-upload-button"><FaFileUpload/></button>
             </div>
         </div>
+    } else if (toUser == null) {
+        return <div>This user is no longer using NUSConnect.</div>
+    } else {
+        return <div>You do not have an account.</div>
     }
 }
 
