@@ -10,7 +10,7 @@ export default function PostCard({posts, id, fetchEditData}) {
   let navigate = useNavigate()
   const [currentUser, setCurrentUser] = useState({})
   useMemo(() => {
-    getCurrentUser(setCurrentUser)
+    getCurrentUser(setCurrentUser) // can
   }, [])
   
   return (

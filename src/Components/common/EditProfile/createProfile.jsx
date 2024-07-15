@@ -19,7 +19,6 @@ const CreateProfile = () => {
     let nav = useNavigate();
 
     const [account, setAccount] = useState(null);
-    getCurrentUser(setAccount) // allow use for getCurrentUser here
 
     const [editInputs, setEditInputs] = useState({})
     const getInput = (event) => {
@@ -58,6 +57,7 @@ const CreateProfile = () => {
             toast.error("Please enter a valid tagline");
         }
         try {
+            getCurrentUser(setAccount) // allow use for getCurrentUser here, inside a method invoked when a button is clicked
             const id = account.userID
             const firestore = getFirestore();
             const docRef = doc(firestore, "users", id)
