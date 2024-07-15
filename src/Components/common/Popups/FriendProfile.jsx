@@ -40,7 +40,7 @@ const FriendProfileModal = ({ userId, onClose }) => {
     const startChat = async () => {
         const currUserContacts = UserData.contacts
         if (currUserAlreadyHasContact(currUserContacts, userId)) {
-            UserData.currentlyTexting = userId
+            UserData.currentlyTexting = acc
             nav("/chat")
             console.log(UserData);
         } else {

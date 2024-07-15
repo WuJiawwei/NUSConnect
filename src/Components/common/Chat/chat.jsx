@@ -1,4 +1,4 @@
-import {useState} from "react";
+/*import {useState} from "react";
 import {FaChevronLeft, FaFileUpload, FaPaperPlane} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import "./index.scss"
@@ -12,7 +12,7 @@ const Chat = () => {
     const db = getFirestore()
     /*
     * todo:
-    *  functions: texting (will not implement chat deletion)*/
+    *  functions: texting (will not implement chat deletion)
 
     const getToUserAccountDetails = () => {
         setToUser(UserData.currentlyTexting)
@@ -28,6 +28,8 @@ const Chat = () => {
     const sendMessage = async () => {
         // todo
     }
+
+    return <div>This is chat</div>
 
     if (currUser !== null && toUser !== null) {
         return <div>
@@ -66,6 +68,12 @@ const Chat = () => {
     } else {
         return <div>You do not have an account.</div>
     }
+}
+
+export default Chat**/
+
+const Chat = () => {
+    return <div>This is chat.</div>
 }
 
 export default Chat

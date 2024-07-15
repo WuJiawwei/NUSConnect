@@ -18,6 +18,7 @@ const DisplayAllChats = () => {
                         className="input"
                         placeholder="Search your contacts"
                     />
+                    {/*}
                     {onSearch ?
                         <button
                             className="terminate-search-button"
@@ -32,7 +33,7 @@ const DisplayAllChats = () => {
                             <FaRocket/>
                             Launch Search
                         </button>
-                    }
+                    }*/}
                 </div>
             </div>
             <div className="chats-container">
