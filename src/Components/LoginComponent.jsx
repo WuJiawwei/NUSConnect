@@ -12,6 +12,12 @@ export default function LoginComponent() {
   const [credentials, setCredentials] = useState({})
     const [currUser, setCurrUser] = useState({})
     getCurrentUser(setCurrUser)
+    // allow use for getCurrentUser here
+    // todo:: Modify this so that getCurrentUser is not called, maybe by using local storage
+    // another problem related to this is that when a user tries to open multiple tabs
+    // of NUSConnect, all of the tabs are of the same user
+
+    // also create a mechanism that checks if the email has already been used elsewhere -> will improve querying...
   const login = async () => {
     try {
       let res = await LoginAPI(credentials.email, credentials.password)

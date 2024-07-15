@@ -1,6 +1,6 @@
 import "./index.scss";
 import { FaRocket, FaSearch } from "react-icons/fa";
-import { useState} from "react";
+import {useEffect, useState} from "react";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { firestore } from "../../../firebaseConfig.js";
 import {UserData} from "../../../UserData.js"
@@ -10,6 +10,11 @@ const TutorSearch = () => {
     const [search, setSearch] = useState('');
     const [doc, setDoc] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState(null);
+
+    useEffect(() => {
+        console.log("This function has run.")
+    }, [])
+
     const onClick = async () => {
         try {
             const lookFor = search.replace(/-/g, '').replace(/ /g, '').toUpperCase();

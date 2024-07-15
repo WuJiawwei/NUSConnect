@@ -29,7 +29,7 @@ const TutorProfileModal = ({ userId, onClose }) => {
         };
 
         fetchData();
-    }, [userId]);
+    }, []);
 
     const db = getFirestore();
     const dbRef = collection(db, 'users');
@@ -37,14 +37,14 @@ const TutorProfileModal = ({ userId, onClose }) => {
     const startChat = async () => {
         const currUserContacts = UserData.contacts
         if (currUserAlreadyHasContact(currUserContacts, userId)) {
-            UserData.currentlyTexting = userId
+            UserData.currentlyTexting = acc
             nav("/chat")
             console.log(UserData);
         } else {
             try {
                 const docRef = await doc(dbRef, UserData.userID);
                 await updateDoc(docRef, {contacts: arrayUnion(userId)})
-                UserData.currentlyTexting = userId
+                UserData.currentlyTexting = acc
                 UserData.contacts.push(userId)
                 nav("/chat")
                 console.log(UserData);

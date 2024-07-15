@@ -1,6 +1,6 @@
 import "./index.scss";
 import { FaRocket, FaSearch } from "react-icons/fa";
-import { useState} from "react";
+import {useEffect, useState} from "react";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { firestore } from "../../../firebaseConfig.js";
 import {UserData} from "../../../UserData.js";
@@ -11,10 +11,14 @@ const FriendSearch = () => {
     const [doc, setDoc] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState(null);
 
-    const onClick = async () => {
+    useEffect(() => {
+        console.log("This function has run.")
+    }, [])
+
+    const fetch = async () => {
         try {
             const lookFor = search.replace(/-/g, '')
-                                            .replace(/ /g, '').toUpperCase();
+                .replace(/ /g, '').toUpperCase();
             const remove = UserData.userID;
             const db = collection(firestore, "users");
             const q1 = query(db, where("wantsToBefriend", "==", true))
@@ -29,6 +33,7 @@ const FriendSearch = () => {
             console.error("Error fetching data:", error);
         }
     }
+
     return (<div>
         <div className="search-container">
             <div className="search-box">
@@ -38,7 +43,7 @@ const FriendSearch = () => {
                     placeholder="Interest"
                     onChange={e => setSearch(e.target.value)}
                 />
-                <button className="search-button" onClick = {onClick}>
+                <button className="search-button" onClick = {fetch}>
                     <FaRocket/>
                     Launch Search
                 </button>

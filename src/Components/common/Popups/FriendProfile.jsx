@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {getFirestore, getDoc, doc, updateDoc, collection, arrayUnion} from 'firebase/firestore';
 import "./index.scss"
 import {FaComment} from "react-icons/fa";
@@ -11,12 +11,13 @@ const FriendProfileModal = ({ userId, onClose }) => {
 
     let nav = useNavigate()
 
-    useEffect(() => {
-        const db = getFirestore();
-        const docRef = doc(db, 'users', userId);
+    const db = getFirestore();
+    const docRef = doc(db, 'users', userId);
 
+    useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log("Run query")
                 const sp = await getDoc(docRef);
                 if (sp.exists()) {
                     setAcc(sp.data());
@@ -27,15 +28,13 @@ const FriendProfileModal = ({ userId, onClose }) => {
                 setLoading(false);
             }
         };
-
         fetchData();
-    }, [userId]);
+    }, []); // dependency is empty because the toUserId is not expected to change
 
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    const db = getFirestore();
     const dbRef = collection(db, 'users');
 
     const startChat = async () => {
@@ -48,7 +47,7 @@ const FriendProfileModal = ({ userId, onClose }) => {
             try {
                 const docRef = await doc(dbRef, UserData.userID);
                 await updateDoc(docRef, {contacts: arrayUnion(userId)})
-                UserData.currentlyTexting = userId
+                UserData.currentlyTexting = acc
                 UserData.contacts.push(userId)
                 nav("/chat")
                 console.log(UserData);

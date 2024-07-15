@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { RegisterAPI, GoogleSignInAPI } from "../api/AuthAPI"
+import { RegisterAPI } from "../api/AuthAPI"
 import logo from "../assets/logo.svg"
 import "../Sass/LoginComponent.scss"
-import GoogleButton from 'react-google-button'
 import { useNavigate } from "react-router-dom"
 import "../Sass/LoginComponent.scss"
 import { toast } from "react-toastify"
@@ -26,10 +25,6 @@ export default function RegisterComponent() {
     }
   }
 
-  // const googleSignIn = () => {
-  //   let res = GoogleSignInAPI()
-  //   navigate("/createprofile")
-  // }
   return (
     <div className="login">
       <img src={logo} width={300} />

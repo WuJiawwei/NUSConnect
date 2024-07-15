@@ -19,7 +19,7 @@ const CreateProfile = () => {
     let nav = useNavigate();
 
     const [account, setAccount] = useState(null);
-    getCurrentUser(setAccount)
+    getCurrentUser(setAccount) // allow use for getCurrentUser here
 
     const [editInputs, setEditInputs] = useState({})
     const getInput = (event) => {

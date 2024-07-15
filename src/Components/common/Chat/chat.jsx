@@ -6,27 +6,21 @@ import {getFirestore, doc, getDoc, collection} from "firebase/firestore";
 import {UserData} from "../../../UserData.js"
 
 const Chat = () => {
-    const [toUser, setToUser] = useState(null)
+    const [toUser, setToUser] = useState(null) // contains all data of toUser
     const nav = useNavigate()
     const currUser = UserData
     const db = getFirestore()
+    /*
+    * todo:
+    *  functions: texting (will not implement chat deletion)*/
 
-    const getToUserAccountDetails = async () => {
-        try {
-            const dbRef = collection(db, "users")
-            const docRef = doc(dbRef, UserData.currentlyTexting)
-            const actualDoc = await getDoc(docRef);
-            if (actualDoc.exists()) {
-                setToUser(actualDoc.data());
-            }
-        } catch (err) {
-            console.log("User is no longer using NUSconnect.")
-        }
+    const getToUserAccountDetails = () => {
+        setToUser(UserData.currentlyTexting)
     }
     getToUserAccountDetails()
 
     const handleBackNav = () => {
-        UserData.currentlyTexting = ""
+        UserData.currentlyTexting = {}
         console.log(currUser)
         nav("/allchats")
     }

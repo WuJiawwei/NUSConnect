@@ -1,7 +1,3 @@
-import {getFirestore, collection, query, where, getDoc} from "firebase/firestore";
-
-const db = getFirestore();
-
 let UserData = JSON.parse(localStorage.getItem('UserData')) || {};
 
 const updateUserData = (data) => {
