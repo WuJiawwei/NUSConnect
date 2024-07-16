@@ -13,10 +13,12 @@ import {getFirestore, doc, updateDoc} from "firebase/firestore"
 import {useNavigate} from "react-router-dom";
 import { FaFaceSmile} from "react-icons/fa6";
 import {UserData, updateUserData} from "../../../UserData.js"
+import "./index.scss"
 
 const CreateProfile = () => {
 
     let nav = useNavigate();
+    const [clickNum, setClickNum] = useState(0);
 
     const [account, setAccount] = useState(null);
 
@@ -56,19 +58,23 @@ const CreateProfile = () => {
         if (editInputs.tagline.length === 0) {
             toast.error("Please enter a valid tagline");
         }
-        try {
+        if (clickNum === 0) {
+            setClickNum(1);
             getCurrentUser(setAccount) // allow use for getCurrentUser here, inside a method invoked when a button is clicked
-            const id = account.userID
-            const firestore = getFirestore();
-            const docRef = doc(firestore, "users", id)
-            await updateDoc(docRef, editInputs);
-            editInputs["userID"] = account.userID
-            updateUserData(editInputs)
-            console.log(UserData)
-            nav("/welcome")
-            toast.success("Account created successfully.")
-        } catch (err) {
-            console.log(err);
+        } else {
+            try {
+                const id = account.userID
+                const firestore = getFirestore();
+                const docRef = doc(firestore, "users", id)
+                await updateDoc(docRef, editInputs);
+                editInputs["userID"] = account.userID
+                updateUserData(editInputs)
+                console.log(UserData)
+                nav("/welcome")
+                toast.success("Account created successfully.")
+            } catch (err) {
+                console.log(err);
+            }
         }
     }
 
@@ -301,13 +307,19 @@ const CreateProfile = () => {
                     onChange={setModuleCodeAfterProcessing}
                 />
             </div>
-
-            <button
-                className='save'
-                onClick={handleSubmit}
-            >
-                Submit
-            </button>
+            {clickNum === 0 ?
+                <button
+                    className='save'
+                    onClick={handleSubmit}
+                >
+                    Submit
+                </button> :
+                <button
+                className='save-again'
+                onClick={handleSubmit}>
+                    Connect Now
+                </button>
+            }
         </div>
     )
 }

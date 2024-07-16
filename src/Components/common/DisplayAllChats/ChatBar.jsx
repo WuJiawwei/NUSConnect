@@ -1,5 +1,5 @@
 import "./index.scss"
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {getFirestore, doc, getDoc, updateDoc, arrayRemove, collection} from "firebase/firestore";
 import {FaTrash} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
@@ -10,17 +10,20 @@ const ChatBar = ({id}) => {
     const currUser = UserData
     const db = getFirestore();
 
-    const getToUserDetails = async () => {
-        try {
-            const docRef = await doc(db, "users", id)
-            const actualDoc = await getDoc(docRef);
-            if (actualDoc.exists()) {
-                setToUser(actualDoc.data());
+    useEffect(() => {
+        const getToUserDetails = async () => {
+            try {
+                const docRef = await doc(db, "users", id)
+                const actualDoc = await getDoc(docRef);
+                if (actualDoc.exists()) {
+                    setToUser(actualDoc.data());
+                }
+            } catch (err) {
+                console.error(err);
             }
-        } catch (err) {
-            console.error(err);
         }
-    }
+        getToUserDetails();
+    }, [])
 
     const removeChat = async () => {
         try {
@@ -36,14 +39,12 @@ const ChatBar = ({id}) => {
 
     const startChat = () => {
         if (currUser !== null) {
-            currUser.currentlyTexting = id
+            currUser.currentlyTexting = toUser
             nav("/chat")
         } else {
             console.log("You do not have an account.")
         }
     }
-
-    getToUserDetails();
 
     if (toUser !== null) {
         return (<div className="chat-bar">

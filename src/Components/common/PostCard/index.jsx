@@ -16,7 +16,7 @@ export default function PostCard({posts, id, fetchEditData}) {
   return (
     <div className='post-card' key={id}>
       <div className='post-header'>
-        <p 
+        <div
           className="author"
           onClick={() =>
             navigate("/profile", {
@@ -27,7 +27,7 @@ export default function PostCard({posts, id, fetchEditData}) {
             <div className="author-name-and-avatar">
                 <div className="author-name">{posts.userName}</div>
             </div>
-        </p>
+        </div>
         {currentUser.userID === posts.userID ? (<div className="icons">
           <GoPencil size={20} className="edit-icon" onClick={() => fetchEditData(posts)}/>
           <MdDelete size={20} className="delete-icon" />

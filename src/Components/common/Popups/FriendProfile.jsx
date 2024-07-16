@@ -3,7 +3,7 @@ import {getFirestore, getDoc, doc, updateDoc, collection, arrayUnion} from 'fire
 import "./index.scss"
 import {FaComment} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
-import {UserData} from "../../../UserData.js"
+import {UserData,  updateFieldInUserData} from "../../../UserData.js"
 
 const FriendProfileModal = ({ userId, onClose }) => {
     const [acc, setAcc] = useState(null); // is ToUser
@@ -40,15 +40,17 @@ const FriendProfileModal = ({ userId, onClose }) => {
     const startChat = async () => {
         const currUserContacts = UserData.contacts
         if (currUserAlreadyHasContact(currUserContacts, userId)) {
-            UserData.currentlyTexting = acc
+            updateFieldInUserData({currentlyTexting : acc});
             nav("/chat")
             console.log(UserData);
         } else {
             try {
                 const docRef = await doc(dbRef, UserData.userID);
                 await updateDoc(docRef, {contacts: arrayUnion(userId)})
-                UserData.currentlyTexting = acc
+                updateFieldInUserData({currentlyTexting : acc});
                 UserData.contacts.push(userId)
+                const newContacts = UserData.contacts
+                updateFieldInUserData({contacts : newContacts});
                 nav("/chat")
                 console.log(UserData);
             } catch (err) {

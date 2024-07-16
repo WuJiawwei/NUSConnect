@@ -1,4 +1,4 @@
-/*import {useState} from "react";
+import {useState, useEffect} from "react";
 import {FaChevronLeft, FaFileUpload, FaPaperPlane} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import "./index.scss"
@@ -6,74 +6,56 @@ import {getFirestore, doc, getDoc, collection} from "firebase/firestore";
 import {UserData} from "../../../UserData.js"
 
 const Chat = () => {
-    const [toUser, setToUser] = useState(null) // contains all data of toUser
-    const nav = useNavigate()
     const currUser = UserData
-    const db = getFirestore()
-    /*
-    * todo:
-    *  functions: texting (will not implement chat deletion)
-
-    const getToUserAccountDetails = () => {
-        setToUser(UserData.currentlyTexting)
-    }
-    getToUserAccountDetails()
-
+    let nav = useNavigate();
     const handleBackNav = () => {
-        UserData.currentlyTexting = {}
         console.log(currUser)
         nav("/allchats")
     }
 
-    const sendMessage = async () => {
-        // todo
+    const [message, setMessage] = useState("")
+
+    const sendTextMessage = async () => {
+        // todo : use socket io
     }
 
-    return <div>This is chat</div>
-
-    if (currUser !== null && toUser !== null) {
+    if (currUser !== null && currUser.currentlyTexting !== null) {
         return <div>
-            <div
-                className="top-chat-bar"
-            >
-                <button
-                    className="go-back-button"
-                    onClick={handleBackNav}
-                >
+            <div className = "top-chat-bar">
+                <button className="go-back-button" onClick={handleBackNav}>
                     <FaChevronLeft/>
                 </button>
                 <div className="to-user-avatar">
-                    <img src={toUser.avatar} width={50}/>
+                    <img src={UserData.currentlyTexting.avatar} width={50}/>
                 </div>
                 <div className="to-user-name">
-                    {toUser.name}
+                    {UserData.currentlyTexting.name}
                 </div>
             </div>
-            <section className="message-container">
-            </section>
+            <div className="message-container">Messages go here</div>
             <div className="send-message-bar">
-                <img className="from-user-avatar" src={currUser.avatar} width={50}/>
-                <input className="input-message-bar" placeholder="Your message..." />
+                <img className="from-user-avatar" src={UserData.avatar} width={50}/>
+                <input
+                    className="input-message-bar"
+                    placeholder="Your message..."
+                    onChange={(e)=>{setMessage(e.target.value)}}
+                />
                 <button
                     className="send-message-button"
-                    onClick={sendMessage}
+                    onClick={sendTextMessage}
                 >
                     <FaPaperPlane/>
                 </button>
-                <button className="file-upload-button"><FaFileUpload/></button>
+                <button className="file-upload-button">
+                    <FaFileUpload/>
+                </button>
             </div>
         </div>
-    } else if (toUser === null) {
-        return <div>This user is no longer using NUSConnect.</div>
+    } else if (UserData === null) {
+        return <div>You need an account to chat with someone.</div>
     } else {
-        return <div>You do not have an account.</div>
+        return <div>The person you are trying to connect with is not using NUSConnect.</div>
     }
-}
-
-export default Chat**/
-
-const Chat = () => {
-    return <div>This is chat.</div>
 }
 
 export default Chat
