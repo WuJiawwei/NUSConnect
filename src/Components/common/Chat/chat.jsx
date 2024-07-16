@@ -9,30 +9,32 @@ const Chat = () => {
     const currUser = UserData
     let nav = useNavigate();
     const handleBackNav = () => {
-        console.log(currUser)
-        nav("/allchats")
+        //todo
     }
 
     const [message, setMessage] = useState("")
 
-    const sendTextMessage = async () => {
-        // todo : use socket io
-    }
+    return <div>
+        This is chat.
+        The chatroom id is {UserData.chatRoomId}
+    </div>
 
-    if (currUser !== null && currUser.currentlyTexting !== null) {
+    /*if (currUser !== null && currUser.currentlyTexting !== null) {
         return <div>
             <div className = "top-chat-bar">
                 <button className="go-back-button" onClick={handleBackNav}>
                     <FaChevronLeft/>
                 </button>
                 <div className="to-user-avatar">
-                    <img src={UserData.currentlyTexting.avatar} width={50}/>
+                    <img src= width={50}/>
                 </div>
                 <div className="to-user-name">
                     {UserData.currentlyTexting.name}
                 </div>
             </div>
-            <div className="message-container">Messages go here</div>
+            <div className="message-container">
+                The chatroom id is {UserData.chatRoomID}
+            </div>
             <div className="send-message-bar">
                 <img className="from-user-avatar" src={UserData.avatar} width={50}/>
                 <input
@@ -42,7 +44,6 @@ const Chat = () => {
                 />
                 <button
                     className="send-message-button"
-                    onClick={sendTextMessage}
                 >
                     <FaPaperPlane/>
                 </button>
@@ -55,7 +56,7 @@ const Chat = () => {
         return <div>You need an account to chat with someone.</div>
     } else {
         return <div>The person you are trying to connect with is not using NUSConnect.</div>
-    }
+    }*/
 }
 
 export default Chat

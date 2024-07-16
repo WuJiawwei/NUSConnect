@@ -1,9 +1,9 @@
 import "./index.scss"
 import {useState, useEffect} from "react";
 import {getFirestore, doc, getDoc, updateDoc, arrayRemove, collection} from "firebase/firestore";
-import {FaTrash} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import {UserData} from "../../../UserData.js"
+import {FaTrash} from "react-icons/fa";
 
 const ChatBar = ({id}) => {
     const [toUser, setToUser] = useState(null);
@@ -26,24 +26,14 @@ const ChatBar = ({id}) => {
     }, [])
 
     const removeChat = async () => {
-        try {
-            const dbRef = collection(db, "users");
-            const docRef = await doc(dbRef, UserData.userID)
-            await updateDoc(docRef, {contacts : arrayRemove(id)});
-        } catch (err) {
-            console.log("Contact deletion failed.")
-        }
     }
 
     let nav = useNavigate()
 
     const startChat = () => {
-        if (currUser !== null) {
-            currUser.currentlyTexting = toUser
-            nav("/chat")
-        } else {
-            console.log("You do not have an account.")
-        }
+        // chatRoom has already been created, all that needs to be done is to
+        // navigate to the chatroom
+
     }
 
     if (toUser !== null) {

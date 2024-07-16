@@ -5,7 +5,9 @@ import { getStatus} from '../../../api/FirestoreAPI'
 import {FaPencilAlt, FaSkull, FaExclamationTriangle, FaPowerOff} from 'react-icons/fa'
 import DeleteMyAccount from "../Popups/deleteMyAccount.jsx";
 import {useNavigate} from "react-router-dom";
-import {UserData} from "../../../UserData.js";
+import {UserData, removeDataFromBrowser} from "../../../UserData.js";
+import {onLogout} from "../../../api/AuthAPI.jsx";
+import {toast} from "react-toastify";
 
 export default function ProfileCard() {
   const [allStatuses, setAllStatus] = useState([])
@@ -16,11 +18,17 @@ export default function ProfileCard() {
     getStatus(setAllStatus)
   }, [])
 
+    let nav = useNavigate();
   const logout = () => {
-    // todo: implement logout
+      //logout implemented
+      onLogout()
+      removeDataFromBrowser()
+      nav("/")
+      toast.success("Logout successful.")
+      console.log(UserData)
   }
 
-  let nav = useNavigate()
+
   const editProfile = () => {
     nav("/editprofile")
   }

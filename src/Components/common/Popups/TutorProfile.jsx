@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {getFirestore, getDoc, doc, updateDoc, arrayUnion, collection} from 'firebase/firestore';
 import "./index.scss"
 import {FaComment} from "react-icons/fa";
-import {UserData} from "../../../UserData.js";
+import {updateFieldInUserData, UserData} from "../../../UserData.js";
 import {useNavigate} from "react-router-dom";
 
 const TutorProfileModal = ({ userId, onClose }) => {
@@ -44,8 +44,10 @@ const TutorProfileModal = ({ userId, onClose }) => {
             try {
                 const docRef = await doc(dbRef, UserData.userID);
                 await updateDoc(docRef, {contacts: arrayUnion(userId)})
-                UserData.currentlyTexting = acc
+                updateFieldInUserData({currentlyTexting : acc});
                 UserData.contacts.push(userId)
+                const newContacts = UserData.contacts
+                updateFieldInUserData({contacts : newContacts});
                 nav("/chat")
                 console.log(UserData);
             } catch (err) {

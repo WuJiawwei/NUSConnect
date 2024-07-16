@@ -29,7 +29,19 @@
 }
 
 .message-container {
-  height: 80vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .message {
+    max-width: 70%;
+    display: flex;
+  }
+  .own-message {
+    max-width: 70%;
+    display: flex;
+    align-self : flex-end;
+  }
 }
 
 .send-message-bar {

@@ -12,8 +12,6 @@ import {
   where, arrayUnion
 } from "firebase/firestore"
 import { toast } from "react-toastify"
-import {UserData} from "../UserData.js";
-import {useNavigate} from "react-router-dom";
 
 let likeRef = collection(firestore, "likes")
 let postsRef = collection(firestore, "posts")
@@ -37,7 +35,6 @@ export const getStatus = (setAllStatus) => {
         return { ...docs.data(), id: docs.id}
       })
     )
-    console.log("onSnaphot called for getStatus method, firebaseAPI")
   })
 }
 
@@ -62,7 +59,6 @@ export const getCurrentUser = (setCurrentUser) => {
           return item.email.toLowerCase() === currEmail
         })[0]
     )
-    console.log("onSnaphot called for getCurrentUser method, firebaseAPI")
   })
 };
 
@@ -103,7 +99,6 @@ export const getLike = (userId, postId, setLiked, setLikeNum) => {
 
       setLikeNum(likeNum)
       setLiked(isLiked)
-      console.log("onSnaphot called for getLike method, firebaseAPI")
     })
   } catch (err) {
     console.log(err)
@@ -134,7 +129,6 @@ export const fetchComments = (postId, setComments) => {
         }
       })
       setComments(C)
-      console.log("onSnaphot called for fetchComments method, firebaseAPI")
     })
   } catch (err) {
     console.log(err)
