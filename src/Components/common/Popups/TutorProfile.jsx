@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {getFirestore, getDoc, doc, updateDoc, arrayUnion, collection} from 'firebase/firestore';
+import {getFirestore, getDoc, doc, updateDoc, arrayUnion, collection, query, where, addDoc} from 'firebase/firestore';
 import "./index.scss"
 import {FaComment} from "react-icons/fa";
 import {updateFieldInUserData, UserData} from "../../../UserData.js";
@@ -35,34 +35,45 @@ const TutorProfileModal = ({ userId, onClose }) => {
     const dbRef = collection(db, 'users');
 
     const startChat = async () => {
-        const currUserContacts = UserData.contacts
-        if (currUserAlreadyHasContact(currUserContacts, userId)) {
-            UserData.currentlyTexting = acc
-            nav("/chat")
-            console.log(UserData);
+        const dbUsersRef = collection(db, 'users');
+        const chatRoomsRef = collection(db, 'chatrooms');
+        if (bothAreInContact()) {
+            try {
+                const q = query(chatRoomsRef,
+                    where('to', '==', userId), where('from', '==', UserData.userID))
+                const doc = await getDoc(q);
+                if (doc.exists()) {
+                    updateFieldInUserData({chatRoom : doc, chatRoomId : doc.id});
+                    nav("/chat")
+                }
+            } catch (err) {
+                console.log("The chat room cannot be opened.")
+            }
         } else {
             try {
-                const docRef = await doc(dbRef, UserData.userID);
-                await updateDoc(docRef, {contacts: arrayUnion(userId)})
-                updateFieldInUserData({currentlyTexting : acc});
-                UserData.contacts.push(userId)
-                const newContacts = UserData.contacts
-                updateFieldInUserData({contacts : newContacts});
+                const newChatroomRef1 = await addDoc(chatRoomsRef, {
+                    to: userId,
+                    from: UserData.userID,
+                });
+                await addDoc(chatRoomsRef, {
+                    to: UserData.userID,
+                    from: userId,
+                });
+                const docRef1 = doc(dbUsersRef, UserData.userID);
+                const docRef2 = doc(dbUsersRef, userId)
+                await updateDoc(docRef1, {contacts : arrayUnion(userId)});
+                await updateDoc(docRef2, {contacts : arrayUnion(UserData.userID)});
+                const idOfRoomToNavTo = newChatroomRef1.id
+                updateFieldInUserData({chatRoom : newChatroomRef1, chatRoomId : idOfRoomToNavTo});
                 nav("/chat")
-                console.log(UserData);
-            } catch (err) {
-                console.log("The user you are trying to contact is unavailable.")
+            } catch(err) {
+                console.log(err)
             }
         }
     }
 
-    const currUserAlreadyHasContact = (currUserContacts, userId) => {
-        for (let i = 0; i < currUserContacts.length; i++) {
-            if (currUserContacts[i] === userId) {
-                return true;
-            }
-        }
-        return false;
+    const bothAreInContact = () => {
+        return acc.contacts.includes(UserData.userID) && UserData.contacts.includes(userId);
     }
 
     if (loading) {
