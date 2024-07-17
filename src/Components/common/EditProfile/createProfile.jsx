@@ -30,7 +30,7 @@ const CreateProfile = () => {
     }
 
     const handleSubmit = async () => {
-        editInputs["contacts"] = []
+        editInputs["chatRooms"] = [] // this array will contain the ids of all the chat rooms
         let hasAvatarBeenSelected = false;
         for (let i = 0; i < selected.length; i++) {
             hasAvatarBeenSelected = hasAvatarBeenSelected || selected[i];

@@ -2,11 +2,26 @@ import ChatBar from "./ChatBar.jsx"
 import "./index.scss"
 import {FaRocket, FaSearch, FaTimes} from "react-icons/fa";
 import Topbar from "../Topbar/index.jsx"
+import {getFirestore, collection, doc, getDoc} from "firebase/firestore";
+import {useEffect, useState} from "react";
 import {UserData} from "../../../UserData.js"
 
 const DisplayAllChats = () => {
-    /*todo:
-    *  functions: search contact, delete contact*/
+    const db = getFirestore()
+    const usersDbRef = collection(db, 'users')
+    const chatroomsDbRef = collection(db, 'chatrooms')
+    const [chatRoomsIds, setChatRoomsIds] = useState([])
+    useEffect(() => {
+        const fetchData = async () => {
+            const currUserId = UserData.userID
+            const docRef = doc(usersDbRef, currUserId);
+            const actualDoc = await getDoc(docRef);
+            if (actualDoc.exists()) {
+                setChatRoomsIds(actualDoc.data().chatRooms)
+            }
+        }
+        fetchData()
+    }, []) // todo : add dependencies
 
     if (UserData !== null) {
         return (<div>
@@ -37,9 +52,13 @@ const DisplayAllChats = () => {
                 </div>
             </div>
             <div className="chats-container">
-                {UserData.contacts.length === 0 ?
-                    <div className="no-contacts-text">You do not have any contacts.</div> :
-                    <div>{UserData.contacts.map(c => <div key={c}><ChatBar id={c}/></div>)}</div>
+                {chatRoomsIds === null?
+                    <div>You do not have any contacts.</div> :
+                    chatRoomsIds.map((roomId) => (
+                        <div key={roomId}>
+                            <ChatBar ChatRoomId={roomId} />
+                        </div>
+                    ))
                 }
             </div>
         </div>)

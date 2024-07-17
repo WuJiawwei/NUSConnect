@@ -5,12 +5,17 @@ import {useNavigate} from "react-router-dom";
 import {UserData} from "../../../UserData.js"
 import {FaTrash} from "react-icons/fa";
 
-const ChatBar = ({id}) => {
+const ChatBar = ({ChatRoomId}) => {
+    // id
     const [toUser, setToUser] = useState(null);
     const currUser = UserData
     const db = getFirestore();
+    // todo : fix ChatBar implementation
 
-    useEffect(() => {
+    /*todo:
+    *  functions: search contact, delete contact*/
+
+    /*useEffect(() => {
         const getToUserDetails = async () => {
             try {
                 const docRef = await doc(db, "users", id)
@@ -26,31 +31,28 @@ const ChatBar = ({id}) => {
     }, [])
 
     const removeChat = async () => {
+        //todo
     }
 
     let nav = useNavigate()
 
     const startChat = () => {
-        // chatRoom has already been created, all that needs to be done is to
-        // navigate to the chatroom
+        //todo
+    }*/
 
-    }
-
-    if (toUser !== null) {
+    if (true) {
         return (<div className="chat-bar">
             <button
                 className="trash-contact"
-                onClick={removeChat}
             >
                 <FaTrash/>
             </button>
             <div className="contact-avatar">
-                <img src={toUser.avatar} width={50}/>
+                {/*<img src={toUser.avatar} width={50}/>*/}
             </div>
-            <div className="contact-name">{toUser.name}</div>
+            <div className="contact-name">The chat room id </div>
             <button
                 className="contact-chat-button"
-                onClick={startChat}
             >
                 Chat
             </button>

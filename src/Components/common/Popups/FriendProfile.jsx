@@ -3,9 +3,10 @@ import {getFirestore, getDoc, doc, collection, query, where, updateDoc, arrayUni
 import "./index.scss"
 import {FaComment} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
-import {UserData,  updateFieldInUserData} from "../../../UserData.js"
+import {UserData, updateFieldInUserData} from "../../../UserData.js"
 
 const FriendProfileModal = ({ userId, onClose }) => {
+    // todo : implement using local storage
     const [acc, setAcc] = useState(null); // is ToUser
     const [loading, setLoading] = useState(true);
 
@@ -17,7 +18,6 @@ const FriendProfileModal = ({ userId, onClose }) => {
         const docRef = doc(db, 'users', userId);
         const fetchData = async () => {
             try {
-                console.log("Run query")
                 const sp = await getDoc(docRef);
                 if (sp.exists()) {
                     setAcc(sp.data());
@@ -31,50 +31,55 @@ const FriendProfileModal = ({ userId, onClose }) => {
         fetchData();
     }, []); // dependency is empty because the toUserId is not expected to change
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
     const startChat = async () => {
-        const dbUsersRef = collection(db, 'users');
+        const dataOfAllChatRooms = await getDataOfAlChatRooms()
+        const filteredData = dataOfAllChatRooms.filter(data => data.to === userId && data.from === UserData.userID);
         const chatRoomsRef = collection(db, 'chatrooms');
-        if (bothAreInContact()) {
-            try {
-                const q = query(chatRoomsRef,
-                    where('to', '==', userId), where('from', '==', UserData.userID))
-                const doc = await getDoc(q);
-                if (doc.exists()) {
-                    updateFieldInUserData({chatRoom : doc, chatRoomId : doc.id});
-                    nav("/chat")
-                }
-            } catch (err) {
-                console.log("The chat room cannot be opened.")
-            }
-        } else {
+        const dbUsersRef = collection(db, 'users');
+        if (filteredData.length === 0) {
             try {
                 const newChatroomRef1 = await addDoc(chatRoomsRef, {
                     to: userId,
                     from: UserData.userID,
                 });
-                await addDoc(chatRoomsRef, {
+                const newChatroomRef2 = await addDoc(chatRoomsRef, {
                     to: UserData.userID,
                     from: userId,
                 });
                 const docRef1 = doc(dbUsersRef, UserData.userID);
                 const docRef2 = doc(dbUsersRef, userId)
-                await updateDoc(docRef1, {contacts : arrayUnion(userId)});
-                await updateDoc(docRef2, {contacts : arrayUnion(UserData.userID)});
-                const idOfRoomToNavTo = newChatroomRef1.id
-                updateFieldInUserData({chatRoom : newChatroomRef1, chatRoomId : idOfRoomToNavTo});
+                await updateDoc(docRef1, {chatRooms : arrayUnion(newChatroomRef1.id)});
+                await updateDoc(docRef2, {chatRooms : arrayUnion(newChatroomRef2.id)});
+                updateFieldInUserData({inChatRoom : newChatroomRef1.id});
                 nav("/chat")
             } catch(err) {
                 console.log(err)
             }
+        } else {
+            updateFieldInUserData({inChatRoom : dataOfAllChatRooms[0][0]});
+            nav('/chat')
         }
     }
 
-    const bothAreInContact = () => {
-        return acc.contacts.includes(UserData.userID) && UserData.contacts.includes(userId);
+    const getDataOfAlChatRooms = async () => {
+        const dbRef = collection(db, "chatrooms");
+        const dataOfAllChatRooms = [];
+        for (let i = 0; i < UserData.chatRooms.length; i++) {
+            try {
+                const docRef = doc(dbRef, UserData.chatRooms[i]);
+                const actualDoc = await getDoc(docRef);
+                if (actualDoc.exists()) {
+                    dataOfAllChatRooms.push([actualDoc.id, actualDoc.data()]);
+                }
+            } catch (err) {
+                console.log("The doc does not exist.")
+            }
+        }
+        return dataOfAllChatRooms;
+    }
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
     if (UserData !== null) {

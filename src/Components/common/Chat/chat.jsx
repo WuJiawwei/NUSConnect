@@ -16,7 +16,7 @@ const Chat = () => {
 
     return <div>
         This is chat.
-        The chatroom id is {UserData.chatRoomId}
+        The id is {UserData.inChatRoom}
     </div>
 
     /*if (currUser !== null && currUser.currentlyTexting !== null) {
