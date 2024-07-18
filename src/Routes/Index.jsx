@@ -10,6 +10,7 @@ import Chat from "../Components/common/Chat/chat.jsx"
 import HomeLayout from "../layouts/HomeLayout.jsx";
 import DisplayAllChats from "../Components/common/DisplayAllChats/DisplayAllChats.jsx";
 import EditProfile from "../Components/common/EditProfile/index.jsx"
+import TodoLayout from "../layouts/TodoLayout.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
     {
       path:"/home",
       element: <HomeLayout />,
+    },
+    {
+        path:"/todo",
+        element: <TodoLayout />,
     },
     {
         path:"/profile",

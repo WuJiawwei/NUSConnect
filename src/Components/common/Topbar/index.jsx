@@ -31,7 +31,11 @@ export default function Topbar() {
                       onClick={() => navigate("/home")}
                   />
                   {/*<FaUsers size={30} className="react-icon"/>*/}
-                  {/*<RiTimerFill size={30} className="react-icon"/>*/}
+                  <RiTimerFill 
+                      size={30} 
+                      className="react-icon"
+                      onClick={() => navigate("/todo")}
+                  />
                   {/*<MdMessage size={30} className="react-icon"/>*/}
                   {/*<BiSolidBellRing size={30} className="react-icon"/>*/}
                   <FaComments
