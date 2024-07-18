@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import "./index.scss"
 import LikeButton from '../LikeButton'
 import { useNavigate } from 'react-router-dom'
-import { getCurrentUser } from '../../../api/FirestoreAPI'
+import { getCurrentUser, deletePost } from '../../../api/FirestoreAPI'
 import { GoPencil } from "react-icons/go"
 import { MdDelete } from "react-icons/md"
 
@@ -30,7 +30,7 @@ export default function PostCard({posts, id, fetchEditData}) {
         </div>
         {currentUser.userID === posts.userID ? (<div className="icons">
           <GoPencil size={20} className="edit-icon" onClick={() => fetchEditData(posts)}/>
-          <MdDelete size={20} className="delete-icon" />
+          <MdDelete size={20} className="delete-icon" onClick={() => deletePost(posts.id)}/>
         </div>
         ) : (
           <></>
