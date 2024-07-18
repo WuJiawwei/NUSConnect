@@ -1,11 +1,11 @@
 import React from 'react'
 import "../Sass/HomeComponent.scss"
-import PostStatus from './common/CreatePost'
+import ReminderStatus from './common/CreateReminder'
 
 export default function TodoComponent({currentUser}) {
   return (
-    <div className="todo-component">
-      TodoComponent
+    <div className="home-component">
+      <ReminderStatus currentUser={currentUser}/>
     </div>
   )
 }
