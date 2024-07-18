@@ -15,6 +15,7 @@ import { toast } from "react-toastify"
 
 let likeRef = collection(firestore, "likes")
 let postsRef = collection(firestore, "posts")
+let reminderRef = collection(firestore, "reminders")
 let userRef = collection(firestore, "users")
 let commentRef = collection(firestore, "comments")
 
@@ -155,4 +156,24 @@ export const deletePost = (id) => {
   catch(err) {
     console.log(err)
   }
+}
+
+export const reminderStatus = (obj) => {
+  addDoc(reminderRef, obj)
+    .then(() => {
+      toast.success("Added successfully")
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
+
+export const getReminderStatus = (setAllStatus) => {
+onSnapshot(reminderRef, (res) => {
+  setAllStatus(
+    res.docs.map((docs) => {
+      return { ...docs.data(), id: docs.id}
+    })
+  )
+})
 }

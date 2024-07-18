@@ -1,10 +1,8 @@
 import React, { useState, useMemo } from 'react'
 import "./index.scss"
 import ModComponent from "../Mod"
-import { postStatus, getStatus } from '../../../api/FirestoreAPI';
-import PostCard from '../PostCard';
-import { getCurrentTimeStamp } from '../../../Helpers/useMoment';
-import { Timestamp } from 'firebase/firestore';
+import { reminderStatus, getReminderStatus } from '../../../api/FirestoreAPI';
+import ReminderCard from '../ReminderCard';
 import { getUniqueID } from '../../../Helpers/getUniqueID';
 
 export default function PostStatus({currentUser}) {
@@ -15,18 +13,17 @@ export default function PostStatus({currentUser}) {
   const sendStatus = async () => {
     let object = {
       status: status,
-      timestamp: getCurrentTimeStamp("LLL"),
       userEmail: currentUser.email,
       userName: currentUser.name,
       postID: getUniqueID(),
     }
-    await postStatus(object)
+    await reminderStatus(object)
     await setModalOpen(false)
     await setStatus("")
   }
   
   useMemo(() => {
-    getStatus(setAllStatus)
+    getReminderStatus(setAllStatus)
   }, [])
 
   return (
@@ -45,18 +42,18 @@ export default function PostStatus({currentUser}) {
           sendStatus={sendStatus}
         />
 
-        {/* <div>
+        <div>
           {allStatuses
           .filter((obj) => {
             return obj.userEmail.toLowerCase() === localStorage.getItem("userEmail")
-          }).map((posts) => {
+          }).map((reminders) => {
             return (
-              <div key={posts.id}>
-                <PostCard posts={posts} />
+              <div key={reminders.id}>
+                <ReminderCard reminders={reminders} />
               </div>
             )
           })}
-        </div>  */}
+        </div> 
     </div>
   )
 }
