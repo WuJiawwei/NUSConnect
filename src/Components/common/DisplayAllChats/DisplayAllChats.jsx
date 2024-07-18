@@ -7,21 +7,30 @@ import {useEffect, useState} from "react";
 import {UserData} from "../../../UserData.js"
 
 const DisplayAllChats = () => {
+
+    /*todo:
+    *  functions: search contact, delete contact*/
     const db = getFirestore()
     const usersDbRef = collection(db, 'users')
-    const chatroomsDbRef = collection(db, 'chatrooms')
     const [chatRoomsIds, setChatRoomsIds] = useState([])
     useEffect(() => {
         const fetchData = async () => {
-            const currUserId = UserData.userID
+            let currUserId = UserData.userID;
             const docRef = doc(usersDbRef, currUserId);
-            const actualDoc = await getDoc(docRef);
-            if (actualDoc.exists()) {
-                setChatRoomsIds(actualDoc.data().chatRooms)
+            try {
+                const actualDoc = await getDoc(docRef);
+                if (actualDoc.exists()) {
+                    setChatRoomsIds(actualDoc.data().chatRooms);
+                } else {
+                    console.log("No such document!");
+                }
+            } catch (error) {
+                console.error("Error getting document:", error);
             }
-        }
-        fetchData()
-    }, []) // todo : add dependencies
+        };
+
+        fetchData();
+    }, []); // todo : add dependencies
 
     if (UserData !== null) {
         return (<div>
@@ -51,16 +60,13 @@ const DisplayAllChats = () => {
                     }*/}
                 </div>
             </div>
-            <div className="chats-container">
-                {chatRoomsIds === null?
-                    <div>You do not have any contacts.</div> :
-                    chatRoomsIds.map((roomId) => (
-                        <div key={roomId}>
-                            <ChatBar ChatRoomId={roomId} />
-                        </div>
-                    ))
-                }
-            </div>
+            {chatRoomsIds === null ?
+                <div className="chats-container">
+                    <div>You do not have any contacts.</div>
+                </div>
+                : <div className="chats-container">
+                    {chatRoomsIds.map((roomId) => <div key={roomId}><ChatBar ChatRoomId={roomId}/></div>)}
+                </div>}
         </div>)
     } else {
         return <div>You don't have an account.</div>

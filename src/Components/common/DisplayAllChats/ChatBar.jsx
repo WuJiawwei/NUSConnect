@@ -2,45 +2,50 @@ import "./index.scss"
 import {useState, useEffect} from "react";
 import {getFirestore, doc, getDoc, updateDoc, arrayRemove, collection} from "firebase/firestore";
 import {useNavigate} from "react-router-dom";
-import {UserData} from "../../../UserData.js"
+import {UserData, updateFieldInUserData} from "../../../UserData.js"
 import {FaTrash} from "react-icons/fa";
 
 const ChatBar = ({ChatRoomId}) => {
     // id
     const [toUser, setToUser] = useState(null);
-    const currUser = UserData
     const db = getFirestore();
-    // todo : fix ChatBar implementation
 
-    /*todo:
-    *  functions: search contact, delete contact*/
-
-    /*useEffect(() => {
-        const getToUserDetails = async () => {
+    useEffect(() => {
+        const fetchData = async () => {
+            const chatRoomsRef = collection(db, "chatrooms");
+            const usersRef = collection(db, "users")
+            const chatRoomDocRef = doc(chatRoomsRef, ChatRoomId);
             try {
-                const docRef = await doc(db, "users", id)
-                const actualDoc = await getDoc(docRef);
-                if (actualDoc.exists()) {
-                    setToUser(actualDoc.data());
+                const chatRoomDoc = await getDoc(chatRoomDocRef);
+                if (chatRoomDoc.exists()) {
+                    const toUserDocRef = doc(usersRef, chatRoomDoc.data().to);
+                    try {
+                        const toUserDoc = await getDoc(toUserDocRef);
+                        if (toUserDoc.exists()) {
+                            setToUser(toUserDoc.data());
+                            console.log(toUser);
+                        }
+                    } catch (err) {
+                        setToUser(null);
+                        console.log("This user does not exist.")
+                    }
                 }
             } catch (err) {
-                console.error(err);
+                console.log("The chat does not exist.")
             }
         }
-        getToUserDetails();
-    }, [])
+        fetchData()
+    }, []) // todo: add dependencies
 
-    const removeChat = async () => {
-        //todo
-    }
 
     let nav = useNavigate()
 
     const startChat = () => {
-        //todo
-    }*/
+        updateFieldInUserData({inChatRoom : ChatRoomId})
+        nav("/chat")
+    }
 
-    if (true) {
+    if (toUser !== null && UserData !== null) {
         return (<div className="chat-bar">
             <button
                 className="trash-contact"
@@ -48,15 +53,18 @@ const ChatBar = ({ChatRoomId}) => {
                 <FaTrash/>
             </button>
             <div className="contact-avatar">
-                {/*<img src={toUser.avatar} width={50}/>*/}
+                <img src={toUser.avatar} width={50}/>
             </div>
-            <div className="contact-name">The chat room id </div>
+            <div className="contact-name">{toUser.name}</div>
             <button
                 className="contact-chat-button"
+                onClick={startChat}
             >
                 Chat
             </button>
         </div>)
+    } else {
+        return <div>You do not have an account.</div>
     }
 }
 
