@@ -33,7 +33,7 @@ const FriendProfileModal = ({ userId, onClose }) => {
 
     const startChat = async () => {
         const dataOfAllChatRooms = await getDataOfAlChatRooms()
-        const filteredData = dataOfAllChatRooms.filter(data => data.to === userId && data.from === UserData.userID);
+        const filteredData = dataOfAllChatRooms.filter(data => data[1].to === userId && data[1].from === UserData.userID);
         const chatRoomsRef = collection(db, 'chatrooms');
         const dbUsersRef = collection(db, 'users');
         if (filteredData.length === 0) {
@@ -56,26 +56,36 @@ const FriendProfileModal = ({ userId, onClose }) => {
                 console.log(err)
             }
         } else {
-            updateFieldInUserData({inChatRoom : dataOfAllChatRooms[0][0]});
+            updateFieldInUserData({inChatRoom : filteredData[0][0]});
             nav('/chat')
         }
     }
 
     const getDataOfAlChatRooms = async () => {
         const dbRef = collection(db, "chatrooms");
-        const dataOfAllChatRooms = [];
-        for (let i = 0; i < UserData.chatRooms.length; i++) {
-            try {
-                const docRef = doc(dbRef, UserData.chatRooms[i]);
-                const actualDoc = await getDoc(docRef);
-                if (actualDoc.exists()) {
-                    dataOfAllChatRooms.push([actualDoc.id, actualDoc.data()]);
+        const usersRef = collection(db, "users");
+        const currUserDocRef = doc(usersRef, UserData.userID);
+        try {
+            const currUserActualDoc = await getDoc(currUserDocRef);
+            if (currUserActualDoc.exists()) {
+                const chatRoomIds = currUserActualDoc.data().chatRooms;
+                const dataOfAllChatRooms = [];
+                for (let i = 0; i < chatRoomIds.length; i++) {
+                    try {
+                        const docRef = doc(dbRef, chatRoomIds[i]);
+                        const actualDoc = await getDoc(docRef);
+                        if (actualDoc.exists()) {
+                            dataOfAllChatRooms.push([actualDoc.id, actualDoc.data()]); // is a 2d array
+                        }
+                    } catch (err) {
+                        console.log("The doc does not exist.")
+                    }
                 }
-            } catch (err) {
-                console.log("The doc does not exist.")
+                return dataOfAllChatRooms;
             }
+        } catch (err) {
+            return [];
         }
-        return dataOfAllChatRooms;
     }
 
     if (loading) {
