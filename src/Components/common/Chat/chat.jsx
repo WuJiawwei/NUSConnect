@@ -20,14 +20,36 @@ const Chat = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            const findChatRoomRefOfOtherUser = async () => {
+                if (toUser !== null) {
+                    const ChatRoomIdsOfOtherUser = toUser.chatRooms
+                    for (let i = 0; i < ChatRoomIdsOfOtherUser.length; i++) {
+                        const docRef = doc(chatRoomsRef, ChatRoomIdsOfOtherUser[i]);
+                        try {
+                            const actualDoc = await getDoc(docRef);
+                            if (actualDoc.exists()) {
+                                if (actualDoc.data().to === UserData.userID) {
+                                    //console.log(actualDoc.id);
+                                    console.log("Retrieved chatroom doc ID for to user.")
+                                    return actualDoc.id;
+                                }
+                            }
+                        } catch (err) {
+                            console.log("This is not the correct room.")
+                        }
+                    }
+                }
+            }
             const usersRef = collection(db, "users");
             try {
                 const chatRoomDoc = await getDoc(chatRoomRefOfCurrUser);
+                console.log("Retrieved chatroom doc for from user.")
                 if (chatRoomDoc.exists()) {
                     const idOfToUser = chatRoomDoc.data().to;
                     try {
                         const docRefOfToUser = doc(usersRef, idOfToUser)
                         const docOfToUser = await getDoc(docRefOfToUser)
+                        console.log("Retrieved chatroom doc for to user.")
                         if (docOfToUser.exists()) {
                             setToUser(docOfToUser.data())
                             try {
@@ -49,27 +71,8 @@ const Chat = () => {
         fetchData()
     }, []); //todo : fill up dependencies
 
-    const [message, setMessage] = useState("")
 
-    const findChatRoomRefOfOtherUser = async () => {
-        if (toUser !== null) {
-            const ChatRoomIdsOfOtherUser = toUser.chatRooms
-            for (let i = 0; i < ChatRoomIdsOfOtherUser.length; i++) {
-                const docRef = doc(chatRoomsRef, ChatRoomIdsOfOtherUser[i]);
-                try {
-                    const actualDoc = await getDoc(docRef);
-                    if (actualDoc.exists()) {
-                        if (actualDoc.data().to === UserData.userID) {
-                            console.log(actualDoc.id);
-                            return actualDoc.id;
-                        }
-                    }
-                } catch (err) {
-                    console.log("This is not the correct room.")
-                }
-            }
-        }
-    }
+    const [message, setMessage] = useState("")
 
     const handleBackNav = () => {
         updateFieldInUserData({inChatRoom : "" })
@@ -84,7 +87,8 @@ const Chat = () => {
             if (chatRoomIdOfOtherUser !== null) {
                 const docRef = doc(chatRoomsRef, chatRoomIdOfOtherUser)
                 try {
-                    await updateDoc(docRef, {chatRooms : arrayUnion(stringifiedText)})
+                    await updateDoc(docRef, {messages : arrayUnion(stringifiedText)})
+                    console.log("Message sent to To User.")
                 } catch (err) {
                     console.log("The update was not successful.")
                 }

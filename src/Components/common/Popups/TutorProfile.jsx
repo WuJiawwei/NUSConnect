@@ -45,10 +45,12 @@ const TutorProfileModal = ({ userId, onClose }) => {
                     to: userId,
                     from: UserData.userID,
                 });
+                console.log("First chat room added.")
                 const newChatroomRef2 = await addDoc(chatRoomsRef, {
                     to: UserData.userID,
                     from: userId,
                 });
+                console.log("Second chat room added.")
                 const docRef1 = doc(dbUsersRef, UserData.userID);
                 const docRef2 = doc(dbUsersRef, userId)
                 await updateDoc(docRef1, {chatRooms : arrayUnion(newChatroomRef1.id)});
