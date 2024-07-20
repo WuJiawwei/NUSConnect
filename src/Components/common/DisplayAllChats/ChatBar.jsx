@@ -6,8 +6,10 @@ import {UserData, updateFieldInUserData} from "../../../UserData.js"
 import {FaTrash} from "react-icons/fa";
 
 const ChatBar = ({ChatRoomId}) => {
+
+    // todo
     // id
-    const [toUser, setToUser] = useState(null);
+    /*const [toUser, setToUser] = useState(null);
     const db = getFirestore();
 
     useEffect(() => {
@@ -65,7 +67,7 @@ const ChatBar = ({ChatRoomId}) => {
         </div>)
     } else {
         return <div>You do not have an account.</div>
-    }
+    }*/
 }
 
 export default ChatBar

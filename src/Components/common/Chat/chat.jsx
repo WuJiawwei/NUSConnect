@@ -1,59 +1,109 @@
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {FaChevronLeft, FaFileUpload, FaPaperPlane} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
-import "./index.scss"
-import {getFirestore, doc, getDoc, collection, updateDoc, arrayUnion} from "firebase/firestore";
-import {UserData, updateFieldInUserData} from "../../../UserData.js"
-import TextMessage from "./message.js"
+import "./index.scss";
+import {getFirestore, collection, doc, getDoc, updateDoc, arrayUnion} from "firebase/firestore";
+import {UserData, updateFieldInUserData} from "../../../UserData.js";
+import TextMessage from "./message.js";
+import SentMessage from "./SentMessage.jsx";
 
 const Chat = () => {
-    const currUser = UserData
+
+    const [message, setMessage] = useState('');
+    const [allSentMessages, setAllSentMessages] = useState([]);
     let nav = useNavigate();
-    const [toUser, setToUser] = useState(null);
+    const handleBackNav = () => {
+        updateFieldInUserData({ inChatRoom: "", userIDOfToUser: "", toUserData: {} });
+        nav("/allchats");
+    };
 
-    //todo : display text messages that have been already sent
+    const sendMessage = async () => {
+        const textToSendInJs = new TextMessage(message, UserData.userID);
+        const textMessageInJSON = JSON.stringify(textToSendInJs);
+        setMessage('');
+        try {
+            const db = getFirestore();
+            const chatRoomsRef = collection(db, "chatrooms");
+            await updateDoc(doc(chatRoomsRef, UserData.inChatRoom), { messages: arrayUnion(textMessageInJSON) });
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
-    return <div>{currUser.inChatRoom}</div>
-    /*if (toUser !== null && UserData !== null) {
-        return <div>
-            <div className="top-chat-bar">
-                <button className="go-back-button" onClick={handleBackNav}>
-                    <FaChevronLeft/>
-                </button>
-                <div className="to-user-avatar">
-                    <img src={toUser.avatar} width={50}/>
+    useEffect(() => {
+        const fetchMessages = async () => {
+            const db = getFirestore();
+            const chatRoomsRef = collection(db, 'chatrooms');
+            try {
+                const docRef = doc(chatRoomsRef, UserData.inChatRoom);
+                const actualDoc = await getDoc(docRef);
+                if (actualDoc.exists()) {
+                    try {
+                        const messagesSent = actualDoc.data().messages;
+                        const parsedMessages = messagesSent.map((message, index) => {
+                            const parsedMessage = JSON.parse(message);
+                            //console.log({ id: index, message: parsedMessage })
+                            return { id: index, message: parsedMessage };
+                        });
+                        setAllSentMessages(parsedMessages);
+                    } catch (err) {
+                        console.log(err);
+                    }
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchMessages();
+    }, [allSentMessages]);
+    // the dep is as such because i want the page to be reloaded everytime a message is sent
+
+    if (UserData !== null && UserData.toUserData !== null) {
+        return (
+            <div>
+                <div className="top-chat-bar">
+                    <button className="go-back-button" onClick={handleBackNav}>
+                        <FaChevronLeft />
+                    </button>
+                    <div className="to-user-avatar">
+                        <img src={UserData.toUserData.avatar} width={50} />
+                    </div>
+                    <div className="to-user-name">
+                        {UserData.toUserData.name}
+                    </div>
                 </div>
-                <div className="to-user-name">
-                    {toUser.name}
+                {allSentMessages.length === 0 ? (
+                    <div>Be the first to send a message.</div>
+                ) : (
+                    <div>
+                        {allSentMessages.map(m => (
+                            <div key={m.id}>
+                                <SentMessage
+                                    time={m.message.time}
+                                    by={m.message.by}
+                                    text={m.message.text}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                )}
+                <div className="send-message-bar">
+                    <img className="from-user-avatar" src={UserData.avatar} width={50}/>
+                    <input
+                        className="input-message-bar"
+                        placeholder="Your message..."
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}/>
+                    <button className="send-message-button" onClick={sendMessage}>
+                        <FaPaperPlane/>
+                    </button>
+                    <button className="file-upload-button">
+                        <FaFileUpload/>
+                    </button>
                 </div>
             </div>
-            This is chat.
-            The id is {UserData.inChatRoom}
-            <div className="send-message-bar">
-                <img className="from-user-avatar" src={UserData.avatar} width={50}/>
-                <input
-                    className="input-message-bar"
-                    placeholder="Your message..."
-                    onChange={(e) => {
-                        setMessage(e.target.value)
-                    }}
-                />
-                <button
-                    className="send-message-button"
-                    onClick = {sendTextMessage}
-                >
-                    <FaPaperPlane/>
-                </button>
-                <button className="file-upload-button">
-                    <FaFileUpload/>
-                </button>
-            </div>
-        </div>
-    } else if (UserData === null) {
-        return <div>You do not have an account.</div>
-    } else {
-        return <div>The user you are trying to contact is no longer using NUSConnect.</div>
-    }*/
-}
+        );
+    }
+};
 
-export default Chat
+export default Chat;

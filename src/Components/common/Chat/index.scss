@@ -28,22 +28,6 @@
   margin-left: 1%;
 }
 
-.message-container {
-  overflow: scroll;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  .message {
-    max-width: 70%;
-    display: flex;
-  }
-  .own-message {
-    max-width: 70%;
-    display: flex;
-    align-self : flex-end;
-  }
-}
-
 .send-message-bar {
   background-color: pink;
   height: 70px;
@@ -83,4 +67,9 @@
     background-color: pink;
     color: mediumpurple;
   }
+}
+
+.own-message {
+  gap: 5px;
+  background-color: mix(white, mix(white, yellow));
 }

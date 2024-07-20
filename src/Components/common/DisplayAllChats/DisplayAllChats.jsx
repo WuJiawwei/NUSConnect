@@ -15,18 +15,7 @@ const DisplayAllChats = () => {
     const [chatRoomsIds, setChatRoomsIds] = useState([])
     useEffect(() => {
         const fetchData = async () => {
-            let currUserId = UserData.userID;
-            const docRef = doc(usersDbRef, currUserId);
-            try {
-                const actualDoc = await getDoc(docRef);
-                if (actualDoc.exists()) {
-                    setChatRoomsIds(actualDoc.data().chatRooms);
-                } else {
-                    console.log("No such document!");
-                }
-            } catch (error) {
-                console.error("Error getting document:", error);
-            }
+            //todo
         };
 
         fetchData();
