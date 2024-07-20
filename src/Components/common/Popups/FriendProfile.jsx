@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {getFirestore, getDoc, doc, collection, query, where, updateDoc, arrayUnion, addDoc} from 'firebase/firestore';
+import {getFirestore, getDoc, doc, collection, query, where, getDocs, addDoc} from 'firebase/firestore';
 import "./index.scss"
 import {FaComment} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
@@ -7,7 +7,8 @@ import {UserData, updateFieldInUserData} from "../../../UserData.js"
 
 const FriendProfileModal = ({ userId, onClose }) => {
     // todo : implement using local storage
-    const [acc, setAcc] = useState(null); // is ToUser
+    const [acc, setAcc] = useState(null);
+    const userIDOfOtherUser = userId
     const [loading, setLoading] = useState(true);
 
     let nav = useNavigate()
@@ -32,63 +33,53 @@ const FriendProfileModal = ({ userId, onClose }) => {
     }, []); // dependency is empty because the toUserId is not expected to change
 
     const startChat = async () => {
-        const dataOfAllChatRooms = await getDataOfAlChatRooms()
-        const filteredData = dataOfAllChatRooms.filter(data => data[1].to === userId && data[1].from === UserData.userID);
         const chatRoomsRef = collection(db, 'chatrooms');
-        const dbUsersRef = collection(db, 'users');
-        if (filteredData.length === 0) {
-            try {
-                const newChatroomRef1 = await addDoc(chatRoomsRef, {
-                    to: userId,
-                    from: UserData.userID,
-                });
-                console.log("First chat room added.")
-                const newChatroomRef2 = await addDoc(chatRoomsRef, {
-                    to: UserData.userID,
-                    from: userId,
-                });
-                console.log("Second chat room added.")
-                const docRef1 = doc(dbUsersRef, UserData.userID);
-                const docRef2 = doc(dbUsersRef, userId)
-                await updateDoc(docRef1, {chatRooms : arrayUnion(newChatroomRef1.id)});
-                await updateDoc(docRef2, {chatRooms : arrayUnion(newChatroomRef2.id)});
-                updateFieldInUserData({inChatRoom : newChatroomRef1.id});
-                nav("/chat")
-            } catch(err) {
-                console.log(err)
-            }
-        } else {
-            updateFieldInUserData({inChatRoom : filteredData[0][0]});
-            nav('/chat')
-        }
-    }
+        const q = query(chatRoomsRef, where('participants', 'array-contains', UserData.userID));
 
-    const getDataOfAlChatRooms = async () => {
-        const dbRef = collection(db, "chatrooms");
-        const usersRef = collection(db, "users");
-        const currUserDocRef = doc(usersRef, UserData.userID);
         try {
-            const currUserActualDoc = await getDoc(currUserDocRef);
-            if (currUserActualDoc.exists()) {
-                const chatRoomIds = currUserActualDoc.data().chatRooms;
-                const dataOfAllChatRooms = [];
-                for (let i = 0; i < chatRoomIds.length; i++) {
-                    try {
-                        const docRef = doc(dbRef, chatRoomIds[i]);
-                        const actualDoc = await getDoc(docRef);
-                        if (actualDoc.exists()) {
-                            dataOfAllChatRooms.push([actualDoc.id, actualDoc.data()]); // is a 2d array
-                        }
-                    } catch (err) {
-                        console.log("The doc does not exist.")
-                    }
+            console.log('Querying docs');
+            const chatRoomDocs = await getDocs(q);
+            console.log('Docs received');
+
+            let chatRoomDoc = null;
+
+            chatRoomDocs.forEach((doc) => {
+                const data = doc.data();
+                if (data.participants.includes(userIDOfOtherUser)) {
+                    chatRoomDoc = doc;
                 }
-                return dataOfAllChatRooms;
+            });
+
+            if (chatRoomDoc) {
+                console.log('ChatRoomDoc is not null');
+                updateFieldInUserData({
+                    inChatRoom: chatRoomDoc.id,
+                    userIDOfToUser: userIDOfOtherUser,
+                    toUserData: acc
+                });
+                nav('/chat');
+            } else {
+                console.log('No existing chat room found, creating a new one');
+                throw new Error("No existing chat room found");
             }
         } catch (err) {
-            return [];
+            console.log('Querying failed', err);
+            try {
+                const participantsArr = [UserData.userID, userIDOfOtherUser];
+                const newChatRoom = await addDoc(chatRoomsRef, { participants: participantsArr });
+                if (newChatRoom !== null) {
+                    updateFieldInUserData({
+                        inChatRoom: newChatRoom.id,
+                        userIDOfToUser: userIDOfOtherUser,
+                        toUserData: acc
+                    });
+                    nav('/chat');
+                }
+            } catch (err) {
+                console.log("ChatRoom creation failed.", err);
+            }
         }
-    }
+    };
 
     if (loading) {
         return <div>Loading...</div>;
