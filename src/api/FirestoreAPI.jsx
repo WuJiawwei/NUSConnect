@@ -177,3 +177,14 @@ onSnapshot(reminderRef, (res) => {
   )
 })
 }
+
+export const deleteReminder = (id) => {
+  let reminderToDelete = doc(reminderRef, id)
+  try {
+    deleteDoc(reminderToDelete)
+    toast.success("Reminder deleted successfully")
+  }
+  catch(err) {
+    console.log(err)
+  }
+}
