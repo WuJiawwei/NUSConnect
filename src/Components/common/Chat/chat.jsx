@@ -72,21 +72,25 @@ const Chat = () => {
                         {UserData.toUserData.name}
                     </div>
                 </div>
-                {allSentMessages.length === 0 ? (
-                    <div>Be the first to send a message.</div>
-                ) : (
-                    <div>
-                        {allSentMessages.map(m => (
-                            <div key={m.id}>
-                                <SentMessage
-                                    time={m.message.time}
-                                    by={m.message.by}
-                                    text={m.message.text}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                )}
+                <div className="messages-container">
+                    {allSentMessages.length === 0 ? (
+                        <div className="no-messages-yet-text">
+                            Be the first to send a message.
+                        </div>
+                    ) : (
+                        <div className="messages-container">
+                            {allSentMessages.map(m => (
+                                <div key={m.id}>
+                                    <SentMessage
+                                        time={m.message.time}
+                                        by={m.message.by}
+                                        text={m.message.text}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
                 <div className="send-message-bar">
                     <img className="from-user-avatar" src={UserData.avatar} width={50}/>
                     <input

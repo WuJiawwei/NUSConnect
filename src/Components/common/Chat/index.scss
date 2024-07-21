@@ -69,7 +69,67 @@
   }
 }
 
-.own-message {
+.messages-container {
+  height: 80vh;
+  overflow-y: scroll;
   gap: 5px;
-  background-color: mix(white, mix(white, yellow));
+  display: flex;
+  flex-direction: column;
+  .own-message {
+    background-color: mix(white, mix(white, yellow));
+    width: 60%;
+    margin-top: 5px;
+    margin-left: 40%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    .own-date {
+      color: mix(white, lightslategray);
+      font-size: small;
+    }
+    .own-avatar-and-date {
+      display: flex;
+      flex-direction: row;
+      .own-date {
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+      }
+      .own-avatar {
+        display: flex;
+        flex-direction: row;
+        margin-left: 78%;
+      }
+    }
+  }
+  .no-messages-yet-text {
+
+  }
+  .others-message {
+    background-color: rgba(206, 235, 212, 0.989);
+    width: 60%;
+    margin-top: 5px;
+    margin-left: 40%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    .others-date {
+      color: mix(white, lightslategray);
+      font-size: small;
+    }
+    .others-avatar-and-date {
+      display: flex;
+      flex-direction: row;
+      .others-date {
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+      }
+      .others-avatar {
+        display: flex;
+        flex-direction: row;
+        margin-left: 78%;
+      }
+    }
+  }
 }
