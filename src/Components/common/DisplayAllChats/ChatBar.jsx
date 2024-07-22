@@ -7,12 +7,15 @@ import {FaTrash} from "react-icons/fa";
 
 const ChatBar = ({ChatRoomId}) => {
 
+    //todo : implement with memoization ? -> try to do also for search, display all
+    // chats and other related components
+
     const [toUserId, setToUserId] = useState(null);
     const [toUser, setToUser] = useState(null);
     const db = getFirestore();
 
     useEffect(() => {
-    }, []) // todo: add dependencies
+    }, [])
 
     const fetchData = async () => {
         const chatRoomsRef = collection(db, 'chatrooms')
@@ -36,9 +39,7 @@ const ChatBar = ({ChatRoomId}) => {
             try {
                 const actualToUserDoc = await getDoc(toUserDocRef);
                 if (actualToUserDoc.exists()) {
-                    //console.log("This line has been reached.")
                     setToUser(actualToUserDoc.data());
-                    //console.log("The value if to-user is " + toUser)
                 }
             } catch (err) {
                 console.log(err)
@@ -48,6 +49,7 @@ const ChatBar = ({ChatRoomId}) => {
     fetchData()
 
 
+    // todo : use memoization
     let nav = useNavigate()
 
     const startChat = () => {

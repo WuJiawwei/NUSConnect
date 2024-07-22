@@ -9,6 +9,8 @@ import SentMessage from "./SentMessage.jsx";
 
 const Chat = () => {
 
+    //todo : use memoization
+
     const [message, setMessage] = useState('');
     const [allSentMessages, setAllSentMessages] = useState([]);
     let nav = useNavigate();

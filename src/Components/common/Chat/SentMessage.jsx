@@ -2,6 +2,7 @@ import {UserData} from "../../../UserData.js"
 import "./index.scss"
 
 const SentMessage = ({by, time, text}) => {
+    // todo : use memoization
     if (by === UserData.userID) {
         return <div className="own-message">
             <div className="own-text">{text}</div>

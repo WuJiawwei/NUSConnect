@@ -38,6 +38,8 @@ const FriendProfileModal = ({ userId, onClose }) => {
         fetchData();
     }, [userId]);
 
+    // todo: use memoization
+
     const startChat = async () => {
         const chatRoomsRef = collection(db, 'chatrooms');
         const q = query(chatRoomsRef, where('participants', 'array-contains', UserData.userID));

@@ -1,6 +1,6 @@
 import "./index.scss";
 import { FaRocket, FaSearch } from "react-icons/fa";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo} from "react";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { firestore } from "../../../firebaseConfig.js";
 import {UserData} from "../../../UserData.js"
@@ -15,22 +15,32 @@ const TutorSearch = () => {
         console.log("This function has run.")
     }, [])
 
-    const onClick = async () => {
+    const fetch = useMemo(() => async () => {
         try {
-            const lookFor = search.replace(/-/g, '').replace(/ /g, '').toUpperCase();
             const remove = UserData.userID;
             const db = collection(firestore, "users");
             const q1 = query(db, where("wantsToTutor", "==", true))
-            const q2 = query(q1, where("Module Code", "==", lookFor), limit(10))
+            const q2 = query(q1, where("Module Code", "==", search), limit(10))
             const querySnapshot = await getDocs(q2);
             const fetchedData = querySnapshot.docs
                 .filter(doc => doc.id !== remove)
                 .map((doc) => ({ id: doc.id, ...doc.data() }));
             setDoc(fetchedData);
+            console.log("Search complete");
         } catch (error) {
             console.error("Error fetching data:", error);
         }
+    }, [UserData.userID, search]);
+
+    const onClick = () => {
+        fetch()
     }
+
+    const processSearchVal = e => {
+        const processedSearchVal = e.target.value.replace(/-/g, '').replace(/ /g, '').toUpperCase();
+        setSearch(processedSearchVal);
+    }
+
     return (<div>
         <div className="search-container">
             <div className="search-box">
@@ -38,7 +48,7 @@ const TutorSearch = () => {
                 <input
                     className="input"
                     placeholder="Module Code"
-                    onChange={e => setSearch(e.target.value)}
+                    onChange={processSearchVal}
                 />
                 <button className="search-button" onClick = {onClick}>
                     <FaRocket/>

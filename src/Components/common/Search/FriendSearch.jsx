@@ -1,6 +1,6 @@
 import "./index.scss";
 import { FaRocket, FaSearch } from "react-icons/fa";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo} from "react";
 import { collection, query, where, getDocs, limit } from "firebase/firestore";
 import { firestore } from "../../../firebaseConfig.js";
 import {UserData} from "../../../UserData.js";
@@ -15,14 +15,12 @@ const FriendSearch = () => {
         console.log("This function has run.")
     }, [])
 
-    const fetch = async () => {
+    const fetch = useMemo(() => async () => {
         try {
-            const lookFor = search.replace(/-/g, '')
-                .replace(/ /g, '').toUpperCase();
             const remove = UserData.userID;
             const db = collection(firestore, "users");
             const q1 = query(db, where("wantsToBefriend", "==", true))
-            const q2 = query(q1, where("hobby", "==", lookFor), limit(10))
+            const q2 = query(q1, where("hobby", "==", search), limit(10))
             const querySnapshot = await getDocs(q2);
             const fetchedData = querySnapshot.docs
                 .filter(doc => doc.id !== remove)
@@ -32,6 +30,15 @@ const FriendSearch = () => {
         } catch (error) {
             console.error("Error fetching data:", error);
         }
+    }, [search, UserData.userID])
+
+    const handleFetch = () => {
+        fetch()
+    }
+
+    const handleInputChange = e => {
+        const processedVal = e.target.value.replace(/-/g, '').replace(/ /g, '').toUpperCase();
+        setSearch(processedVal);
     }
 
     return (<div>
@@ -41,9 +48,9 @@ const FriendSearch = () => {
                 <input
                     className="input"
                     placeholder="Interest"
-                    onChange={e => setSearch(e.target.value)}
+                    onChange={handleInputChange}
                 />
-                <button className="search-button" onClick = {fetch}>
+                <button className="search-button" onClick = {handleFetch}>
                     <FaRocket/>
                     Launch Search
                 </button>
