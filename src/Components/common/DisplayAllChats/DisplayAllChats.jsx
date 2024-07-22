@@ -1,6 +1,5 @@
 import ChatBar from "./ChatBar.jsx"
 import "./index.scss"
-import {FaRocket, FaSearch, FaTimes} from "react-icons/fa";
 import Topbar from "../Topbar/index.jsx"
 import {getFirestore, collection, doc, getDoc} from "firebase/firestore";
 import {useEffect, useState} from "react";
@@ -8,16 +7,22 @@ import {UserData} from "../../../UserData.js"
 
 const DisplayAllChats = () => {
 
-    /*todo:
-    *  functions: search contact, delete contact*/
     const db = getFirestore()
-    const usersDbRef = collection(db, 'users')
     const [chatRoomsIds, setChatRoomsIds] = useState([])
     useEffect(() => {
         const fetchData = async () => {
-            //todo
+            const usersDbRef = collection(db, 'users');
+            const docRef = doc(usersDbRef, UserData.userID);
+            try {
+                const actualDoc = await getDoc(docRef);
+                if (actualDoc.exists()) {
+                    const res = actualDoc.data().chatRooms;
+                    setChatRoomsIds(res);
+                }
+            } catch (err) {
+                console.log(err);
+            }
         };
-
         fetchData();
     }, []); // todo : add dependencies
 

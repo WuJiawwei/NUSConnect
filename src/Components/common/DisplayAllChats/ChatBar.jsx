@@ -1,59 +1,63 @@
 import "./index.scss"
 import {useState, useEffect} from "react";
-import {getFirestore, doc, getDoc, updateDoc, arrayRemove, collection} from "firebase/firestore";
+import {getFirestore, doc, getDoc, collection} from "firebase/firestore";
 import {useNavigate} from "react-router-dom";
 import {UserData, updateFieldInUserData} from "../../../UserData.js"
 import {FaTrash} from "react-icons/fa";
 
 const ChatBar = ({ChatRoomId}) => {
 
-    // todo
-    // id
-    /*const [toUser, setToUser] = useState(null);
+    const [toUserId, setToUserId] = useState(null);
+    const [toUser, setToUser] = useState(null);
     const db = getFirestore();
 
     useEffect(() => {
-        const fetchData = async () => {
-            const chatRoomsRef = collection(db, "chatrooms");
-            const usersRef = collection(db, "users")
-            const chatRoomDocRef = doc(chatRoomsRef, ChatRoomId);
-            try {
-                const chatRoomDoc = await getDoc(chatRoomDocRef);
-                if (chatRoomDoc.exists()) {
-                    const toUserDocRef = doc(usersRef, chatRoomDoc.data().to);
-                    try {
-                        const toUserDoc = await getDoc(toUserDocRef);
-                        if (toUserDoc.exists()) {
-                            setToUser(toUserDoc.data());
-                            console.log(toUser);
-                        }
-                    } catch (err) {
-                        setToUser(null);
-                        console.log("This user does not exist.")
+    }, []) // todo: add dependencies
+
+    const fetchData = async () => {
+        const chatRoomsRef = collection(db, 'chatrooms')
+        const chatDocRef = doc(chatRoomsRef, ChatRoomId);
+        try {
+            const chatDoc = await getDoc(chatDocRef);
+            if (chatDoc.exists()) {
+                const participantsArr = chatDoc.data().participants;
+                for (let i = 0; i < participantsArr.length; i++) {
+                    if (participantsArr[i] !== UserData.userID) {
+                        setToUserId(participantsArr[i]);
                     }
                 }
+            }
+        } catch (err) {
+            console.log(err)
+        }
+        if (toUserId !== null) {
+            const usersRef = collection(db, 'users');
+            const toUserDocRef = doc(usersRef, toUserId);
+            try {
+                const actualToUserDoc = await getDoc(toUserDocRef);
+                if (actualToUserDoc.exists()) {
+                    //console.log("This line has been reached.")
+                    setToUser(actualToUserDoc.data());
+                    //console.log("The value if to-user is " + toUser)
+                }
             } catch (err) {
-                console.log("The chat does not exist.")
+                console.log(err)
             }
         }
-        fetchData()
-    }, []) // todo: add dependencies
+    }
+    fetchData()
 
 
     let nav = useNavigate()
 
     const startChat = () => {
-        updateFieldInUserData({inChatRoom : ChatRoomId})
+        updateFieldInUserData({inChatRoom : ChatRoomId, userIDOfToUser : toUserId, toUserData : toUser})
+        console.log(UserData)
         nav("/chat")
     }
 
-    if (toUser !== null && UserData !== null) {
+    if (toUser !== null) {
         return (<div className="chat-bar">
-            <button
-                className="trash-contact"
-            >
-                <FaTrash/>
-            </button>
             <div className="contact-avatar">
                 <img src={toUser.avatar} width={50}/>
             </div>
@@ -65,9 +69,7 @@ const ChatBar = ({ChatRoomId}) => {
                 Chat
             </button>
         </div>)
-    } else {
-        return <div>You do not have an account.</div>
-    }*/
+    }
 }
 
 export default ChatBar

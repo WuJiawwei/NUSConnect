@@ -14,6 +14,7 @@ const Chat = () => {
     let nav = useNavigate();
     const handleBackNav = () => {
         updateFieldInUserData({ inChatRoom: "", userIDOfToUser: "", toUserData: {} });
+        console.log(UserData)
         nav("/allchats");
     };
 
