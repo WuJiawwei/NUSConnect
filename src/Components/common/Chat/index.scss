@@ -83,6 +83,9 @@
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+    .own-text {
+      padding: 10px;
+    }
     .own-date {
       color: mix(white, lightslategray);
       font-size: small;
@@ -106,13 +109,16 @@
 
   }
   .others-message {
-    background-color: rgba(206, 235, 212, 0.989);
+    background-color: mix(white, rgba(206, 235, 212, 0.989));
     width: 60%;
     margin-top: 5px;
-    margin-left: 40%;
+    margin-left: 0%;
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+    .others-text {
+      padding: 10px;
+    }
     .others-date {
       color: mix(white, lightslategray);
       font-size: small;

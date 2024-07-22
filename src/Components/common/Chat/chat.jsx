@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {FaChevronLeft, FaFileUpload, FaPaperPlane} from "react-icons/fa";
+import {FaChevronLeft, FaPaperPlane} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import "./index.scss";
 import {getFirestore, collection, doc, getDoc, updateDoc, arrayUnion} from "firebase/firestore";
@@ -75,7 +75,7 @@ const Chat = () => {
                 <div className="messages-container">
                     {allSentMessages.length === 0 ? (
                         <div className="no-messages-yet-text">
-                            Be the first to send a message.
+                            Hit refresh if you don't see your sent messages.
                         </div>
                     ) : (
                         <div className="messages-container">
@@ -95,14 +95,11 @@ const Chat = () => {
                     <img className="from-user-avatar" src={UserData.avatar} width={50}/>
                     <input
                         className="input-message-bar"
-                        placeholder="Your message..."
+                        placeholder="Text something or send a link..."
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}/>
                     <button className="send-message-button" onClick={sendMessage}>
                         <FaPaperPlane/>
-                    </button>
-                    <button className="file-upload-button">
-                        <FaFileUpload/>
                     </button>
                 </div>
             </div>

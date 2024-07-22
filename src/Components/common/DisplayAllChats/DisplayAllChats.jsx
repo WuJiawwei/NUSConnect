@@ -24,31 +24,6 @@ const DisplayAllChats = () => {
     if (UserData !== null) {
         return (<div>
             <Topbar/>
-            <div className="search-container">
-                <div className="search-box">
-                    <FaSearch className="search-icon"/>
-                    <input
-                        className="input"
-                        placeholder="Search your contacts"
-                    />
-                    {/*}
-                    {onSearch ?
-                        <button
-                            className="terminate-search-button"
-                        >
-                            <FaTimes/>
-                            Terminate search
-                        </button>
-                        :
-                        <button
-                            className="search-button"
-                        >
-                            <FaRocket/>
-                            Launch Search
-                        </button>
-                    }*/}
-                </div>
-            </div>
             {chatRoomsIds === null ?
                 <div className="chats-container">
                     <div>You do not have any contacts.</div>
