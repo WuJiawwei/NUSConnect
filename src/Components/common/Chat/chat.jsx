@@ -2,14 +2,12 @@ import {useEffect, useState} from "react";
 import {FaChevronLeft, FaPaperPlane} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import "./index.scss";
-import {getFirestore, collection, doc, getDoc, updateDoc, arrayUnion} from "firebase/firestore";
+import {getFirestore, collection, doc, getDoc, updateDoc, arrayUnion, onSnapshot} from "firebase/firestore";
 import {UserData, updateFieldInUserData} from "../../../UserData.js";
 import TextMessage from "./message.js";
 import SentMessage from "./SentMessage.jsx";
 
 const Chat = () => {
-
-    //todo : use memoization
 
     const [message, setMessage] = useState('');
     const [allSentMessages, setAllSentMessages] = useState([]);
@@ -33,7 +31,7 @@ const Chat = () => {
         }
     };
 
-    useEffect(() => {
+    /*useEffect(() => {
         const fetchMessages = async () => {
             const db = getFirestore();
             const chatRoomsRef = collection(db, 'chatrooms');
@@ -45,7 +43,6 @@ const Chat = () => {
                         const messagesSent = actualDoc.data().messages;
                         const parsedMessages = messagesSent.map((message, index) => {
                             const parsedMessage = JSON.parse(message);
-                            //console.log({ id: index, message: parsedMessage })
                             return { id: index, message: parsedMessage };
                         });
                         setAllSentMessages(parsedMessages);
@@ -58,8 +55,32 @@ const Chat = () => {
             }
         };
         fetchMessages();
-    }, [allSentMessages]);
-    // the dep is as such because i want the page to be reloaded everytime a message is sent
+    }, [allSentMessages]);*/
+
+    useEffect(() => {
+        const db = getFirestore();
+        const chatRoomsRef = collection(db, 'chatrooms');
+        const docRef = doc(chatRoomsRef, UserData.inChatRoom);
+
+        const unsubscribe = onSnapshot(docRef, (snapshot) => {
+            if (snapshot.exists()) {
+                try {
+                    const messagesSent = snapshot.data().messages;
+                    const parsedMessages = messagesSent.map((message, index) => {
+                        const parsedMessage = JSON.parse(message);
+                        return { id: index, message: parsedMessage };
+                    });
+                    setAllSentMessages(parsedMessages);
+                    console.log("Retrieved sent messages.")
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        });
+
+        return () => unsubscribe();
+    }, [UserData.inChatRoom]);
+
 
     if (UserData !== null && UserData.toUserData !== null) {
         return (

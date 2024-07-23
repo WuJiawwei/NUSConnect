@@ -15,32 +15,22 @@ const TutorSearch = () => {
         console.log("This function has run.")
     }, [])
 
-    const fetch = useMemo(() => async () => {
+    const onClick = async () => {
         try {
+            const lookFor = search.replace(/-/g, '').replace(/ /g, '').toUpperCase();
             const remove = UserData.userID;
             const db = collection(firestore, "users");
             const q1 = query(db, where("wantsToTutor", "==", true))
-            const q2 = query(q1, where("Module Code", "==", search), limit(10))
+            const q2 = query(q1, where("Module Code", "==", lookFor), limit(10))
             const querySnapshot = await getDocs(q2);
             const fetchedData = querySnapshot.docs
                 .filter(doc => doc.id !== remove)
                 .map((doc) => ({ id: doc.id, ...doc.data() }));
             setDoc(fetchedData);
-            console.log("Search complete");
         } catch (error) {
             console.error("Error fetching data:", error);
         }
-    }, [UserData.userID, search]);
-
-    const onClick = () => {
-        fetch()
     }
-
-    const processSearchVal = e => {
-        const processedSearchVal = e.target.value.replace(/-/g, '').replace(/ /g, '').toUpperCase();
-        setSearch(processedSearchVal);
-    }
-
     return (<div>
         <div className="search-container">
             <div className="search-box">
@@ -48,7 +38,7 @@ const TutorSearch = () => {
                 <input
                     className="input"
                     placeholder="Module Code"
-                    onChange={processSearchVal}
+                    onChange={e => setSearch(e.target.value)}
                 />
                 <button className="search-button" onClick = {onClick}>
                     <FaRocket/>

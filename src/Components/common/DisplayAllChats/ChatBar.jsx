@@ -7,9 +7,6 @@ import {FaTrash} from "react-icons/fa";
 
 const ChatBar = ({ChatRoomId}) => {
 
-    //todo : implement with memoization ? -> try to do also for search, display all
-    // chats and other related components
-
     const [toUserId, setToUserId] = useState(null);
     const [toUser, setToUser] = useState(null);
     const db = getFirestore();

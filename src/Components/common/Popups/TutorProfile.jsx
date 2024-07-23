@@ -30,6 +30,7 @@ const TutorProfileModal = ({ userId, onClose }) => {
                 const sp = await getDoc(docRef);
                 if (sp.exists()) {
                     setAcc(sp.data());
+                    console.log("Data fetched.")
                 }
             } catch (err) {
                 console.error('Error fetching document:', err);
@@ -39,8 +40,6 @@ const TutorProfileModal = ({ userId, onClose }) => {
         };
         fetchData();
     }, [userId]);
-
-    //todo: use memoization
 
     const startChat = async () => {
         const chatRoomsRef = collection(db, 'chatrooms');

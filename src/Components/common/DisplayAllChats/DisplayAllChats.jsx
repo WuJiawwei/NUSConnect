@@ -7,8 +7,6 @@ import {UserData} from "../../../UserData.js"
 
 const DisplayAllChats = () => {
 
-    //todo : use memoization
-
     const db = getFirestore()
     const [chatRoomsIds, setChatRoomsIds] = useState([])
     useEffect(() => {

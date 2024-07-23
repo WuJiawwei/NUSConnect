@@ -11,16 +11,14 @@ const FriendSearch = () => {
     const [doc, setDoc] = useState([]);
     const [selectedUserId, setSelectedUserId] = useState(null);
 
-    useEffect(() => {
-        console.log("This function has run.")
-    }, [])
-
-    const fetch = useMemo(() => async () => {
+    const fetch = async () => {
         try {
+            const lookFor = search.replace(/-/g, '')
+                .replace(/ /g, '').toUpperCase();
             const remove = UserData.userID;
             const db = collection(firestore, "users");
             const q1 = query(db, where("wantsToBefriend", "==", true))
-            const q2 = query(q1, where("hobby", "==", search), limit(10))
+            const q2 = query(q1, where("hobby", "==", lookFor), limit(10))
             const querySnapshot = await getDocs(q2);
             const fetchedData = querySnapshot.docs
                 .filter(doc => doc.id !== remove)
@@ -30,15 +28,6 @@ const FriendSearch = () => {
         } catch (error) {
             console.error("Error fetching data:", error);
         }
-    }, [search, UserData.userID])
-
-    const handleFetch = () => {
-        fetch()
-    }
-
-    const handleInputChange = e => {
-        const processedVal = e.target.value.replace(/-/g, '').replace(/ /g, '').toUpperCase();
-        setSearch(processedVal);
     }
 
     return (<div>
@@ -48,9 +37,9 @@ const FriendSearch = () => {
                 <input
                     className="input"
                     placeholder="Interest"
-                    onChange={handleInputChange}
+                    onChange={e => setSearch(e.target.value)}
                 />
-                <button className="search-button" onClick = {handleFetch}>
+                <button className="search-button" onClick = {fetch}>
                     <FaRocket/>
                     Launch Search
                 </button>

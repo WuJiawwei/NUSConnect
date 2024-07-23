@@ -28,6 +28,7 @@ const FriendProfileModal = ({ userId, onClose }) => {
                 const sp = await getDoc(docRef);
                 if (sp.exists()) {
                     setAcc(sp.data());
+                    console.log("Data fetched.")
                 }
             } catch (err) {
                 console.error('Error fetching document:', err);
