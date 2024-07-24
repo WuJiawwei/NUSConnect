@@ -1,6 +1,6 @@
 import "./index.scss"
 import {useState, useEffect} from "react";
-import {getFirestore, doc, getDoc, collection} from "firebase/firestore";
+import {getFirestore, doc, getDoc, collection, onSnapshot} from "firebase/firestore";
 import {useNavigate} from "react-router-dom";
 import {UserData, updateFieldInUserData} from "../../../UserData.js"
 import {FaTrash} from "react-icons/fa";
@@ -11,7 +11,7 @@ const ChatBar = ({ChatRoomId}) => {
     const [toUser, setToUser] = useState(null);
     const db = getFirestore();
 
-    useEffect(() => {
+    /*useEffect(() => {
     }, [])
 
     const fetchData = async () => {
@@ -43,10 +43,86 @@ const ChatBar = ({ChatRoomId}) => {
             }
         }
     }
-    fetchData()
+    fetchData()*/
+
+    /*useEffect(() => {
+        const chatRoomsRef = collection(db, 'chatrooms')
+        const chatDocRef = doc(chatRoomsRef, ChatRoomId);
+        const usersRef = collection(db, 'users');
+        const unSub = onSnapshot(chatDocRef, (d) => {
+            if (d.exists()) {
+                const participantsArr = d.data().participants;
+                for (let i = 0; i < participantsArr.length; i++) {
+                    if (participantsArr[i] !== UserData.userID) {
+                        setToUserId(participantsArr[i]);
+                        break;
+                    }
+                }
+                if (toUserId !== null) {
+                    const toUserDocRef = doc(usersRef, toUserId);
+                    getDoc(toUserDocRef)
+                        .then((actualToUserDoc) => {
+                            if (actualToUserDoc.exists()) {
+                                setToUser(actualToUserDoc.data());
+                                console.log("Created chatbar")
+                            }
+                        }).catch((err) => {
+                            console.log(err)
+                    })
+                } else {
+                    console.log("No such user.")
+                }
+            }
+        })
+        return () => unSub()
+    }, [ChatRoomId, UserData.userID])*/
+
+    useEffect(() => {
+        const chatRoomsRef = collection(db, 'chatrooms');
+        const chatDocRef = doc(chatRoomsRef, ChatRoomId);
+        const usersRef = collection(db, 'users');
+
+        const unsubscribe = onSnapshot(chatDocRef, (d) => {
+            if (d.exists()) {
+                const participantsArr = d.data().participants;
+                let foundToUserId = null;
+
+                for (let i = 0; i < participantsArr.length; i++) {
+                    if (participantsArr[i] !== UserData.userID) {
+                        foundToUserId = participantsArr[i];
+                        break;
+                    }
+                }
+
+                if (foundToUserId !== null) {
+                    setToUserId(foundToUserId);
+                    const toUserDocRef = doc(usersRef, foundToUserId);
+                    getDoc(toUserDocRef)
+                        .then((actualToUserDoc) => {
+                            if (actualToUserDoc.exists()) {
+                                setToUser(actualToUserDoc.data());
+                                console.log("ChatBar created.")
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        });
+                } else {
+                    console.log('No other participants found in chat room');
+                    setToUserId(null);
+                    setToUser(null);
+                }
+            } else {
+                console.log('Chat room document does not exist');
+                setToUserId(null);
+                setToUser(null);
+            }
+        });
+
+        return () => unsubscribe();
+    }, [ChatRoomId, UserData.userID]);
 
 
-    // todo : use memoization
     let nav = useNavigate()
 
     const startChat = () => {

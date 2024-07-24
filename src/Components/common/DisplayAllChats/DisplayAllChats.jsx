@@ -1,7 +1,7 @@
 import ChatBar from "./ChatBar.jsx"
 import "./index.scss"
 import Topbar from "../Topbar/index.jsx"
-import {getFirestore, collection, doc, getDoc} from "firebase/firestore";
+import {getFirestore, collection, doc, onSnapshot} from "firebase/firestore";
 import {useEffect, useState} from "react";
 import {UserData} from "../../../UserData.js"
 
@@ -9,22 +9,24 @@ const DisplayAllChats = () => {
 
     const db = getFirestore()
     const [chatRoomsIds, setChatRoomsIds] = useState([])
+
     useEffect(() => {
-        const fetchData = async () => {
-            const usersDbRef = collection(db, 'users');
-            const docRef = doc(usersDbRef, UserData.userID);
-            try {
-                const actualDoc = await getDoc(docRef);
-                if (actualDoc.exists()) {
-                    const res = actualDoc.data().chatRooms;
-                    setChatRoomsIds(res);
+        const usersDbRef = collection(db, 'users');
+        const docRef = doc(usersDbRef, UserData.userID);
+
+        const unSub = onSnapshot(docRef, (doc) => {
+            if (doc.exists()) {
+                try {
+                    const chatrooms = doc.data().chatRooms
+                    setChatRoomsIds(chatrooms)
+                    console.log("Retrieved chatRooms")
+                } catch (err) {
+                    console.log(err)
                 }
-            } catch (err) {
-                console.log(err);
             }
-        };
-        fetchData();
-    }, []); // todo : add dependencies
+        })
+        return () => unSub()
+    }, [UserData.userID])
 
     if (UserData !== null) {
         return (<div>

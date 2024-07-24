@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {FaChevronLeft, FaPaperPlane} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import "./index.scss";
-import {getFirestore, collection, doc, getDoc, updateDoc, arrayUnion, onSnapshot} from "firebase/firestore";
+import {getFirestore, collection, doc, updateDoc, arrayUnion, onSnapshot} from "firebase/firestore";
 import {UserData, updateFieldInUserData} from "../../../UserData.js";
 import TextMessage from "./message.js";
 import SentMessage from "./SentMessage.jsx";
@@ -30,32 +30,6 @@ const Chat = () => {
             console.log(err);
         }
     };
-
-    /*useEffect(() => {
-        const fetchMessages = async () => {
-            const db = getFirestore();
-            const chatRoomsRef = collection(db, 'chatrooms');
-            try {
-                const docRef = doc(chatRoomsRef, UserData.inChatRoom);
-                const actualDoc = await getDoc(docRef);
-                if (actualDoc.exists()) {
-                    try {
-                        const messagesSent = actualDoc.data().messages;
-                        const parsedMessages = messagesSent.map((message, index) => {
-                            const parsedMessage = JSON.parse(message);
-                            return { id: index, message: parsedMessage };
-                        });
-                        setAllSentMessages(parsedMessages);
-                    } catch (err) {
-                        console.log(err);
-                    }
-                }
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        fetchMessages();
-    }, [allSentMessages]);*/
 
     useEffect(() => {
         const db = getFirestore();
@@ -99,7 +73,7 @@ const Chat = () => {
                 <div className="messages-container">
                     {allSentMessages.length === 0 ? (
                         <div className="no-messages-yet-text">
-                            Hit refresh if you don't see your sent messages.
+                            Be the first to send a message.
                         </div>
                     ) : (
                         <div className="messages-container">
