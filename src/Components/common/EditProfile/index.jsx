@@ -9,37 +9,117 @@ import user5 from "../../../assets/user5.svg"
 import user6 from "../../../assets/user6.svg"
 import {FaFaceSmile, FaCircleChevronLeft} from "react-icons/fa6";
 import {useNavigate} from "react-router-dom";
+import {FaCheckCircle, FaTimesCircle, FaPencilAlt} from "react-icons/fa";
+import {UserData} from "../../../UserData.js"
+import {editProfile} from "../../../api/FirestoreAPI.jsx";
 
 export default function EditProfile({ currentUser, onEdit }) {
 
-    const handleEditProfile = async () => {
-        /* todo: implement editProfile using firebase apis => if confused,
-        go to createProfile / google */
-    }
-
     let nav = useNavigate();
+    const [editPreference, setEditPreference] = useState({wantsToEditName : false,
+        wantsToEditTagline : false, wantsToEditMajor : false, wantsToEditHobby : false, wantsToEditModuleCode : false});
+
+    const handlePref = (val) => {
+        setEditPreference(prevState => ({ ...prevState, [val]: !editPreference[val] }))
+    }
 
     if (currentUser !== null) {
         return (<div>
             <div className="instruction-bar-change-prof">
                 <div className="instruction">
-                    Update your profile whichever way you prefer!
+                    Update your profile
                 </div>
-                <div className="instruction-icon"><FaFaceSmile/></div>
+                <div className="instruction-icon">
+                    <FaFaceSmile/>
+                </div>
             </div>
 
             <button
-                onClick = {() => nav("/profile")}
+                className="nav-back-button"
+                onClick={() => nav("/profile")}
             >
                 <FaCircleChevronLeft/>
             </button>
+            <div>
+                <div>Your name is:</div>
+                {editPreference['wantsToEditName'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditName')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Name</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditName')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Name</div>
+                    </button>}
+                <input className="input-bar" placeholder={UserData.name}/>
+
+                <div>Your tagline is:</div>
+                {editPreference['wantsToEditTagline'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditTagline')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Tagline</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditTagline')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Tagline</div>
+                    </button>
+                }
+                <input className="input-bar" placeholder={UserData.tagline}/>
+
+                <div>Your major is:</div>
+                {editPreference['wantsToEditMajor'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditMajor')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Major</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditMajor')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Major</div>
+                    </button>
+                }
+                <input className="input-bar" placeholder={UserData.major}/>
+
+                <div>Your tagline is:</div>
+                {editPreference['wantsToEditTagline'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditTagline')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Tagline</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditTagline')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Tagline</div>
+                    </button>
+                }
+                <input className="input-bar" placeholder={UserData.tagline}/>
+
+                <div>Your hobby is:</div>
+                {editPreference['wantsToEditHobby'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditHobby')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Hobby</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditTagline')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Hobby</div>
+                    </button>
+                }
+                <input className="input-bar" placeholder={UserData.hobby}/>
+
+                <div>The module you are currently tutoring is:</div>
+                {editPreference['wantsToEditModuleCode'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditModuleCode')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Tagline</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditModuleCode')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Tagline</div>
+                    </button>
+                }
+                <input className="input-bar" placeholder={UserData["Module Code"]}/>
+            </div>
 
             <div className='input'>
-                <input
-                    className="each"
-                    placeholder='Name'
-                    name="name"
-                />
                 <div>Pick your avatar:
                     <div>
                         <button
@@ -109,24 +189,6 @@ export default function EditProfile({ currentUser, onEdit }) {
                     </div>
                 </div>
 
-                <input
-                    className="each"
-                    placeholder='Major'
-                    name="major"
-                />
-
-                <input
-                    className="each"
-                    placeholder='Hobby'
-                    name="hobby"
-                />
-
-                <input
-                    className="each"
-                    placeholder='Tagline'
-                    name="tagline"
-                />
-
                 <div>Tell us why you're using NUSConnect:
                     <div className="fine-print">You can always turn these options off if you think you need a
                         break.</div>
@@ -146,17 +208,10 @@ export default function EditProfile({ currentUser, onEdit }) {
                         </button>
                     </div>
                 </div>
-
-                <div>If you want to become a volunteer tutor, tell us which module you would like to tutor:</div>
-                <input
-                    className="each"
-                    placeholder='(Optional)Module Code'
-                />
             </div>
 
             <button
                 className='save'
-                onClick={handleEditProfile}
             >
                 Save
             </button>

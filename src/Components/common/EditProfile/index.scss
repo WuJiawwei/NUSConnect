@@ -14,6 +14,15 @@
   }
 }
 
+.nav-back-button {
+  margin-top: 25px;
+  color: purple;
+  font-size: 40px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
 .instruction-bar-change-prof {
   height: 60px;
   width: 100%;
@@ -40,7 +49,6 @@
     align-items: center;
     flex-direction: column;
   }
-    
     .each {
             height: 30px;
             padding: 10px;
@@ -144,4 +152,42 @@
   &:active {
     background-color: pink;
   }
+}
+
+.input-bar {
+  height: 30px;
+  width: 98.5%;
+  padding: 10px;
+  background-color: white;
+  outline: none;
+  border: 1px solid #212121;
+  color: #212121;
+  border-radius: 3px;
+  font-family: system-ui;
+  font-size: 16px;
+  margin: 10px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.edit-button {
+  color: green;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  .edit-content {}
+}
+
+.do-not-edit-button {
+  color: red ;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  .edit-content {}
 }
