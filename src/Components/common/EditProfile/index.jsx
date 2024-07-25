@@ -16,8 +16,9 @@ import {editProfile} from "../../../api/FirestoreAPI.jsx";
 export default function EditProfile({ currentUser, onEdit }) {
 
     let nav = useNavigate();
-    const [editPreference, setEditPreference] = useState({wantsToEditName : false,
-        wantsToEditTagline : false, wantsToEditMajor : false, wantsToEditHobby : false, wantsToEditModuleCode : false});
+    const [editPreference, setEditPreference] = useState({wantsToEditName : false, wantsToEditAvatar : false,
+        wantsToEditTagline : false, wantsToEditMajor : false, wantsToEditHobby : false, wantsToEditModuleCode : false,
+    wantsToEditYear : false, wantsToEditPref : false});
 
     const handlePref = (val) => {
         setEditPreference(prevState => ({ ...prevState, [val]: !editPreference[val] }))
@@ -53,74 +54,20 @@ export default function EditProfile({ currentUser, onEdit }) {
                     </button>}
                 <input className="input-bar" placeholder={UserData.name}/>
 
-                <div>Your tagline is:</div>
-                {editPreference['wantsToEditTagline'] ?
-                    <button className='edit-button' onClick={() => handlePref('wantsToEditTagline')}>
-                        <div className="edit-content"><FaCheckCircle/></div>
-                        <div className="edit-content">Edit Tagline</div>
-                    </button> :
-                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditTagline')}>
-                        <div className='edit-content'><FaTimesCircle/></div>
-                        <div className='edit-content'>Do Not Edit Tagline</div>
-                    </button>
-                }
-                <input className="input-bar" placeholder={UserData.tagline}/>
-
-                <div>Your major is:</div>
-                {editPreference['wantsToEditMajor'] ?
-                    <button className='edit-button' onClick={() => handlePref('wantsToEditMajor')}>
-                        <div className="edit-content"><FaCheckCircle/></div>
-                        <div className="edit-content">Edit Major</div>
-                    </button> :
-                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditMajor')}>
-                        <div className='edit-content'><FaTimesCircle/></div>
-                        <div className='edit-content'>Do Not Edit Major</div>
-                    </button>
-                }
-                <input className="input-bar" placeholder={UserData.major}/>
-
-                <div>Your tagline is:</div>
-                {editPreference['wantsToEditTagline'] ?
-                    <button className='edit-button' onClick={() => handlePref('wantsToEditTagline')}>
-                        <div className="edit-content"><FaCheckCircle/></div>
-                        <div className="edit-content">Edit Tagline</div>
-                    </button> :
-                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditTagline')}>
-                        <div className='edit-content'><FaTimesCircle/></div>
-                        <div className='edit-content'>Do Not Edit Tagline</div>
-                    </button>
-                }
-                <input className="input-bar" placeholder={UserData.tagline}/>
-
-                <div>Your hobby is:</div>
-                {editPreference['wantsToEditHobby'] ?
-                    <button className='edit-button' onClick={() => handlePref('wantsToEditHobby')}>
-                        <div className="edit-content"><FaCheckCircle/></div>
-                        <div className="edit-content">Edit Hobby</div>
-                    </button> :
-                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditTagline')}>
-                        <div className='edit-content'><FaTimesCircle/></div>
-                        <div className='edit-content'>Do Not Edit Hobby</div>
-                    </button>
-                }
-                <input className="input-bar" placeholder={UserData.hobby}/>
-
-                <div>The module you are currently tutoring is:</div>
-                {editPreference['wantsToEditModuleCode'] ?
-                    <button className='edit-button' onClick={() => handlePref('wantsToEditModuleCode')}>
-                        <div className="edit-content"><FaCheckCircle/></div>
-                        <div className="edit-content">Edit Tagline</div>
-                    </button> :
-                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditModuleCode')}>
-                        <div className='edit-content'><FaTimesCircle/></div>
-                        <div className='edit-content'>Do Not Edit Tagline</div>
-                    </button>
-                }
-                <input className="input-bar" placeholder={UserData["Module Code"]}/>
-            </div>
-
-            <div className='input'>
+                <div>
+                    <div>Your current avatar is:</div>
+                    <img src={UserData.avatar} width={80} height={80}/>
+                </div>
                 <div>Pick your avatar:
+                    {editPreference['wantsToEditAvatar'] ?
+                        <button className='edit-button' onClick={() => handlePref('wantsToEditAvatar')}>
+                            <div className="edit-content"><FaCheckCircle/></div>
+                            <div className="edit-content">Edit Avatar</div>
+                        </button> :
+                        <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditAvatar')}>
+                            <div className='edit-content'><FaTimesCircle/></div>
+                            <div className='edit-content'>Do Not Edit Avatar</div>
+                        </button>}
                     <div>
                         <button
                             className="avatar-button">
@@ -158,8 +105,19 @@ export default function EditProfile({ currentUser, onEdit }) {
                         </button>
                     </div>
                 </div>
-                <div>
-                    <div>What is your year of study?</div>
+
+                <div>Your current year of study is: {UserData.year}</div>
+                {editPreference['wantsToEditYear'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditYear')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Year</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditYear')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Year</div>
+                    </button>}
+                <div>Year of study:</div>
+                <div className="input">
                     <div className="buttons-div">
                         <button
                             className="options-button"
@@ -189,9 +147,60 @@ export default function EditProfile({ currentUser, onEdit }) {
                     </div>
                 </div>
 
-                <div>Tell us why you're using NUSConnect:
-                    <div className="fine-print">You can always turn these options off if you think you need a
-                        break.</div>
+                <div>Your tagline is:</div>
+                {editPreference['wantsToEditTagline'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditTagline')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Tagline</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditTagline')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Tagline</div>
+                    </button>
+                }
+                <input className="input-bar" placeholder={UserData.tagline}/>
+
+                <div>Your major is:</div>
+                {editPreference['wantsToEditMajor'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditMajor')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Major</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditMajor')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Major</div>
+                    </button>
+                }
+                <input className="input-bar" placeholder={UserData.major}/>
+
+                <div>Your hobby is:</div>
+                {editPreference['wantsToEditHobby'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditHobby')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Hobby</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditHobby')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Hobby</div>
+                    </button>
+                }
+                <input className="input-bar" placeholder={UserData.hobby}/>
+
+                <div>You're using NUSConnect for:
+                    {UserData.wantsToTutor && UserData.wantsToBefriend ?
+                        <div>Befriending and tutoring.</div> : UserData.wantsToBefriend ?
+                            <div>Befriending</div> : UserData.wantsToTutor ?
+                                <div>Tutoring</div> : <div>No purpose</div>
+                    }
+                    {editPreference['wantsToEditPref'] ?
+                        <button className='edit-button' onClick={() => handlePref('wantsToEditPref')}>
+                            <div className="edit-content"><FaCheckCircle/></div>
+                            <div className="edit-content">Edit Preferences</div>
+                        </button> :
+                        <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditPref')}>
+                            <div className='edit-content'><FaTimesCircle/></div>
+                            <div className='edit-content'>Do Not Edit Preferences</div>
+                        </button>}
                     <div>
                         <button
                             className="options-button"
@@ -208,13 +217,25 @@ export default function EditProfile({ currentUser, onEdit }) {
                         </button>
                     </div>
                 </div>
-            </div>
 
-            <button
-                className='save'
-            >
-                Save
-            </button>
+                <div>The module you are currently tutoring is:</div>
+                {editPreference['wantsToEditModuleCode'] ?
+                    <button className='edit-button' onClick={() => handlePref('wantsToEditModuleCode')}>
+                        <div className="edit-content"><FaCheckCircle/></div>
+                        <div className="edit-content">Edit Module Code</div>
+                    </button> :
+                    <button className='do-not-edit-button' onClick={() => handlePref('wantsToEditModuleCode')}>
+                        <div className='edit-content'><FaTimesCircle/></div>
+                        <div className='edit-content'>Do Not Edit Module Code</div>
+                    </button>
+                }
+                <input className="input-bar" placeholder={UserData["Module Code"]}/>
+                <button
+                    className='save'
+                >
+                    Save
+                </button>
+            </div>
         </div>)
     }
 }
