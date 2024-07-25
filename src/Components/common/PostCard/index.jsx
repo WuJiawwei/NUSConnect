@@ -18,11 +18,11 @@ export default function PostCard({posts, id, fetchEditData}) {
       <div className='post-header'>
         <div
           className="author"
-          onClick={() =>
-            navigate("/profile", {
-              state: {id: posts?.userID, email: posts.userEmail}
-            })
-          }
+          // onClick={() =>
+          //   navigate("/profile", {
+          //     state: {id: posts?.userID, email: posts.userEmail}
+          //   })
+          // }
         >
             <div className="author-name-and-avatar">
                 <div className="author-name">{posts.userName}</div>
