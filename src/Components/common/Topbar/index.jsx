@@ -12,9 +12,9 @@ import SearchPopup from "../Popups/searchredirect.jsx";
 import {UserData} from "../../../UserData.js";
 
 export default function Topbar() {
-  let navigate = useNavigate()
+    let navigate = useNavigate()
 
-  const [isRedirectOpen, setIsRedirectOpen] = useState(false);
+    const [isRedirectOpen, setIsRedirectOpen] = useState(false);
 
     return <div>
         <div className="topbar-main">
@@ -37,11 +37,11 @@ export default function Topbar() {
                     onClick={() => navigate("/todo")}
                 />
                 {/*<MdMessage size={30} className="react-icon"/>*/}
-                <BiSolidBellRing
+                {/*<BiSolidBellRing
                     size={30}
                     className="react-icon"
                     onClick={() => navigate("/notification")}
-                />
+                />*/}
                 <FaComments
                     size={30}
                     className="react-icon"
@@ -56,4 +56,3 @@ export default function Topbar() {
         {isRedirectOpen ? <SearchPopup func={() => setIsRedirectOpen(false)}/> : <div></div>}
     </div>
 }
-

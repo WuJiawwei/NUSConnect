@@ -40,42 +40,42 @@
 }
 
 .input {
-    gap:20px;
-    display: grid;
-    margin-top: 50px;
+  gap:20px;
+  display: grid;
+  margin-top: 50px;
   .buttons-div {
     display: flex;
     justify-content: left;
     align-items: center;
     flex-direction: column;
   }
-    .each {
-            height: 30px;
-            padding: 10px;
-            background-color: white;
-            outline: none;
-            border: 1px solid #212121;
-            color: #212121;
-            border-radius: 3px;
-            font-family: system-ui;
-            font-size: 16px;
-            margin: 10px 0px;
-      display: flex;
-      align-items: center;
-      .current-value {
-      }
-      .edit-button {
-        outline: none;
-        border: none;
-        background-color: white;
-        cursor: pointer;
-      }
+  .each {
+    height: 30px;
+    padding: 10px;
+    background-color: white;
+    outline: none;
+    border: 1px solid #212121;
+    color: #212121;
+    border-radius: 3px;
+    font-family: system-ui;
+    font-size: 16px;
+    margin: 10px 0px;
+    display: flex;
+    align-items: center;
+    .current-value {
     }
-    .fine-print {
-            gap:5px;
-            color: grey;
-            font-size: 12px;
+    .edit-button {
+      outline: none;
+      border: none;
+      background-color: white;
+      cursor: pointer;
     }
+  }
+  .fine-print {
+    gap:5px;
+    color: grey;
+    font-size: 12px;
+  }
 }
 
 .save {
@@ -190,4 +190,8 @@
   justify-content: center;
   flex-direction: row;
   .edit-content {}
+}
+
+.edit-avatar-button {
+
 }

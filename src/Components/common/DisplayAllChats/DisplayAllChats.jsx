@@ -31,7 +31,7 @@ const DisplayAllChats = () => {
     if (UserData !== null) {
         return (<div>
             <Topbar/>
-            {chatRoomsIds === null ?
+            {chatRoomsIds.length === 0 ?
                 <div className="chats-container">
                     <div>You do not have any contacts.</div>
                 </div>
