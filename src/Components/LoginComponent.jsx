@@ -4,8 +4,9 @@ import logo from "../assets/logo.svg"
 import "../Sass/LoginComponent.scss"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import {updateUserData, UserData} from "../UserData.js"
+import {updateUserData, updateFieldInUserData} from "../UserData.js"
 import {getCurrentUser} from "../api/FirestoreAPI.jsx"
+import {getFirestore, collection, query, where, getDocs} from "firebase/firestore";
 
 export default function LoginComponent() {
   let navigate = useNavigate()
@@ -13,13 +14,23 @@ export default function LoginComponent() {
     const [currUser, setCurrUser] = useState({})
   const login = async () => {
     try {
-        getCurrentUser(setCurrUser)
       let res = await LoginAPI(credentials.email, credentials.password)
+        getCurrentUser(setCurrUser)
+        console.log(currUser)
       toast.success("Signed In to NUSConnect!")
       localStorage.setItem("userEmail", res.user.email)
-        updateUserData(currUser)
-        UserData.userId = currUser.userId
-        console.log(UserData)
+        const db = getFirestore()
+        const dbRef = collection(db, 'users')
+        const q = query(dbRef, where("email", "==", credentials.email.toLowerCase()))
+        try {
+          const actualDoc = await getDocs(q)
+            if (actualDoc !== null) {
+                updateUserData(actualDoc.docs[0].data())
+                updateFieldInUserData({userID : actualDoc.docs[0].id})
+            }
+        } catch (err) {
+          toast.error("You need to create an account.")
+        }
       navigate("/home")
     } catch (err) {
       console.log(err)
