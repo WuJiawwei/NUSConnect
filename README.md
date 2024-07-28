@@ -18,3 +18,5 @@ Features implemented:
 6. Search for peer volunteer tutor based on module code
 7. Creation (and deletion) of self-reminders
 8. Chat with potential tutor/friend
+
+Link to deployed website: 
